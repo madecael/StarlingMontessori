@@ -1,0 +1,14 @@
+---
+import { getEntry } from "astro:content";
+interface Props {
+  locationLine?: string;
+}
+const { locationLine } = Astro.props;
+const settings = await getEntry("settings", "site");
+const s = settings!.data;
+const line = locationLine ?? `${s.address.line1}, ${s.address.city} ${s.address.state} ${s.address.zip}`;
+---
+<footer class="bg-seashell-shade px-8 py-6 flex flex-wrap justify-between gap-3 text-xs text-cetacean-70">
+  <div>{line} · {s.phone} · {s.email}</div>
+  <div>© {new Date().getFullYear()} {s.schoolName}</div>
+</footer>
