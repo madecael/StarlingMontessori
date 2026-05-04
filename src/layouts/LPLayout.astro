@@ -1,0 +1,33 @@
+---
+import BaseHead from "./BaseHead.astro";
+import MiniNav from "../components/MiniNav.astro";
+import MiniFooter from "../components/MiniFooter.astro";
+
+interface Props {
+  title: string;
+  description: string;
+  ctaLabel: string;
+  noindex?: boolean;
+  locationLine?: string;
+}
+const { title, description, ctaLabel, noindex, locationLine } = Astro.props;
+---
+<html lang="en">
+  <BaseHead title={title} description={description} noindex={noindex} />
+  <body class="bg-seashell text-cetacean">
+    <MiniNav ctaLabel={ctaLabel} />
+    <main><slot /></main>
+    <MiniFooter locationLine={locationLine} />
+    <script>
+      // Click event delegation for analytics
+      document.addEventListener("click", (e) => {
+        const target = (e.target as HTMLElement).closest("[data-event]");
+        if (!target) return;
+        const event = target.getAttribute("data-event");
+        if (event && typeof (window as any).gtag === "function") {
+          (window as any).gtag("event", event);
+        }
+      });
+    </script>
+  </body>
+</html>
