@@ -1,0 +1,29 @@
+---
+import TrustStrip from "./TrustStrip.astro";
+import ComparisonCards from "./ComparisonCards.astro";
+import ComparisonTable from "./ComparisonTable.astro";
+import AMIContinuity from "./AMIContinuity.astro";
+import RelocatorsPanel from "./RelocatorsPanel.astro";
+import Timeline from "./Timeline.astro";
+import SpaceShowcase from "./SpaceShowcase.astro";
+import FounderCard from "./FounderCard.astro";
+import PhotoStrip from "./PhotoStrip.astro";
+import TuitionFraming from "./TuitionFraming.astro";
+import TourForm from "./TourForm.astro";
+import FAQAccordion from "./FAQAccordion.astro";
+
+interface Props { block: any; }
+const { block } = Astro.props;
+---
+{block.type === "trustStrip" && <TrustStrip items={block.items} />}
+{block.type === "comparisonCards" && <ComparisonCards eyebrow={block.eyebrow} title={block.title} cards={block.cards} />}
+{block.type === "comparisonTable" && <ComparisonTable eyebrow={block.eyebrow} title={block.title} columns={block.columns} rows={block.rows} footnote={block.footnote} />}
+{block.type === "amiContinuity" && <AMIContinuity eyebrow={block.eyebrow} title={block.title} steps={block.steps} />}
+{block.type === "relocatorsPanel" && <RelocatorsPanel eyebrow={block.eyebrow} title={block.title} body={block.body} benefits={block.benefits} cta={block.cta} />}
+{block.type === "timeline" && <Timeline eyebrow={block.eyebrow} title={block.title} steps={block.steps} />}
+{block.type === "spaceShowcase" && <SpaceShowcase eyebrow={block.eyebrow} title={block.title} body={block.body} imageSlots={block.imageSlots} disclosure={block.disclosure} />}
+{block.type === "founderCard" && <FounderCard eyebrow={block.eyebrow} quote={block.quote} attribution={block.attribution} photo={block.photo} />}
+{block.type === "photoStrip" && <PhotoStrip photos={block.photos} />}
+{block.type === "tuitionFraming" && <TuitionFraming />}
+{block.type === "tourForm" && <TourForm eyebrow={block.eyebrow} title={block.title} subtitle={block.subtitle} extraFields={block.extraFields} submitLabel={block.submitLabel} />}
+{block.type === "faqAccordion" && <FAQAccordion eyebrow={block.eyebrow} title={block.title} questions={block.questions} />}
