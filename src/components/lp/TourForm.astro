@@ -1,0 +1,93 @@
+---
+import { getEntry } from "astro:content";
+interface Props {
+  eyebrow: string;
+  title: string;
+  subtitle: string;
+  extraFields?: ("relocating" | "currentMontessori")[];
+  submitLabel?: string;
+}
+const { eyebrow, title, subtitle, extraFields = [], submitLabel = "Send request" } = Astro.props;
+const settings = await getEntry("settings", "site");
+const calendly = settings?.data.calendlyUrl;
+---
+<section id="tour" class="bg-cetacean text-seashell px-8 lg:px-12 py-16 mx-4 rounded-t-3xl">
+  <div class="max-w-[1240px] mx-auto grid md:grid-cols-2 gap-12">
+    <div>
+      <div class="text-[11px] uppercase tracking-eyebrow font-semibold text-pearly-light">{eyebrow}</div>
+      <h2 class="text-3xl lg:text-[36px] font-light mt-2 mb-2.5 tracking-tightest leading-tight" set:html={title.replace(/\n/g, "<br>")}></h2>
+      <p class="text-sm opacity-80 leading-relaxed">{subtitle}</p>
+    </div>
+    <form id="tour-form" method="POST" action="/api/tour-request" class="bg-seashell text-cetacean rounded-3xl p-7" novalidate>
+      <input type="text" name="company" tabindex="-1" autocomplete="off" class="hidden" aria-hidden="true" />
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        <label class="block">
+          <span class="text-[11px] tracking-eyebrow font-semibold mb-1.5 block">PARENT NAME</span>
+          <input required name="parentName" type="text" class="w-full px-3 py-2.5 rounded-xl border border-cetacean/20 bg-white text-sm" />
+        </label>
+        <label class="block">
+          <span class="text-[11px] tracking-eyebrow font-semibold mb-1.5 block">EMAIL</span>
+          <input required name="email" type="email" class="w-full px-3 py-2.5 rounded-xl border border-cetacean/20 bg-white text-sm" />
+        </label>
+        <label class="block">
+          <span class="text-[11px] tracking-eyebrow font-semibold mb-1.5 block">CHILD'S AGE</span>
+          <input required name="childAge" type="text" class="w-full px-3 py-2.5 rounded-xl border border-cetacean/20 bg-white text-sm" />
+        </label>
+        <label class="block">
+          <span class="text-[11px] tracking-eyebrow font-semibold mb-1.5 block">PREFERRED WEEK</span>
+          <input name="preferredWeek" type="text" class="w-full px-3 py-2.5 rounded-xl border border-cetacean/20 bg-white text-sm" />
+        </label>
+        {extraFields.includes("relocating") && (
+          <label class="block sm:col-span-1">
+            <span class="text-[11px] tracking-eyebrow font-semibold mb-1.5 block">RELOCATING?</span>
+            <select name="relocating" class="w-full px-3 py-2.5 rounded-xl border border-cetacean/20 bg-white text-sm">
+              <option value="">No</option>
+              <option>World Bank / IMF</option>
+              <option>Federal / military</option>
+              <option>International / diplomatic</option>
+              <option>Other</option>
+            </select>
+          </label>
+        )}
+        {extraFields.includes("currentMontessori") && (
+          <label class="block sm:col-span-2">
+            <span class="text-[11px] tracking-eyebrow font-semibold mb-1.5 block">CURRENT MONTESSORI? (OPTIONAL)</span>
+            <input name="currentMontessori" type="text" class="w-full px-3 py-2.5 rounded-xl border border-cetacean/20 bg-white text-sm" />
+          </label>
+        )}
+      </div>
+      <div class="mt-4 flex justify-between items-center flex-wrap gap-3">
+        <button type="submit" class="btn btn-pearly text-sm font-medium">{submitLabel}</button>
+        {calendly && <a href={calendly} class="text-xs text-cetacean-70 underline" data-event="calendly_click" target="_blank" rel="noopener">Or pick a time on Calendly</a>}
+      </div>
+      <p data-form-status class="text-sm mt-3 hidden"></p>
+    </form>
+  </div>
+</section>
+<script>
+  const form = document.getElementById("tour-form") as HTMLFormElement | null;
+  if (form) {
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const status = form.querySelector("[data-form-status]") as HTMLElement;
+      status.classList.remove("hidden");
+      status.textContent = "Sending…";
+      const data = Object.fromEntries(new FormData(form).entries());
+      try {
+        const res = await fetch("/api/tour-request", {
+          method: "POST",
+          headers: { "content-type": "application/json" },
+          body: JSON.stringify(data),
+        });
+        if (!res.ok) throw new Error("submit failed");
+        status.textContent = "Thank you. Fabienne will reach out within a day.";
+        status.style.color = "var(--cetacean,#0C163D)";
+        if (typeof (window as any).gtag === "function") (window as any).gtag("event", "tour_form_submit");
+        form.reset();
+      } catch (err) {
+        status.textContent = "Something went wrong. Please email info@starlingmontessorischool.com.";
+        status.style.color = "#8B5C7E";
+      }
+    });
+  }
+</script>

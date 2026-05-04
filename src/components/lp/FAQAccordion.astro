@@ -1,0 +1,20 @@
+---
+interface QA { q: string; a: string; }
+interface Props { eyebrow: string; title: string; questions: QA[]; }
+const { eyebrow, title, questions } = Astro.props;
+---
+<section class="px-8 lg:px-12 py-16 max-w-[1240px] mx-auto">
+  <div class="eyebrow">{eyebrow}</div>
+  <h2 class="text-3xl lg:text-4xl font-light text-cetacean mt-2 mb-6 tracking-tightest">{title}</h2>
+  <div class="grid md:grid-cols-2 gap-4">
+    {questions.map((qa) => (
+      <details class="bg-white rounded-2xl p-5 group">
+        <summary class="font-semibold text-cetacean cursor-pointer list-none flex justify-between items-start gap-3">
+          <span>{qa.q}</span>
+          <span class="text-pearly-deep text-2xl leading-none transition-transform group-open:rotate-45">+</span>
+        </summary>
+        <div class="text-sm text-cetacean-70 mt-3 leading-relaxed" set:html={qa.a}></div>
+      </details>
+    ))}
+  </div>
+</section>
