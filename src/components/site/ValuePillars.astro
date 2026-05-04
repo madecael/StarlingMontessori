@@ -1,0 +1,16 @@
+---
+interface Props { eyebrow?: string; pillars: { label: string; body: string }[]; }
+const { eyebrow, pillars } = Astro.props;
+const cols = pillars.length;
+---
+<section class="px-6 lg:px-8 py-12 max-w-[1240px] mx-auto">
+  {eyebrow && <div class="eyebrow mb-4">{eyebrow}</div>}
+  <div class={`grid gap-6 md:grid-cols-${cols > 4 ? 3 : cols}`}>
+    {pillars.map((p) => (
+      <div>
+        <div class="eyebrow">{p.label}</div>
+        <p class="text-base text-cetacean mt-2 leading-relaxed">{p.body}</p>
+      </div>
+    ))}
+  </div>
+</section>

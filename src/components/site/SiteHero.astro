@@ -1,0 +1,49 @@
+---
+interface CTA { label: string; href: string; variant: "primary" | "pearly" | "outline" | "ghost"; }
+interface Props {
+  eyebrow?: string;
+  headline: string;
+  headlineHighlight?: string;
+  subhead?: string;
+  photo?: string;
+  photoAlt?: string;
+  ctas?: CTA[];
+}
+const { eyebrow, headline, headlineHighlight, subhead, photo, photoAlt, ctas = [] } = Astro.props;
+
+const variantClassName = (v: CTA["variant"]) => v === "primary" ? "btn-primary" : v === "pearly" ? "btn-pearly" : v === "outline" ? "btn-outline" : "btn-ghost";
+---
+<section class="px-6 lg:px-8 py-14 lg:py-20 max-w-[1240px] mx-auto grid lg:grid-cols-[1.05fr_1fr] gap-12 items-center">
+  <div>
+    {eyebrow && <div class="eyebrow">{eyebrow}</div>}
+    <h1 class="display-italic text-5xl md:text-6xl lg:text-[60px] mt-4">
+      {(() => {
+        if (!headlineHighlight) return headline;
+        const idx = headline.indexOf(headlineHighlight);
+        if (idx === -1) return headline;
+        return (
+          <>
+            {headline.slice(0, idx)}
+            <span class="marker-pearly">{headlineHighlight}</span>
+            {headline.slice(idx + headlineHighlight.length)}
+          </>
+        );
+      })()}
+    </h1>
+    {subhead && <p class="text-lg text-cetacean-70 mt-5 leading-relaxed max-w-xl">{subhead}</p>}
+    {ctas.length > 0 && (
+      <div class="flex gap-3 mt-7 flex-wrap">
+        {ctas.map((c) => (
+          <a href={c.href} class={`btn ${variantClassName(c.variant)}`} data-event={`hero_cta_${c.variant}`}>{c.label}</a>
+        ))}
+      </div>
+    )}
+  </div>
+  {photo && (
+    <div class="relative h-[380px] lg:h-[460px]">
+      <div class="absolute -top-2.5 -right-2.5 w-44 h-44 bg-sky rounded-arch-top z-0"></div>
+      <div class="absolute -bottom-7 -left-7 w-28 h-14 bg-pearly opacity-70 rounded-b-pill z-0"></div>
+      <img src={photo} alt={photoAlt ?? ""} class="relative z-10 w-full h-full object-cover rounded-3xl shadow-md" />
+    </div>
+  )}
+</section>

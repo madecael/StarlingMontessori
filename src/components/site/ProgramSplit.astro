@@ -1,0 +1,13 @@
+---
+import ProgramCard from "./ProgramCard.astro";
+interface Program { eyebrow: string; title: string; ages: string; body: string; photo: string; photoAlt: string; cta: any; badge?: string; dark?: boolean; }
+interface Props { eyebrow: string; title: string; programs: Program[]; }
+const { eyebrow, title, programs } = Astro.props;
+---
+<section class="px-6 lg:px-8 py-16 max-w-[1240px] mx-auto">
+  <div class="eyebrow">{eyebrow}</div>
+  <h2 class="text-3xl lg:text-4xl font-light text-cetacean mt-2 mb-8 tracking-tightest">{title}</h2>
+  <div class="grid md:grid-cols-2 gap-5">
+    {programs.map((p) => <ProgramCard {...p} />)}
+  </div>
+</section>

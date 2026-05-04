@@ -1,0 +1,36 @@
+---
+interface CTA { label: string; href: string; variant: "primary" | "pearly" | "outline" | "ghost"; }
+interface Props {
+  eyebrow: string;
+  title: string;
+  ages: string;
+  body: string;
+  photo: string;
+  photoAlt: string;
+  cta: CTA;
+  badge?: string;
+  dark?: boolean;
+}
+const { eyebrow, title, ages, body, photo, photoAlt, cta, badge, dark = false } = Astro.props;
+const wrap = dark ? "bg-cetacean text-seashell" : "bg-white text-cetacean shadow-sm";
+const eyebrowClass = dark ? "text-pearly-light" : "text-pearly-deep";
+const bodyClass = dark ? "text-seashell/85" : "text-cetacean-70";
+const agesBg = dark ? "bg-seashell/12 text-seashell" : "bg-seashell-shade text-cetacean";
+---
+<article class={`relative rounded-3xl overflow-hidden ${wrap} flex flex-col`}>
+  {badge && (
+    <span class="absolute top-4 right-4 z-10 bg-pearly text-seashell px-3 py-1 rounded-pill text-[11px] font-semibold tracking-eyebrow">{badge}</span>
+  )}
+  <div class="aspect-[4/3] overflow-hidden bg-cetacean-10">
+    <img src={photo} alt={photoAlt} class="w-full h-full object-cover" />
+  </div>
+  <div class="p-6 flex flex-col gap-3 grow">
+    <div class={`text-[11px] uppercase tracking-eyebrow font-semibold ${eyebrowClass}`}>{eyebrow}</div>
+    <h3 class="text-2xl font-light tracking-tightest">{title}</h3>
+    <p class={`text-sm leading-relaxed ${bodyClass}`}>{body}</p>
+    <div class="mt-auto flex justify-between items-center pt-3">
+      <span class={`px-3 py-1 rounded-pill text-[11px] font-semibold tracking-eyebrow ${agesBg}`}>{ages}</span>
+      <a href={cta.href} class="text-sm font-medium underline-offset-4 hover:underline">{cta.label}</a>
+    </div>
+  </div>
+</article>
