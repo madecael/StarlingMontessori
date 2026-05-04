@@ -1,0 +1,11 @@
+run = "npm start"
+entrypoint = "src/pages/index.astro"
+
+[env]
+HOST = "0.0.0.0"
+PORT = "3000"
+
+[deployment]
+run = ["npm", "start"]
+build = ["npm", "ci", "&&", "npm", "run", "build"]
+deploymentTarget = "cloudrun"
