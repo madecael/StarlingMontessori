@@ -123,4 +123,127 @@ const landing = defineCollection({
   }),
 });
 
-export const collections = { settings, landing };
+const pages = defineCollection({
+  type: "content",
+  schema: z.object({
+    title: z.string(),
+    description: z.string(),
+    slug: z.string(),  // for sitemap + canonicals
+    hero: z
+      .object({
+        eyebrow: z.string().optional(),
+        headline: z.string(),
+        headlineHighlight: z.string().optional(),
+        subhead: z.string().optional(),
+        photo: imagePath.optional(),
+        photoAlt: z.string().optional(),
+        ctas: z.array(cta).max(2).optional(),
+      })
+      .optional(),
+    blocks: z.array(
+      z.discriminatedUnion("type", [
+        z.object({
+          type: z.literal("valuePillars"),
+          eyebrow: z.string().optional(),
+          pillars: z.array(z.object({ label: z.string(), body: z.string() })).min(2).max(6),
+        }),
+        z.object({
+          type: z.literal("programSplit"),
+          eyebrow: z.string(),
+          title: z.string(),
+          programs: z.array(
+            z.object({
+              eyebrow: z.string(),
+              title: z.string(),
+              ages: z.string(),
+              body: z.string(),
+              photo: imagePath,
+              photoAlt: z.string(),
+              cta: cta,
+              badge: z.string().optional(),
+              dark: z.boolean().default(false),
+            }),
+          ).length(2),
+        }),
+        z.object({
+          type: z.literal("quote"),
+          quote: z.string(),
+          attribution: z.string(),
+        }),
+        z.object({
+          type: z.literal("founderApproach"),
+          eyebrow: z.string(),
+          title: z.string(),
+          paragraphs: z.array(z.string()).min(1).max(4),
+          photo: imagePath.optional(),
+          photoAlt: z.string().optional(),
+          cta: cta.optional(),
+        }),
+        z.object({
+          type: z.literal("photoStrip"),
+          photos: z.array(imagePath).min(2).max(6),
+        }),
+        z.object({
+          type: z.literal("enrollCTA"),
+          eyebrow: z.string(),
+          title: z.string(),
+          body: z.string().optional(),
+          primary: cta,
+          secondary: cta.optional(),
+        }),
+        z.object({
+          type: z.literal("dailyRhythm"),
+          eyebrow: z.string(),
+          title: z.string(),
+          steps: z.array(z.object({ time: z.string(), label: z.string(), body: z.string() })),
+        }),
+        z.object({
+          type: z.literal("materialsGrid"),
+          eyebrow: z.string(),
+          title: z.string(),
+          categories: z.array(z.object({ name: z.string(), examples: z.array(z.string()) })),
+        }),
+        z.object({
+          type: z.literal("threeYearCycle"),
+          eyebrow: z.string(),
+          title: z.string(),
+          intro: z.string(),
+          years: z.array(z.object({ age: z.string(), label: z.string(), body: z.string() })).length(3),
+        }),
+        z.object({
+          type: z.literal("processTimeline"),
+          eyebrow: z.string(),
+          title: z.string(),
+          steps: z.array(z.object({ label: z.string(), body: z.string() })),
+        }),
+        z.object({
+          type: z.literal("contactCard"),
+          eyebrow: z.string().optional(),
+          title: z.string().optional(),
+        }),
+        z.object({
+          type: z.literal("openHouseList"),
+          eyebrow: z.string(),
+          title: z.string(),
+          intro: z.string().optional(),
+          sessions: z.array(z.object({ date: z.string(), time: z.string(), location: z.string(), spotsLeft: z.number().optional() })),
+        }),
+        z.object({
+          type: z.literal("faqAccordion"),
+          eyebrow: z.string(),
+          title: z.string(),
+          categories: z.array(z.object({ category: z.string(), questions: z.array(z.object({ q: z.string(), a: z.string() })) })),
+        }),
+        z.object({
+          type: z.literal("tuitionFraming"),
+        }),
+        z.object({
+          type: z.literal("richBody"),  // for paragraphs of free text
+          body: z.string(),
+        }),
+      ]),
+    ),
+  }),
+});
+
+export const collections = { settings, landing, pages };
