@@ -1,43 +1,63 @@
-# Astro Starter Kit: Minimal
+# Starling Montessori — Website
 
-```sh
-npm create astro@latest -- --template minimal
+This is the source for **starlingmontessorischool.com**. It runs on Astro, deploys on Replit, and is edited by writing markdown files.
+
+## How to edit content
+
+1. Open the GitHub repo in your browser.
+2. Press `.` to open the GitHub.dev editor (a free, in-browser VS Code).
+3. Find the file you want to change in `src/content/`:
+   - `pages/` — the main site pages (about, programs, etc.)
+   - `landing/` — the persona landing pages (Sarah, David & Maya)
+   - `settings/site.md` — phone, email, address, Calendly URL, tracking IDs
+4. Edit the file. Save.
+5. Click "Source Control" in the left sidebar → "Commit & Push".
+6. The site rebuilds in ~1 minute.
+
+## How to swap photos
+
+Drop replacement images into `public/images/photos/` keeping the same filenames. Commit & push.
+
+## How to set tracking IDs
+
+Edit `src/content/settings/site.md` and fill in:
+
+```yaml
+ga4Id: G-XXXXXXXXXX
+googleAdsConversionId: AW-1234567890
+googleAdsConversionLabel: AbCdEfGhIjKl
+calendlyUrl: https://calendly.com/your-link
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+The values appear in the live site after the next deploy.
 
-## 🚀 Project Structure
+## Local development (for engineers)
 
-Inside of your Astro project, you'll see the following folders and files:
-
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
+```bash
+git clone <repo-url>
+cd website
+npm install
+cp .env.example .env  # add RESEND_API_KEY
+npm run dev
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+Visit `http://localhost:4321`. Editor is hot-reload.
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+## Deploy
 
-Any static assets, like images, can be placed in the `public/` directory.
+Replit is connected to the `main` branch. Pushes to `main` trigger a redeploy. The build runs `npm ci && npm run build`. The runtime serves the built site with the Astro Node adapter.
 
-## 🧞 Commands
+## Architecture notes
 
-All commands are run from the root of the project, from a terminal:
+- Astro 5, static output with one SSR endpoint at `/api/tour-request` (the LPs are fully prerendered HTML)
+- Tailwind CSS configured against the brandbook tokens (Cetacean Blue, Seashell, Sky Blue, Pearly Purple)
+- Markdown content collections (`src/content/`) with zod-validated frontmatter — bad frontmatter fails the build
+- Tour-request form posts to `/api/tour-request` which validates server-side and forwards via Resend to `tourEmailRecipient`
+- GA4 + Google Ads conversion injected only if IDs are present in `settings/site.md`
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+## Pending drop-ins
 
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+- Licensed `.woff2` fonts (Greycliff CF, Jaguar) → `public/fonts/`. The CSS will swap `@import` for `@font-face` once present.
+- Real classroom photography → `public/images/photos/` (replace existing files keeping filenames).
+- Saint Mark Episcopal exterior/interior photos for the Primary LP — currently shown as honest placeholders.
+- Official bird-mark SVG → `public/images/bird-mark.svg`.
