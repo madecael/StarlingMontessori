@@ -1,0 +1,47 @@
+---
+interface CTA { label: string; href: string; variant: "primary" | "pearly" | "outline" | "ghost"; }
+interface Props {
+  eyebrow: string;
+  headline: string;
+  headlineHighlight?: string;
+  subhead: string;
+  photo: string;
+  location: string;
+  ctas: CTA[];
+  scarcity?: { opens: string; seats: string; reserved?: string };
+}
+const { eyebrow, headline, headlineHighlight, subhead, photo, location, ctas, scarcity } = Astro.props;
+
+const variantClass = (v: CTA["variant"]) => v === "primary" ? "btn-primary" : v === "pearly" ? "btn-pearly" : v === "outline" ? "btn-outline" : "btn-ghost";
+---
+<section class="px-8 lg:px-12 py-12 lg:py-16 grid lg:grid-cols-[1.1fr_1fr] gap-12 items-center max-w-[1240px] mx-auto">
+  <div>
+    <div class="eyebrow">{eyebrow}</div>
+    <h1 class="text-4xl md:text-5xl lg:text-[44px] leading-[1.05] font-light text-cetacean mt-4 tracking-tightest">
+      {headlineHighlight ? (
+        <>{headline.replace(headlineHighlight, "")}<span class="marker-pearly">{headlineHighlight}</span></>
+      ) : headline}
+    </h1>
+    <p class="text-lg text-cetacean-70 mt-5 leading-relaxed max-w-xl">{subhead}</p>
+    {scarcity && (
+      <div class="flex gap-6 mt-6 px-5 py-3.5 bg-white rounded-2xl border border-cetacean/10 max-w-md">
+        <div><div class="text-[11px] tracking-eyebrow text-cetacean-70">OPENS</div><div class="text-lg font-semibold text-cetacean">{scarcity.opens}</div></div>
+        <div class="border-l border-cetacean/10 pl-6"><div class="text-[11px] tracking-eyebrow text-cetacean-70">SEATS</div><div class="text-lg font-semibold text-cetacean">{scarcity.seats}</div></div>
+        {scarcity.reserved && (
+          <div class="border-l border-cetacean/10 pl-6"><div class="text-[11px] tracking-eyebrow text-cetacean-70">RESERVED</div><div class="text-lg font-semibold text-pearly">{scarcity.reserved}</div></div>
+        )}
+      </div>
+    )}
+    <div class="flex gap-3 mt-6 flex-wrap">
+      {ctas.map((c) => (
+        <a href={c.href} class={`btn ${variantClass(c.variant)}`} data-event={`hero_cta_${c.variant}`}>{c.label}</a>
+      ))}
+    </div>
+    <div class="text-sm text-cetacean-70 mt-5">📍 {location}</div>
+  </div>
+  <div class="relative h-[380px] lg:h-[420px]">
+    <div class="absolute -top-2.5 -right-2.5 w-36 h-36 bg-sky rounded-arch-top z-0"></div>
+    <div class="absolute -bottom-5 -left-5 w-24 h-12 bg-pearly opacity-70 rounded-b-pill z-0"></div>
+    <img src={photo} alt="" class="relative z-10 w-full h-full object-cover rounded-3xl shadow-md" />
+  </div>
+</section>
