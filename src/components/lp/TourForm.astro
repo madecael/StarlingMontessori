@@ -65,6 +65,7 @@ const calendly = settings?.data.calendlyUrl;
   </div>
 </section>
 <script>
+  import { track } from "../../lib/analytics";
   const form = document.getElementById("tour-form") as HTMLFormElement | null;
   if (form) {
     form.addEventListener("submit", async (e) => {
@@ -83,7 +84,7 @@ const calendly = settings?.data.calendlyUrl;
         if (!res.ok) throw new Error("submit failed");
         status.textContent = "Thank you. Fabienne will reach out within a day.";
         status.style.color = "var(--cetacean,#0C163D)";
-        if (typeof (window as any).gtag === "function") (window as any).gtag("event", "tour_form_submit");
+        track("tour_form_submit", { page: location.pathname });
         form.reset();
       } catch (err) {
         status.textContent = "Something went wrong. Please email info@starlingmontessorischool.com.";
