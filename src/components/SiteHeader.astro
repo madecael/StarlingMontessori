@@ -1,0 +1,62 @@
+---
+import BirdMark from "./BirdMark.astro";
+import BrandWordmark from "./BrandWordmark.astro";
+import { getEntry } from "astro:content";
+
+interface Props { currentPath?: string; }
+const { currentPath = "" } = Astro.props;
+const settings = await getEntry("settings", "site");
+const phone = settings?.data.phone;
+
+const navItems = [
+  { label: "Home", href: "/" },
+  { label: "About", href: "/about" },
+  { label: "Toddler", href: "/programs/toddler" },
+  { label: "Primary", href: "/programs/primary" },
+  { label: "Admissions", href: "/admissions" },
+  { label: "Tuition", href: "/tuition" },
+  { label: "Visit", href: "/open-house" },
+  { label: "FAQ", href: "/faq" },
+  { label: "Contact", href: "/contact" },
+];
+
+function isActive(href: string) {
+  if (href === "/") return currentPath === "/";
+  return currentPath.startsWith(href);
+}
+---
+<header class="sticky top-0 z-20 bg-seashell/85 backdrop-blur border-b border-cetacean/10">
+  <div class="max-w-[1240px] mx-auto px-6 lg:px-8 py-4 flex items-center gap-6 lg:gap-8">
+    <a href="/" class="flex items-center gap-2.5 shrink-0">
+      <BirdMark size={28} />
+      <BrandWordmark size="md" />
+    </a>
+    <nav class="hidden lg:flex gap-5 xl:gap-7 text-sm">
+      {navItems.map((item) => (
+        <a
+          href={item.href}
+          class={isActive(item.href) ? "text-pearly-deep font-semibold" : "text-cetacean hover:text-pearly-deep"}
+        >
+          {item.label}
+        </a>
+      ))}
+    </nav>
+    <div class="ml-auto flex items-center gap-3">
+      <a href={`tel:${phone?.replace(/[^0-9+]/g, "")}`} class="hidden md:inline text-sm text-cetacean" data-event="phone_click">📞 {phone}</a>
+      <a href="/open-house" class="btn btn-primary text-[13px] px-4 py-2">Schedule a tour</a>
+      <button id="menu-toggle" class="lg:hidden btn btn-outline text-[13px] px-3 py-2" aria-label="Toggle navigation">☰</button>
+    </div>
+  </div>
+  <div id="mobile-menu" class="lg:hidden hidden border-t border-cetacean/10 bg-seashell">
+    <div class="px-6 py-4 flex flex-col gap-3">
+      {navItems.map((item) => (
+        <a href={item.href} class="text-cetacean text-base">{item.label}</a>
+      ))}
+    </div>
+  </div>
+  <script>
+    const t = document.getElementById("menu-toggle");
+    const m = document.getElementById("mobile-menu");
+    t?.addEventListener("click", () => m?.classList.toggle("hidden"));
+  </script>
+</header>
