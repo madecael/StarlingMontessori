@@ -1,0 +1,14 @@
+---
+interface Props {
+  size?: "sm" | "md" | "lg";
+  withSubline?: boolean;
+}
+const { size = "md", withSubline = false } = Astro.props;
+const fontSize = size === "lg" ? "text-3xl" : size === "sm" ? "text-lg" : "text-2xl";
+---
+<div class="flex items-center gap-2">
+  <span class={`font-display italic font-medium leading-none text-cetacean ${fontSize}`}>Starling</span>
+  {withSubline && (
+    <span class="text-[11px] tracking-eyebrow text-cetacean">MONTESSORI SCHOOL</span>
+  )}
+</div>
