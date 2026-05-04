@@ -1,0 +1,35 @@
+---
+import ValuePillars from "./ValuePillars.astro";
+import ProgramSplit from "./ProgramSplit.astro";
+import Quote from "./Quote.astro";
+import FounderApproach from "./FounderApproach.astro";
+import PhotoStrip from "../lp/PhotoStrip.astro";
+import EnrollCTA from "./EnrollCTA.astro";
+import DailyRhythm from "./DailyRhythm.astro";
+import MaterialsGrid from "./MaterialsGrid.astro";
+import ThreeYearCycle from "./ThreeYearCycle.astro";
+import ProcessTimeline from "./ProcessTimeline.astro";
+import ContactCard from "./ContactCard.astro";
+import OpenHouseList from "./OpenHouseList.astro";
+import SiteFAQ from "./SiteFAQ.astro";
+import TuitionFraming from "../lp/TuitionFraming.astro";
+import RichBody from "./RichBody.astro";
+
+interface Props { block: any; }
+const { block } = Astro.props;
+---
+{block.type === "valuePillars" && <ValuePillars eyebrow={block.eyebrow} pillars={block.pillars} />}
+{block.type === "programSplit" && <ProgramSplit eyebrow={block.eyebrow} title={block.title} programs={block.programs} />}
+{block.type === "quote" && <Quote quote={block.quote} attribution={block.attribution} />}
+{block.type === "founderApproach" && <FounderApproach eyebrow={block.eyebrow} title={block.title} paragraphs={block.paragraphs} photo={block.photo} photoAlt={block.photoAlt} cta={block.cta} />}
+{block.type === "photoStrip" && <PhotoStrip photos={block.photos} />}
+{block.type === "enrollCTA" && <EnrollCTA eyebrow={block.eyebrow} title={block.title} body={block.body} primary={block.primary} secondary={block.secondary} />}
+{block.type === "dailyRhythm" && <DailyRhythm eyebrow={block.eyebrow} title={block.title} steps={block.steps} />}
+{block.type === "materialsGrid" && <MaterialsGrid eyebrow={block.eyebrow} title={block.title} categories={block.categories} />}
+{block.type === "threeYearCycle" && <ThreeYearCycle eyebrow={block.eyebrow} title={block.title} intro={block.intro} years={block.years} />}
+{block.type === "processTimeline" && <ProcessTimeline eyebrow={block.eyebrow} title={block.title} steps={block.steps} />}
+{block.type === "contactCard" && <ContactCard eyebrow={block.eyebrow} title={block.title} />}
+{block.type === "openHouseList" && <OpenHouseList eyebrow={block.eyebrow} title={block.title} intro={block.intro} sessions={block.sessions} />}
+{block.type === "faqAccordion" && <SiteFAQ eyebrow={block.eyebrow} title={block.title} categories={block.categories} />}
+{block.type === "tuitionFraming" && <TuitionFraming />}
+{block.type === "richBody" && <RichBody body={block.body} />}

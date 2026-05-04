@@ -1,0 +1,7 @@
+---
+interface Props { body: string; }
+const { body } = Astro.props;
+---
+<section class="px-6 lg:px-8 py-10 max-w-[760px] mx-auto prose prose-cetacean">
+  <div set:html={body}></div>
+</section>
