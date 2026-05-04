@@ -1,7 +1,25 @@
 ---
-import "../styles/global.css";
+import { getEntry } from "astro:content";
+import SiteLayout from "../layouts/SiteLayout.astro";
+import SiteHero from "../components/site/SiteHero.astro";
+import BlockRenderer from "../components/site/BlockRenderer.astro";
+
+const page = await getEntry("pages", "home");
+if (!page) throw new Error("home content missing");
+const d = page.data;
 ---
-<html><body class="bg-seashell text-cetacean p-8">
-  <h1 class="display-italic text-5xl">Starling</h1>
-  <p class="eyebrow">tokens working</p>
-</body></html>
+<SiteLayout title={d.title} description={d.description}>
+  {d.hero && (
+    <SiteHero
+      eyebrow={d.hero.eyebrow}
+      headline={d.hero.headline}
+      headlineHighlight={d.hero.headlineHighlight}
+      subhead={d.hero.subhead}
+      photo={d.hero.photo}
+      photoAlt={d.hero.photoAlt}
+      ctas={d.hero.ctas ?? []}
+    />
+  )}
+  <div id="programs"></div>
+  {d.blocks.map((b) => <BlockRenderer block={b} />)}
+</SiteLayout>

@@ -128,7 +128,7 @@ const pages = defineCollection({
   schema: z.object({
     title: z.string(),
     description: z.string(),
-    slug: z.string(),  // for sitemap + canonicals
+    slug: z.string().optional(),  // for sitemap + canonicals (Astro reserves `slug` from frontmatter)
     hero: z
       .object({
         eyebrow: z.string().optional(),
