@@ -1,0 +1,22 @@
+---
+import { getEntry } from "astro:content";
+import LPLayout from "../../layouts/LPLayout.astro";
+import ObjectionHero from "../../components/lp/ObjectionHero.astro";
+import BlockRenderer from "../../components/lp/BlockRenderer.astro";
+
+const lp = await getEntry("landing", "toddler-capitol-hill");
+if (!lp) throw new Error("LP content missing");
+const d = lp.data;
+---
+<LPLayout title={d.title} description={d.description} ctaLabel="Schedule a tour" locationLine="2014 4th St SE, Washington DC 20003">
+  <ObjectionHero
+    eyebrow={d.eyebrow}
+    headline={d.heroHeadline}
+    headlineHighlight={d.heroHeadlineHighlight}
+    subhead={d.heroSubhead}
+    photo={d.heroPhoto}
+    location={d.heroLocation}
+    ctas={d.heroCTAs}
+  />
+  {d.blocks.map((b) => <BlockRenderer block={b} />)}
+</LPLayout>
