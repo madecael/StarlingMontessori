@@ -1,5 +1,9 @@
 import { defineCollection, z } from "astro:content";
 
+const imagePath = z
+  .string()
+  .regex(/^\/images\//, "image path must start with /images/");
+
 const cta = z.object({
   label: z.string(),
   href: z.string(),
@@ -37,7 +41,8 @@ const landing = defineCollection({
     heroHeadline: z.string(),
     heroHeadlineHighlight: z.string().optional(),
     heroSubhead: z.string(),
-    heroPhoto: z.string(),
+    heroPhoto: imagePath,
+    heroAlt: z.string().optional(),
     heroLocation: z.string(),
     heroCTAs: z.array(cta).min(1).max(2),
     blocks: z.array(
@@ -82,7 +87,7 @@ const landing = defineCollection({
           eyebrow: z.string(),
           title: z.string(),
           body: z.string(),
-          imageSlots: z.array(z.string()),
+          imageSlots: z.array(z.union([z.string().startsWith("["), imagePath])),
           disclosure: z.string(),
         }),
         z.object({
@@ -90,11 +95,11 @@ const landing = defineCollection({
           eyebrow: z.string(),
           quote: z.string(),
           attribution: z.string(),
-          photo: z.string().optional(),
+          photo: imagePath.optional(),
         }),
         z.object({
           type: z.literal("photoStrip"),
-          photos: z.array(z.string()).min(2).max(6),
+          photos: z.array(imagePath).min(2).max(6),
         }),
         z.object({
           type: z.literal("tuitionFraming"),

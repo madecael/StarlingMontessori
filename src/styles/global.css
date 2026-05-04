@@ -11,7 +11,7 @@
 }
 
 @layer components {
-  .eyebrow { @apply text-[11px] uppercase tracking-eyebrow font-semibold text-pearly-deep; }
+  .eyebrow { @apply text-[11px] uppercase tracking-eyebrow font-semibold text-cetacean-70; }
   .display-italic { @apply font-display italic font-medium tracking-tightest leading-[1.05]; }
   .btn { @apply inline-flex items-center gap-2 rounded-pill px-5 py-3 text-sm font-medium transition-all ease-soft duration-200; }
   .btn-primary { @apply bg-cetacean text-seashell hover:bg-cetacean-90 hover:-translate-y-px; }
