@@ -1,0 +1,21 @@
+---
+interface CTA { label: string; href: string; variant: "primary" | "pearly" | "outline" | "ghost"; }
+interface Props { eyebrow: string; title: string; paragraphs: string[]; photo?: string; photoAlt?: string; cta?: CTA; }
+const { eyebrow, title, paragraphs, photo, photoAlt, cta } = Astro.props;
+const variantClass = (v: CTA["variant"]) => v === "primary" ? "btn-primary" : v === "pearly" ? "btn-pearly" : v === "outline" ? "btn-outline" : "btn-ghost";
+---
+<section class="px-6 lg:px-8 py-16 max-w-[1240px] mx-auto grid lg:grid-cols-2 gap-12 items-center">
+  {photo && (
+    <div class="aspect-[4/5] rounded-3xl overflow-hidden bg-cetacean-10">
+      <img src={photo} alt={photoAlt ?? ""} class="w-full h-full object-cover" />
+    </div>
+  )}
+  <div>
+    <div class="eyebrow">{eyebrow}</div>
+    <h2 class="text-3xl lg:text-[34px] font-light text-cetacean mt-2 mb-4 tracking-tightest leading-tight">{title}</h2>
+    {paragraphs.map((p) => <p class="text-base text-cetacean-70 leading-relaxed mb-3">{p}</p>)}
+    {cta && (
+      <div class="mt-5"><a href={cta.href} class={`btn ${variantClass(cta.variant)}`}>{cta.label}</a></div>
+    )}
+  </div>
+</section>

@@ -1,0 +1,8 @@
+---
+interface Props { quote: string; attribution: string; }
+const { quote, attribution } = Astro.props;
+---
+<section class="px-6 lg:px-8 py-14 max-w-[760px] mx-auto text-center">
+  <p class="text-2xl lg:text-3xl font-light text-cetacean leading-snug font-display italic tracking-tightest">"{quote}"</p>
+  <p class="text-[13px] tracking-eyebrow text-cetacean-70 mt-5 font-semibold uppercase">— {attribution}</p>
+</section>

@@ -1,0 +1,26 @@
+---
+interface CTA { label: string; href: string; variant: "primary" | "pearly" | "outline" | "ghost"; }
+interface Props { eyebrow: string; title: string; body?: string; primary: CTA; secondary?: CTA; }
+const { eyebrow, title, body, primary, secondary } = Astro.props;
+---
+<section class="px-6 lg:px-8 my-12 max-w-[1240px] mx-auto">
+  <div class="bg-cetacean text-seashell rounded-3xl p-10 lg:p-14 grid lg:grid-cols-[1.4fr_1fr] gap-10 items-center relative overflow-hidden">
+    <div class="absolute right-[-60px] bottom-[-60px] w-56 h-28 bg-pearly opacity-60 rounded-arch-top"></div>
+    <div class="relative">
+      <div class="text-[11px] uppercase tracking-eyebrow font-semibold text-pearly-light">{eyebrow}</div>
+      <h2 class="text-3xl lg:text-[42px] font-light leading-tight mt-3 tracking-tightest">{title}</h2>
+      {body && <p class="text-base opacity-85 mt-4 leading-relaxed max-w-xl">{body}</p>}
+      <div class="flex gap-3 mt-6 flex-wrap">
+        <a href={primary.href} class="btn btn-pearly">{primary.label}</a>
+        {secondary && <a href={secondary.href} class="btn bg-seashell/12 text-seashell hover:bg-seashell/20">{secondary.label}</a>}
+      </div>
+    </div>
+    <div class="relative hidden lg:flex justify-end">
+      <div class="bg-seashell text-cetacean rounded-3xl p-5 w-52 text-center">
+        <div class="aspect-square rounded-2xl opacity-85" style="background:repeating-conic-gradient(#0C163D 0 25%, transparent 0 50%) 0 0/14px 14px"></div>
+        <div class="text-[11px] uppercase tracking-eyebrow font-semibold mt-3">Learn more</div>
+        <div class="text-[11px] text-cetacean-70 mt-1">starlingmontessorischool.com</div>
+      </div>
+    </div>
+  </div>
+</section>
