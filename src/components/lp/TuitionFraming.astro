@@ -1,0 +1,17 @@
+---
+import { getEntry } from "astro:content";
+const settings = await getEntry("settings", "site");
+const contactHref = `mailto:${settings!.data.email}`;
+---
+<section class="px-8 lg:px-12 pb-14 max-w-[1240px] mx-auto">
+  <div class="bg-white rounded-3xl p-10 grid md:grid-cols-[1.5fr_1fr] gap-8 items-center shadow-sm">
+    <div>
+      <div class="eyebrow">A NOTE ON TUITION</div>
+      <p class="text-[22px] font-light text-cetacean mt-2.5 mb-2.5 leading-snug">Tuition rates vary based on our program schedules.</p>
+      <p class="text-sm text-cetacean-70 leading-relaxed">
+        Please reach out to us directly and indicate the programs you are interested in to receive more information regarding rates &amp; pricing.
+      </p>
+    </div>
+    <div class="text-right"><a href={contactHref} class="btn btn-outline" data-event="tuition_contact_click">Get in touch →</a></div>
+  </div>
+</section>

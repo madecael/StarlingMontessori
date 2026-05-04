@@ -1,0 +1,14 @@
+---
+interface Props { eyebrow: string; quote: string; attribution: string; photo?: string; }
+const { eyebrow, quote, attribution, photo } = Astro.props;
+---
+<section class="px-8 lg:px-12 py-12 max-w-[1240px] mx-auto grid md:grid-cols-[.7fr_1.3fr] gap-8 items-center">
+  <div class="aspect-square bg-cetacean-10 rounded-3xl overflow-hidden">
+    {photo ? <img src={photo} alt="Fabienne Deaton" class="w-full h-full object-cover" /> : <div class="w-full h-full flex items-center justify-center text-cetacean-70 text-xs">[ founder portrait ]</div>}
+  </div>
+  <div>
+    <div class="eyebrow">{eyebrow}</div>
+    <p class="text-2xl lg:text-[28px] font-light text-cetacean mt-2 tracking-tightest leading-tight">{quote}</p>
+    <p class="text-sm text-cetacean-70 leading-relaxed mt-3" set:html={attribution}></p>
+  </div>
+</section>

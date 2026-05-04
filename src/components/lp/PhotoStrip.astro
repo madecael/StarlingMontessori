@@ -1,0 +1,11 @@
+---
+interface Props { photos: string[]; }
+const { photos } = Astro.props;
+---
+<div class={`grid gap-2`} style={`grid-template-columns: repeat(${photos.length}, 1fr);`}>
+  {photos.map((p) => (
+    <div class="aspect-[3/4] overflow-hidden">
+      <img src={p} alt="" class="w-full h-full object-cover" />
+    </div>
+  ))}
+</div>
