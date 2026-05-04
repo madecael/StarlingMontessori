@@ -1,0 +1,21 @@
+---
+interface Step { label: string; period: string; final: boolean; }
+interface Props { eyebrow: string; title: string; steps: Step[]; }
+const { eyebrow, title, steps } = Astro.props;
+---
+<section class="px-8 lg:px-12 py-16 max-w-[1240px] mx-auto">
+  <div class="eyebrow">{eyebrow}</div>
+  <h2 class="text-3xl lg:text-4xl font-light text-cetacean mt-2 mb-7 tracking-tightest">{title}</h2>
+  <div class="relative grid grid-cols-2 md:grid-cols-4 gap-3">
+    <div class="hidden md:block absolute top-6 left-[8%] right-[8%] h-px bg-cetacean/15"></div>
+    {steps.map((s, i) => (
+      <div class="text-center relative z-10">
+        <div class={`w-12 h-12 mx-auto rounded-full flex items-center justify-center font-semibold text-seashell ${s.final ? "bg-cetacean" : "bg-pearly"}`}>
+          {s.final ? "★" : i + 1}
+        </div>
+        <div class="text-[13px] font-semibold text-cetacean mt-3.5">{s.label}</div>
+        <div class="text-xs text-cetacean-70 mt-1">{s.period}</div>
+      </div>
+    ))}
+  </div>
+</section>

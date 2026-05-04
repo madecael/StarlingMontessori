@@ -1,0 +1,19 @@
+---
+interface CTA { label: string; href: string; variant: "primary" | "pearly" | "outline" | "ghost"; }
+interface Props { eyebrow: string; title: string; body: string; benefits: string[]; cta: CTA; }
+const { eyebrow, title, body, benefits, cta } = Astro.props;
+---
+<section class="px-8 lg:px-12 py-16 max-w-[1240px] mx-auto grid lg:grid-cols-[1fr_1.2fr] gap-10 items-center">
+  <div>
+    <div class="eyebrow">{eyebrow}</div>
+    <h2 class="text-3xl font-light text-cetacean mt-2 mb-3 tracking-tightest leading-tight">{title}</h2>
+    <p class="text-sm text-cetacean-70 leading-relaxed">{body}</p>
+    <div class="mt-5"><a href={cta.href} class="btn btn-outline">{cta.label}</a></div>
+  </div>
+  <div class="bg-white rounded-3xl p-7 border border-cetacean/10">
+    <div class="eyebrow mb-3">WHAT'S INCLUDED</div>
+    <div class="grid gap-3 text-sm text-cetacean">
+      {benefits.map((b) => <div>✓ {b}</div>)}
+    </div>
+  </div>
+</section>

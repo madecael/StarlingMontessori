@@ -1,0 +1,21 @@
+---
+interface Step { title: string; body: string; }
+interface Props { eyebrow: string; title: string; steps: Step[]; }
+const { eyebrow, title, steps } = Astro.props;
+const numerals = ["①","②","③","④"];
+---
+<section class="bg-seashell-shade px-8 lg:px-12 py-16">
+  <div class="max-w-[1240px] mx-auto">
+    <div class="eyebrow">{eyebrow}</div>
+    <h2 class="text-3xl lg:text-4xl font-light text-cetacean mt-2 mb-6 tracking-tightest">{title}</h2>
+    <div class="grid md:grid-cols-3 gap-4">
+      {steps.map((s, i) => (
+        <div class="bg-white rounded-3xl p-6">
+          <div class="text-3xl font-light text-pearly">{numerals[i]}</div>
+          <div class="text-base font-semibold text-cetacean mt-1.5">{s.title}</div>
+          <div class="text-sm text-cetacean-70 mt-2">{s.body}</div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

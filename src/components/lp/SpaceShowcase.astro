@@ -1,0 +1,19 @@
+---
+interface Props { eyebrow: string; title: string; body: string; imageSlots: string[]; disclosure: string; }
+const { eyebrow, title, body, imageSlots, disclosure } = Astro.props;
+---
+<section class="bg-cetacean text-seashell px-8 lg:px-12 py-16 mx-4 rounded-t-3xl">
+  <div class="max-w-[1240px] mx-auto">
+    <div class="text-[11px] uppercase tracking-eyebrow font-semibold text-pearly-light">{eyebrow}</div>
+    <h2 class="text-3xl lg:text-4xl font-light mt-2 mb-1.5 tracking-tightest leading-tight">{title}</h2>
+    <p class="text-base opacity-80 mb-6 leading-relaxed max-w-2xl">{body}</p>
+    <div class="grid md:grid-cols-3 gap-2">
+      {imageSlots.map((slot) => (
+        <div class="aspect-[4/3] bg-seashell/10 rounded-2xl flex items-center justify-center text-seashell/50 text-xs">
+          {slot.startsWith("[") ? slot : <img src={slot} alt="" class="w-full h-full object-cover rounded-2xl" />}
+        </div>
+      ))}
+    </div>
+    <p class="text-xs text-pearly-light mt-3.5">{disclosure}</p>
+  </div>
+</section>
