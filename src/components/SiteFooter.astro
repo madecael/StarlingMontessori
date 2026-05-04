@@ -1,0 +1,50 @@
+---
+import BirdMark from "./BirdMark.astro";
+import BrandWordmark from "./BrandWordmark.astro";
+import { getEntry } from "astro:content";
+const settings = await getEntry("settings", "site");
+const s = settings!.data;
+const cols: { heading: string; links: { label: string; href: string }[] }[] = [
+  { heading: "School", links: [
+    { label: "About", href: "/about" },
+    { label: "Faculty", href: "/about#faculty" },
+    { label: "FAQ", href: "/faq" },
+  ]},
+  { heading: "Programs", links: [
+    { label: "Toddler Community", href: "/programs/toddler" },
+    { label: "Primary Classroom", href: "/programs/primary" },
+  ]},
+  { heading: "Visit", links: [
+    { label: "Schedule a tour", href: "/open-house" },
+    { label: "Open House", href: "/open-house" },
+    { label: "Admissions", href: "/admissions" },
+    { label: "Contact", href: "/contact" },
+  ]},
+];
+---
+<footer class="bg-seashell-shade mt-16 px-6 lg:px-8 pt-14 pb-8">
+  <div class="max-w-[1240px] mx-auto grid md:grid-cols-[1.5fr_1fr_1fr_1fr] gap-8">
+    <div>
+      <div class="flex items-center gap-2.5">
+        <BirdMark size={32} />
+        <BrandWordmark size="lg" />
+      </div>
+      <div class="text-[13px] tracking-wide text-cetacean mt-1.5">Montessori School</div>
+      <p class="text-sm text-cetacean-70 mt-4 leading-relaxed max-w-xs">
+        Soaring minds. Freeing potential. A family‑run Montessori childcare center.
+      </p>
+    </div>
+    {cols.map((col) => (
+      <div>
+        <div class="eyebrow mb-3">{col.heading}</div>
+        <div class="flex flex-col gap-2.5 text-sm text-cetacean">
+          {col.links.map((l) => <a href={l.href}>{l.label}</a>)}
+        </div>
+      </div>
+    ))}
+  </div>
+  <div class="max-w-[1240px] mx-auto mt-10 pt-5 border-t border-cetacean/10 flex flex-wrap justify-between gap-3 text-xs text-cetacean-70">
+    <div>{s.address.line1}, {s.address.city} {s.address.state} {s.address.zip} · {s.phone} · {s.email}</div>
+    <div>© {new Date().getFullYear()} {s.schoolName}</div>
+  </div>
+</footer>
