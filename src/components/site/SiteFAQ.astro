@@ -18,7 +18,7 @@ const { eyebrow, title, categories } = Astro.props;
                 <span>{qa.q}</span>
                 <span class="text-pearly-deep text-2xl leading-none transition-transform group-open:rotate-45">+</span>
               </summary>
-              <div class="text-sm text-cetacean-70 mt-3 leading-relaxed" set:html={qa.a}></div>
+              <div class="text-sm text-cetacean-70 mt-3 leading-relaxed">{qa.a}</div>
             </details>
           ))}
         </div>

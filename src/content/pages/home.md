@@ -1,7 +1,6 @@
 ---
 title: "Starling Montessori — Authentic AMI Montessori on Capitol Hill"
 description: "Soaring minds. Freeing potential. A family-run Montessori childcare center on Capitol Hill, D.C. Toddler Community + Primary Classroom opening August 2026."
-slug: ""
 hero:
   eyebrow: "OPEN ENROLLMENT"
   headline: "Soaring minds. Freeing potential."
