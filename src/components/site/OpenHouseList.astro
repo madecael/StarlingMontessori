@@ -1,0 +1,24 @@
+---
+interface Props { eyebrow: string; title: string; intro?: string; sessions: { date: string; time: string; location: string; spotsLeft?: number }[]; }
+const { eyebrow, title, intro, sessions } = Astro.props;
+---
+<section class="px-6 lg:px-8 py-16 max-w-[1240px] mx-auto">
+  <div class="eyebrow">{eyebrow}</div>
+  <h2 class="text-3xl lg:text-4xl font-light text-cetacean mt-2 mb-3 tracking-tightest">{title}</h2>
+  {intro && <p class="text-base text-cetacean-70 mb-7 max-w-2xl leading-relaxed">{intro}</p>}
+  {sessions.length === 0 ? (
+    <div class="bg-white rounded-2xl p-7 text-cetacean-70">No upcoming sessions are listed at the moment. Get in touch to schedule a private tour.</div>
+  ) : (
+    <ul class="grid gap-3 md:grid-cols-2 lg:grid-cols-3">
+      {sessions.map((s) => (
+        <li class="bg-white rounded-2xl p-6 flex flex-col gap-2">
+          <div class="text-[11px] uppercase tracking-eyebrow font-semibold text-pearly-deep">{s.date}</div>
+          <div class="text-xl font-light text-cetacean">{s.time}</div>
+          <div class="text-sm text-cetacean-70">{s.location}</div>
+          {typeof s.spotsLeft === "number" && <div class="text-xs text-pearly-deep mt-1">{s.spotsLeft} spots left</div>}
+          <a href="/admissions#tour" class="btn btn-outline mt-3 w-fit text-[12px] px-3 py-1.5">RSVP →</a>
+        </li>
+      ))}
+    </ul>
+  )}
+</section>

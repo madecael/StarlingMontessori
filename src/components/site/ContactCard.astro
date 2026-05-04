@@ -1,0 +1,22 @@
+---
+import { getEntry } from "astro:content";
+interface Props { eyebrow?: string; title?: string; }
+const { eyebrow, title } = Astro.props;
+const settings = await getEntry("settings", "site");
+const s = settings!.data;
+const mapHref = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${s.address.line1}, ${s.address.city} ${s.address.state} ${s.address.zip}`)}`;
+---
+<section class="px-6 lg:px-8 py-12 max-w-[1240px] mx-auto grid lg:grid-cols-2 gap-8">
+  <div>
+    {eyebrow && <div class="eyebrow">{eyebrow}</div>}
+    {title && <h2 class="text-3xl lg:text-4xl font-light text-cetacean mt-2 mb-6 tracking-tightest">{title}</h2>}
+    <div class="bg-white rounded-3xl p-7 grid gap-3 text-cetacean">
+      <div><div class="eyebrow">Address</div><a href={mapHref} target="_blank" rel="noopener" class="text-base mt-1 block" data-event="map_click">{s.address.line1}<br>{s.address.city}, {s.address.state} {s.address.zip}</a></div>
+      <div><div class="eyebrow">Phone</div><a href={`tel:${s.phone.replace(/[^0-9+]/g, "")}`} class="text-base mt-1 block" data-event="phone_click">{s.phone}</a></div>
+      <div><div class="eyebrow">Email</div><a href={`mailto:${s.email}`} class="text-base mt-1 block">{s.email}</a></div>
+    </div>
+  </div>
+  <div class="bg-cetacean-10 rounded-3xl aspect-square lg:aspect-auto min-h-[280px]">
+    <iframe class="w-full h-full rounded-3xl" loading="lazy" src={`https://www.google.com/maps?q=${encodeURIComponent(`${s.address.line1}, ${s.address.city} ${s.address.state} ${s.address.zip}`)}&output=embed`} title="Starling Montessori on map"></iframe>
+  </div>
+</section>

@@ -1,0 +1,28 @@
+---
+interface Q { q: string; a: string; }
+interface Cat { category: string; questions: Q[]; }
+interface Props { eyebrow: string; title: string; categories: Cat[]; }
+const { eyebrow, title, categories } = Astro.props;
+---
+<section class="px-6 lg:px-8 py-16 max-w-[1240px] mx-auto">
+  <div class="eyebrow">{eyebrow}</div>
+  <h2 class="text-3xl lg:text-4xl font-light text-cetacean mt-2 mb-8 tracking-tightest">{title}</h2>
+  <div class="grid lg:grid-cols-2 gap-x-8 gap-y-12">
+    {categories.map((cat) => (
+      <div>
+        <h3 class="text-xl font-light text-cetacean mb-4 tracking-tightest">{cat.category}</h3>
+        <div class="grid gap-3">
+          {cat.questions.map((qa) => (
+            <details class="bg-white rounded-2xl p-5 group">
+              <summary class="font-semibold text-cetacean cursor-pointer list-none flex justify-between items-start gap-3">
+                <span>{qa.q}</span>
+                <span class="text-pearly-deep text-2xl leading-none transition-transform group-open:rotate-45">+</span>
+              </summary>
+              <div class="text-sm text-cetacean-70 mt-3 leading-relaxed" set:html={qa.a}></div>
+            </details>
+          ))}
+        </div>
+      </div>
+    ))}
+  </div>
+</section>
