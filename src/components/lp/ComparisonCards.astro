@@ -1,0 +1,20 @@
+---
+interface Card { label: string; title: string; body: string; highlight: boolean; }
+interface Props { eyebrow: string; title: string; cards: Card[]; }
+const { eyebrow, title, cards } = Astro.props;
+---
+<section class="px-8 lg:px-12 py-16 max-w-[1240px] mx-auto">
+  <div class="eyebrow">{eyebrow}</div>
+  <h2 class="text-3xl lg:text-4xl font-light text-cetacean mt-2 mb-8 tracking-tightest">{title}</h2>
+  <div class="grid md:grid-cols-3 gap-4">
+    {cards.map((c) => (
+      <div class={`rounded-3xl p-6 ${c.highlight ? "bg-cetacean text-seashell border-2 border-cetacean" : "bg-seashell border border-cetacean/10"}`}>
+        <div class={`text-[13px] font-semibold ${c.highlight ? "text-pearly-light" : "text-cetacean-70"}`}>
+          {c.highlight ? "★ " : ""}{c.label}
+        </div>
+        <div class="text-lg mt-2.5">{c.title}</div>
+        <div class={`text-[13px] mt-2 ${c.highlight ? "text-seashell/85" : "text-cetacean-70"}`}>{c.body}</div>
+      </div>
+    ))}
+  </div>
+</section>
