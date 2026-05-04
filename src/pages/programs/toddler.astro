@@ -1,0 +1,24 @@
+---
+import { getEntry } from "astro:content";
+import SiteLayout from "../../layouts/SiteLayout.astro";
+import SiteHero from "../../components/site/SiteHero.astro";
+import BlockRenderer from "../../components/site/BlockRenderer.astro";
+
+const page = await getEntry("pages", "programs/toddler");
+if (!page) throw new Error("toddler-program content missing");
+const d = page.data;
+---
+<SiteLayout title={d.title} description={d.description}>
+  {d.hero && (
+    <SiteHero
+      eyebrow={d.hero.eyebrow}
+      headline={d.hero.headline}
+      headlineHighlight={d.hero.headlineHighlight}
+      subhead={d.hero.subhead}
+      photo={d.hero.photo}
+      photoAlt={d.hero.photoAlt}
+      ctas={d.hero.ctas ?? []}
+    />
+  )}
+  {d.blocks.map((b) => <BlockRenderer block={b} />)}
+</SiteLayout>
