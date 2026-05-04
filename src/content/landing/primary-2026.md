@@ -7,6 +7,7 @@ heroHeadline: "A new AMI Primary classroom opening on Capitol Hill, August 2026.
 heroHeadlineHighlight: "AMI Primary classroom"
 heroSubhead: "Twelve seats in our inaugural class. Designed for families who want their child to grow inside an authentic, three-year Primary cycle without switching schools."
 heroPhoto: "/images/photos/photo-classroom-1.png"
+heroAlt: "Starling Montessori classroom — soon to be home to the new Primary classroom at Saint Mark Episcopal"
 heroLocation: "Saint Mark Episcopal Church · Capitol Hill · Ages 2.5–6"
 heroCTAs:
   - { label: "Reserve a tour →", href: "#tour", variant: "pearly" }
@@ -45,7 +46,7 @@ blocks:
       - "[ exterior — coming Spring 2026 ]"
       - "[ stained glass — coming Spring 2026 ]"
       - "[ shaded yard — coming Spring 2026 ]"
-    disclosure: "Final classroom photos coming as the build-out completes — Spring 2026."
+    disclosure: "Final classroom photos coming as the build-out completes — Summer 2026."
   - type: comparisonTable
     eyebrow: "SO YOU CAN DECIDE"
     title: "Comparing your Primary options on Capitol Hill."

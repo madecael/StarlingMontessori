@@ -9,8 +9,9 @@ interface Props {
   location: string;
   ctas: CTA[];
   scarcity?: { opens: string; seats: string; reserved?: string };
+  alt?: string;
 }
-const { eyebrow, headline, headlineHighlight, subhead, photo, location, ctas, scarcity } = Astro.props;
+const { eyebrow, headline, headlineHighlight, subhead, photo, location, ctas, scarcity, alt } = Astro.props;
 
 const variantClass = (v: CTA["variant"]) => v === "primary" ? "btn-primary" : v === "pearly" ? "btn-pearly" : v === "outline" ? "btn-outline" : "btn-ghost";
 ---
@@ -18,9 +19,18 @@ const variantClass = (v: CTA["variant"]) => v === "primary" ? "btn-primary" : v 
   <div>
     <div class="eyebrow">{eyebrow}</div>
     <h1 class="text-4xl md:text-5xl lg:text-[44px] leading-[1.05] font-light text-cetacean mt-4 tracking-tightest">
-      {headlineHighlight ? (
-        <>{headline.replace(headlineHighlight, "")}<span class="marker-pearly">{headlineHighlight}</span></>
-      ) : headline}
+      {(() => {
+        if (!headlineHighlight) return headline;
+        const idx = headline.indexOf(headlineHighlight);
+        if (idx === -1) return headline;
+        return (
+          <>
+            {headline.slice(0, idx)}
+            <span class="marker-pearly">{headlineHighlight}</span>
+            {headline.slice(idx + headlineHighlight.length)}
+          </>
+        );
+      })()}
     </h1>
     <p class="text-lg text-cetacean-70 mt-5 leading-relaxed max-w-xl">{subhead}</p>
     {scarcity && (
@@ -42,6 +52,6 @@ const variantClass = (v: CTA["variant"]) => v === "primary" ? "btn-primary" : v 
   <div class="relative h-[380px] lg:h-[420px]">
     <div class="absolute -top-2.5 -right-2.5 w-36 h-36 bg-sky rounded-arch-top z-0"></div>
     <div class="absolute -bottom-5 -left-5 w-24 h-12 bg-pearly opacity-70 rounded-b-pill z-0"></div>
-    <img src={photo} alt="" class="relative z-10 w-full h-full object-cover rounded-3xl shadow-md" />
+    <img src={photo} alt={alt ?? ""} class="relative z-10 w-full h-full object-cover rounded-3xl shadow-md" />
   </div>
 </section>

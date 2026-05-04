@@ -7,6 +7,7 @@ heroHeadline: "Not a chain. Not a lottery. The small Montessori on Capitol Hill.
 heroHeadlineHighlight: "The small Montessori on Capitol Hill."
 heroSubhead: "Family-run, AMI-certified, single toddler classroom. Two blocks from Eastern Market — a place where every child is known by name."
 heroPhoto: "/images/photos/photo-classroom-1.png"
+heroAlt: "Toddlers working with Montessori materials in the Starling classroom on Capitol Hill"
 heroLocation: "2014 4th St SE · Capitol Hill Presbyterian Church · Ages 14–28 months"
 heroCTAs:
   - { label: "Schedule a tour →", href: "#tour", variant: "pearly" }
