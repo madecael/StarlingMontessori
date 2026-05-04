@@ -31,3 +31,11 @@ describe("tourRequestSchema", () => {
     expect(() => tourRequestSchema.parse(data)).toThrow();
   });
 });
+
+describe("API contract sanity", () => {
+  it("schema covers all fields the form sends", () => {
+    const sentByForm = ["parentName","email","childAge","preferredWeek","relocating","currentMontessori","page","company"];
+    const known = Object.keys(tourRequestSchema.shape);
+    for (const k of sentByForm) expect(known).toContain(k);
+  });
+});

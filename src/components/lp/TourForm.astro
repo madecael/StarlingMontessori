@@ -73,6 +73,7 @@ const calendly = settings?.data.calendlyUrl;
       status.classList.remove("hidden");
       status.textContent = "Sending…";
       const data = Object.fromEntries(new FormData(form).entries());
+      (data as any).page = location.pathname.replace(/^\/lp\//, "").replace(/\/$/, "") || "unknown";
       try {
         const res = await fetch("/api/tour-request", {
           method: "POST",
