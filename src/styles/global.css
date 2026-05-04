@@ -1,0 +1,22 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html { @apply bg-seashell text-cetacean; }
+  body { @apply font-sans text-base leading-relaxed antialiased; }
+  ::selection { background: theme(colors.pearly.light); color: theme(colors.cetacean.DEFAULT); }
+}
+
+@layer components {
+  .eyebrow { @apply text-[11px] uppercase tracking-eyebrow font-semibold text-pearly-deep; }
+  .display-italic { @apply font-display italic font-medium tracking-tightest leading-[1.05]; }
+  .btn { @apply inline-flex items-center gap-2 rounded-pill px-5 py-3 text-sm font-medium transition-all ease-soft duration-200; }
+  .btn-primary { @apply bg-cetacean text-seashell hover:bg-cetacean-90 hover:-translate-y-px; }
+  .btn-pearly { @apply bg-pearly text-seashell hover:bg-pearly-deep hover:-translate-y-px; }
+  .btn-outline { @apply border-[1.5px] border-cetacean text-cetacean hover:bg-cetacean hover:text-seashell; }
+  .btn-ghost { @apply text-cetacean hover:text-pearly-deep; }
+  .marker-pearly { background: theme(colors.pearly.light); padding: 0 0.15em; box-decoration-break: clone; -webkit-box-decoration-break: clone; }
+}
