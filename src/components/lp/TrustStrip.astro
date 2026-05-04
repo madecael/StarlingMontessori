@@ -1,0 +1,7 @@
+---
+interface Props { items: string[]; }
+const { items } = Astro.props;
+---
+<div class="bg-seashell-shade px-8 lg:px-12 py-6 flex flex-wrap gap-6 items-center justify-between text-sm text-cetacean">
+  {items.map((it) => <div>✓ <span set:html={it} /></div>)}
+</div>
