@@ -43,7 +43,7 @@ function isActive(href: string) {
     </nav>
     <div class="ml-auto flex items-center gap-3">
       <a href={`tel:${phone?.replace(/[^0-9+]/g, "")}`} class="hidden md:inline text-sm text-cetacean" data-event="phone_click">📞 {phone}</a>
-      <a href="/open-house" class="btn btn-primary text-[13px] px-4 py-2">Schedule a tour</a>
+      <a href="/open-house" class="btn btn-primary text-[13px] px-4 py-2" data-booking-trigger>Schedule a tour</a>
       <button id="menu-toggle" class="lg:hidden btn btn-outline text-[13px] px-3 py-2" aria-label="Toggle navigation">☰</button>
     </div>
   </div>

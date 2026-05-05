@@ -17,6 +17,6 @@ const phone = settings?.data.phone;
   </div>
   <div class="flex items-center gap-3.5 text-sm text-cetacean">
     <a href={`tel:${phone?.replace(/[^0-9+]/g, "")}`} class="hidden sm:inline" data-event="phone_click">📞 {phone}</a>
-    <a href={ctaHref} class="btn btn-primary text-[13px] px-4 py-2">{ctaLabel}</a>
+    <a href={ctaHref} class="btn btn-primary text-[13px] px-4 py-2" data-booking-trigger>{ctaLabel}</a>
   </div>
 </header>
