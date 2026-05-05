@@ -1,0 +1,52 @@
+---
+import { getEntry } from "astro:content";
+const settings = await getEntry("settings", "site");
+const url = settings?.data.bookingUrl;
+---
+{url && (
+  <dialog id="booking-modal" class="m-auto p-0 rounded-3xl shadow-lg w-[min(92vw,860px)] max-h-[92vh] backdrop:bg-cetacean/40 backdrop:backdrop-blur-sm overflow-hidden bg-seashell">
+    <div class="flex items-center justify-between px-6 py-4 border-b border-cetacean/10">
+      <div>
+        <div class="eyebrow">SCHEDULE A TOUR</div>
+        <div class="text-lg font-light text-cetacean tracking-tightest">Pick a time that works for your family.</div>
+      </div>
+      <button data-booking-close aria-label="Close" class="text-cetacean text-2xl leading-none px-3 py-1 hover:text-pearly-deep">×</button>
+    </div>
+    <iframe
+      src={url}
+      width="100%"
+      height="640"
+      loading="lazy"
+      title="Schedule a tour with Starling Montessori"
+      style="border:0; display:block;"
+      data-booking-iframe
+    ></iframe>
+  </dialog>
+)}
+<script>
+  document.addEventListener("click", (e) => {
+    const trigger = (e.target as HTMLElement).closest("[data-booking-trigger]");
+    if (trigger) {
+      const modal = document.getElementById("booking-modal") as HTMLDialogElement | null;
+      if (modal) {
+        e.preventDefault();
+        modal.showModal();
+        if (typeof (window as any).gtag === "function") {
+          (window as any).gtag("event", "booking_modal_open");
+        }
+      }
+      // If no modal (no bookingUrl set), let the link navigate to its href (e.g. /open-house)
+      return;
+    }
+    const close = (e.target as HTMLElement).closest("[data-booking-close]");
+    if (close) {
+      const modal = document.getElementById("booking-modal") as HTMLDialogElement | null;
+      modal?.close();
+    }
+  });
+  // Close on backdrop click
+  const modal = document.getElementById("booking-modal") as HTMLDialogElement | null;
+  modal?.addEventListener("click", (e) => {
+    if (e.target === modal) modal.close();
+  });
+</script>
