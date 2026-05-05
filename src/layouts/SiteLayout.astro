@@ -2,6 +2,7 @@
 import BaseHead from "./BaseHead.astro";
 import SiteHeader from "../components/SiteHeader.astro";
 import SiteFooter from "../components/SiteFooter.astro";
+import BookingModal from "../components/BookingModal.astro";
 
 interface Props {
   title: string;
@@ -17,6 +18,7 @@ const currentPath = Astro.url.pathname;
     <SiteHeader currentPath={currentPath} />
     <main><slot /></main>
     <SiteFooter />
+    <BookingModal />
     <script>
       document.addEventListener("click", (e) => {
         const target = (e.target as HTMLElement).closest("[data-event]");
