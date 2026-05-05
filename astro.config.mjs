@@ -9,6 +9,15 @@ export default defineConfig({
   site: "https://starlingmontessorischool.com",
   output: "static",
   adapter: node({ mode: "standalone" }),
+  server: {
+    host: true,
+    allowedHosts: [".replit.dev", ".repl.co", "localhost", "127.0.0.1"],
+  },
+  vite: {
+    server: {
+      allowedHosts: [".replit.dev", ".repl.co", "localhost", "127.0.0.1"],
+    },
+  },
   integrations: [
     tailwind({ applyBaseStyles: false }),
     sitemap({
