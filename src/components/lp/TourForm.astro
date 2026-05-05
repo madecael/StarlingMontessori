@@ -17,6 +17,10 @@ const booking = settings?.data.bookingUrl;
       <div class="text-[11px] uppercase tracking-eyebrow font-semibold text-pearly-light">{eyebrow}</div>
       <h2 class="text-3xl lg:text-[36px] font-light mt-2 mb-2.5 tracking-tightest leading-tight" set:html={title.replace(/\n/g, "<br>")}></h2>
       <p class="text-sm opacity-80 leading-relaxed">{subtitle}</p>
+      <div class="mt-5">
+        <a href="#tour" class="btn btn-pearly" data-booking-trigger>Pick a time directly →</a>
+      </div>
+      <p class="text-sm opacity-70 mt-3">Or fill the form below — useful if you want to share context first (relocating, transferring from another Montessori, special schedule needs).</p>
     </div>
     <form id="tour-form" method="POST" action="/api/tour-request" class="bg-seashell text-cetacean rounded-3xl p-7" novalidate>
       <input type="text" name="company" tabindex="-1" autocomplete="off" class="hidden" aria-hidden="true" />
@@ -58,7 +62,7 @@ const booking = settings?.data.bookingUrl;
       </div>
       <div class="mt-4 flex justify-between items-center flex-wrap gap-3">
         <button type="submit" class="btn btn-pearly text-sm font-medium">{submitLabel}</button>
-        {booking && <a href={booking} class="text-xs text-cetacean-70 underline" data-event="booking_click" target="_blank" rel="noopener">Or pick a time on Calendly</a>}
+        {booking && <a href={booking} class="text-xs text-cetacean-70 underline" data-event="booking_click" target="_blank" rel="noopener">Open in new tab</a>}
       </div>
       <p data-form-status class="text-sm mt-3 hidden"></p>
     </form>
