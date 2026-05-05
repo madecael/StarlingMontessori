@@ -241,6 +241,14 @@ const pages = defineCollection({
           type: z.literal("richBody"),  // for paragraphs of free text
           body: z.string(),
         }),
+        z.object({
+          type: z.literal("bookingEmbed"),
+          eyebrow: z.string().optional(),
+          title: z.string().optional(),
+          intro: z.string().optional(),
+          fallbackTitle: z.string().optional(),
+          fallbackBody: z.string().optional(),
+        }),
       ]),
     ),
   }),

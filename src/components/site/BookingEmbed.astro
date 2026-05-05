@@ -1,0 +1,35 @@
+---
+import { getEntry } from "astro:content";
+interface Props {
+  eyebrow?: string;
+  title?: string;
+  intro?: string;
+  fallbackTitle?: string;
+  fallbackBody?: string;
+}
+const { eyebrow, title, intro, fallbackTitle, fallbackBody } = Astro.props;
+const settings = await getEntry("settings", "site");
+const url = settings?.data.bookingUrl;
+---
+<section class="px-6 lg:px-8 py-16 max-w-[1240px] mx-auto">
+  {eyebrow && <div class="eyebrow">{eyebrow}</div>}
+  {title && <h2 class="text-3xl lg:text-4xl font-light text-cetacean mt-2 mb-3 tracking-tightest">{title}</h2>}
+  {intro && <p class="text-base text-cetacean-70 mb-7 max-w-2xl leading-relaxed">{intro}</p>}
+  {url ? (
+    <div class="rounded-3xl overflow-hidden bg-white shadow-sm">
+      <iframe
+        src={url}
+        width="100%"
+        height="720"
+        loading="lazy"
+        title="Schedule a tour"
+        style="border:0; display:block;"
+      ></iframe>
+    </div>
+  ) : (
+    <div class="bg-white rounded-3xl p-8 text-cetacean-70">
+      <div class="text-lg font-light text-cetacean mb-2">{fallbackTitle ?? "Booking opens soon."}</div>
+      <p class="text-sm leading-relaxed">{fallbackBody ?? "Tour scheduling is being set up. In the meantime, please email info@starlingmontessorischool.com or fill in the contact form."}</p>
+    </div>
+  )}
+</section>
