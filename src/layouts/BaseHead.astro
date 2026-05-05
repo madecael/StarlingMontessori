@@ -57,4 +57,33 @@ const ogImageAbsolute = ogPath.startsWith("http")
       <script set:html={`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','${ga4}');${adsId ? `gtag('config','${adsId}');` : ""}`}></script>
     </>
   )}
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "Preschool",
+    name: "Starling Montessori School",
+    description: "Family-run AMI Montessori childcare center on Capitol Hill, Washington D.C. Toddler Community (ages 14–28 months) and Primary Classroom (ages 3–6, opening August 2026).",
+    url: Astro.site?.toString(),
+    telephone: settings?.data.phone,
+    email: settings?.data.email,
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: settings?.data.address.line1,
+      addressLocality: settings?.data.address.city,
+      addressRegion: settings?.data.address.state,
+      postalCode: settings?.data.address.zip,
+      addressCountry: "US",
+    },
+    areaServed: { "@type": "Place", name: "Capitol Hill, Washington D.C." },
+    founder: {
+      "@type": "Person",
+      name: "Fabienne Deaton",
+      jobTitle: "Founder & Lead Guide",
+      description: "AMI Diploma in Assistants to Infancy (0–3) and AMI Diploma in Primary (3–6). M.Ed., M.A.",
+    },
+    hasCredential: [
+      { "@type": "EducationalOccupationalCredential", credentialCategory: "AMI", name: "Association Montessori Internationale (AMI) authentic" },
+    ],
+    educationalProgramMode: "onsite",
+    audience: { "@type": "EducationalAudience", educationalRole: "Parents of children ages 14 months to 6 years" },
+  })} />
 </head>
