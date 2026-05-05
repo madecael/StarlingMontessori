@@ -6,11 +6,28 @@ interface Props {
   title: string;
   description: string;
   noindex?: boolean;
+  image?: string;
+  imageAlt?: string;
+  type?: "website" | "article";
 }
-const { title, description, noindex = false } = Astro.props;
+const {
+  title,
+  description,
+  noindex = false,
+  image,
+  imageAlt,
+  type = "website",
+} = Astro.props;
 const settings = await getEntry("settings", "site");
 const ga4 = settings?.data.ga4Id;
 const adsId = settings?.data.googleAdsConversionId;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site).toString();
+const defaultOG = "/images/photos/photo-classroom-1.png";
+const ogPath = image ?? defaultOG;
+const ogImageAbsolute = ogPath.startsWith("http")
+  ? ogPath
+  : new URL(ogPath, Astro.site).toString();
 ---
 <head>
   <meta charset="UTF-8" />
@@ -19,6 +36,18 @@ const adsId = settings?.data.googleAdsConversionId;
   {noindex && <meta name="robots" content="noindex" />}
   <title>{title}</title>
   <meta name="description" content={description} />
+  <link rel="canonical" href={canonicalURL} />
+  <meta property="og:type" content={type} />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:url" content={canonicalURL} />
+  <meta property="og:image" content={ogImageAbsolute} />
+  <meta property="og:image:alt" content={imageAlt ?? "Starling Montessori School — Capitol Hill, Washington D.C."} />
+  <meta property="og:site_name" content="Starling Montessori School" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={title} />
+  <meta name="twitter:description" content={description} />
+  <meta name="twitter:image" content={ogImageAbsolute} />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
