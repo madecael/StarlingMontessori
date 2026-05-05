@@ -1,7 +1,7 @@
 type EventName =
   | "tour_form_submit"
   | "phone_click"
-  | "calendly_click"
+  | "booking_click"
   | "tuition_contact_click"
   | "hero_cta_primary"
   | "hero_cta_pearly"

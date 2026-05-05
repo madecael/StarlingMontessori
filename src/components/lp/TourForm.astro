@@ -9,7 +9,7 @@ interface Props {
 }
 const { eyebrow, title, subtitle, extraFields = [], submitLabel = "Send request" } = Astro.props;
 const settings = await getEntry("settings", "site");
-const calendly = settings?.data.calendlyUrl;
+const booking = settings?.data.bookingUrl;
 ---
 <section id="tour" class="bg-cetacean text-seashell px-8 lg:px-12 py-16 mx-4 rounded-t-3xl">
   <div class="max-w-[1240px] mx-auto grid md:grid-cols-2 gap-12">
@@ -58,7 +58,7 @@ const calendly = settings?.data.calendlyUrl;
       </div>
       <div class="mt-4 flex justify-between items-center flex-wrap gap-3">
         <button type="submit" class="btn btn-pearly text-sm font-medium">{submitLabel}</button>
-        {calendly && <a href={calendly} class="text-xs text-cetacean-70 underline" data-event="calendly_click" target="_blank" rel="noopener">Or pick a time on Calendly</a>}
+        {booking && <a href={booking} class="text-xs text-cetacean-70 underline" data-event="booking_click" target="_blank" rel="noopener">Or pick a time on Calendly</a>}
       </div>
       <p data-form-status class="text-sm mt-3 hidden"></p>
     </form>

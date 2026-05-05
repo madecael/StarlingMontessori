@@ -22,7 +22,7 @@ const settings = defineCollection({
       state: z.string(),
       zip: z.string(),
     }),
-    calendlyUrl: z.string().url().optional(),
+    bookingUrl: z.string().url().optional(),
     ga4Id: z.string().optional(),
     googleAdsConversionId: z.string().optional(),
     googleAdsConversionLabel: z.string().optional(),
