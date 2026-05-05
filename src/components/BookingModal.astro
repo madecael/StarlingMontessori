@@ -21,6 +21,10 @@ const url = settings?.data.bookingUrl;
       style="border:0; display:block;"
       data-booking-iframe
     ></iframe>
+    <div class="px-6 py-3 border-t border-cetacean/10 text-xs text-cetacean-70 flex justify-between items-center flex-wrap gap-2">
+      <span>Trouble seeing the calendar?</span>
+      <a href={url} target="_blank" rel="noopener" class="underline" data-event="booking_open_in_tab">Open in a new tab →</a>
+    </div>
   </dialog>
 )}
 <script>
