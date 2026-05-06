@@ -9,13 +9,16 @@ export default defineConfig({
   site: "https://starlingmontessorischool.com",
   output: "static",
   adapter: node({ mode: "standalone" }),
+  // Dev server only — production runs via the Node adapter and doesn't read these.
+  // Allow any host so Replit's preview URLs (which can be multi-level subdomains
+  // like *.spock.replit.dev, *.kirk.replit.dev, etc.) reach the dev server.
   server: {
     host: true,
-    allowedHosts: [".replit.dev", ".repl.co", "localhost", "127.0.0.1"],
+    allowedHosts: true,
   },
   vite: {
     server: {
-      allowedHosts: [".replit.dev", ".repl.co", "localhost", "127.0.0.1"],
+      allowedHosts: true,
     },
   },
   integrations: [
