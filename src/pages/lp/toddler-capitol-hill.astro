@@ -8,7 +8,7 @@ const lp = await getEntry("landing", "toddler-capitol-hill");
 if (!lp) throw new Error("LP content missing");
 const d = lp.data;
 ---
-<LPLayout title={d.title} description={d.description} ctaLabel="Schedule a tour" locationLine="2014 4th St SE, Washington DC 20003">
+<LPLayout title={d.title} description={d.description} ctaLabel="Schedule a tour" locationLine="201 4th St SE, Washington DC 20003">
   <ObjectionHero
     eyebrow={d.eyebrow}
     headline={d.heroHeadline}

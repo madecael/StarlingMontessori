@@ -12,9 +12,9 @@ blocks:
     categories:
       - category: "About Starling"
         questions:
-          - { q: "Who founded Starling?", a: "Fabienne Deaton, an AMI-certified guide with two AMI Diplomas (0–3 and 3–6), an M.Ed., and an M.A. She founded Starling to build the kind of small, family-run school she believes children deserve." }
-          - { q: "Are you part of a chain?", a: "No. Starling is family-run. We have one Toddler Community at Capitol Hill Presbyterian Church and a Primary Classroom opening at Saint Mark Episcopal in August 2026." }
-          - { q: "Where is the school located?", a: "Toddler: 2014 4th St SE, Capitol Hill Presbyterian Church. Primary (opening Aug 2026): Saint Mark Episcopal Church, also on Capitol Hill." }
+          - { q: "Who founded Starling?", a: "Fabienne Deaton, an AMI-certified guide with two AMI Diplomas (Primary 2.5–6 and Elementary 6–12), an M.Ed. in Montessori Education, and a Master's in International Education. She founded Starling to build the kind of small, family-run school she believes children deserve." }
+          - { q: "Are you part of a chain?", a: "No. Starling is family-run. We have one Toddler Community at 201 4th St SE, Capitol Hill Presbyterian Church, and a Primary Classroom opening at 301 A St SE, Saint Mark Episcopal Church, in August 2026." }
+          - { q: "Where is the school located?", a: "Toddler: 201 4th St SE, Capitol Hill Presbyterian Church. Primary (opening Aug 2026): 301 A St SE, Saint Mark Episcopal Church, Capitol Hill." }
       - category: "The Montessori method"
         questions:
           - { q: "What does AMI mean?", a: "Association Montessori Internationale — the organization founded by Maria Montessori herself. AMI training is the most rigorous Montessori credential and the closest to the original method." }
@@ -22,7 +22,7 @@ blocks:
           - { q: "Why mixed-age classrooms?", a: "Maria Montessori designed Primary as a three-year experience. Younger children are inspired by older ones; older children consolidate knowledge by mentoring. The result is a community of learners, not a lockstep grade." }
       - category: "Programs"
         questions:
-          - { q: "What ages do you accept?", a: "Toddler: 14–28 months. Primary (opening Aug 2026): ages 3–6, including the kindergarten year." }
+          - { q: "What ages do you accept?", a: "Toddler: 16–36 months. Primary (opening Aug 2026): ages 3–6, including the kindergarten year." }
           - { q: "What is the daily schedule?", a: "Toddler runs 8:30 AM – 3:00 PM with a soft start, three-hour work cycle, family lunch, rest, and afternoon activities. See the Toddler program page for the full rhythm." }
           - { q: "Will the Primary continue through kindergarten?", a: "Yes. The AMI Primary cycle is a three-year experience, and children stay in the same classroom from age 3 through 6." }
       - category: "Admissions & Tuition"

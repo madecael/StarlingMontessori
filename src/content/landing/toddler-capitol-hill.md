@@ -1,23 +1,23 @@
 ---
 title: "Authentic AMI Montessori on Capitol Hill — Schedule a tour"
-description: "Family-run, AMI-certified, single toddler classroom in Capitol Hill. Schedule a private tour with Fabienne."
+description: "Family-run, with AMI-trained guides. A single toddler classroom in Capitol Hill. Schedule a private tour with Fabienne."
 persona: sarah
 eyebrow: "OPEN ENROLLMENT · TODDLER COMMUNITY"
 heroHeadline: "Not a chain. Not a lottery. The small Montessori on Capitol Hill."
 heroHeadlineHighlight: "The small Montessori on Capitol Hill."
-heroSubhead: "Family-run, AMI-certified, single toddler classroom. Two blocks from Eastern Market — a place where every child is known by name."
+heroSubhead: "Family-run, with AMI-trained guides. A single toddler classroom. Two blocks from Eastern Market — a place where every child is known by name."
 heroPhoto: "/images/photos/photo-classroom-1.png"
 heroAlt: "Toddlers working with Montessori materials in the Starling classroom on Capitol Hill"
-heroLocation: "2014 4th St SE · Capitol Hill Presbyterian Church · Ages 14–28 months"
+heroLocation: "201 4th St SE · Capitol Hill Presbyterian Church · Ages 16–36 months"
 heroCTAs:
   - { label: "Schedule a tour →", href: "#tour", variant: "pearly" }
   - { label: "How is this different?", href: "#why", variant: "outline" }
 blocks:
   - type: trustStrip
     items:
-      - "<strong>AMI Authentic</strong>"
+      - "<strong>AMI-trained team</strong>"
       - "Founder: 2 Master's + 2 AMI Diplomas"
-      - "Capitol Hill since 2021"
+      - "Founded 2024"
       - "Single classroom, low ratio"
   - type: comparisonCards
     eyebrow: "WHY PARENTS CHOOSE STARLING"
@@ -25,11 +25,11 @@ blocks:
     cards:
       - { label: "CORPORATE DAYCARE", title: "Many classrooms. Standardized care.", body: "Your child is a number on a roster.", highlight: false }
       - { label: "PUBLIC MONTESSORI LOTTERY", title: "Free, but uncertain.", body: "Placement isn't guaranteed, year after year.", highlight: false }
-      - { label: "STARLING MONTESSORI", title: "One classroom. Family-run. AMI.", body: "Authentic Montessori, just minutes from your door.", highlight: true }
+      - { label: "STARLING MONTESSORI", title: "One classroom. Family-run. AMI-trained team.", body: "Authentic Montessori, just minutes from your door.", highlight: true }
   - type: founderCard
     eyebrow: "MEET THE FOUNDER"
     quote: "I personally meet every family who walks through our door."
-    attribution: "— Fabienne Deaton, Founder &amp; Lead Guide. AMI Diploma in Assistants to Infancy (0–3) and AMI Diploma in Primary (3–6). M.Ed., M.A. 7+ years guiding D.C. families."
+    attribution: "— Fabienne Deaton, Founder. AMI Diploma in Primary (2.5–6) and AMI Diploma in Elementary (6–12). M.Ed. in Montessori Education. Master's in International Education. 10+ years guiding D.C. families."
   - type: photoStrip
     photos:
       - "/images/photos/photo-classroom-2.png"
@@ -46,9 +46,9 @@ blocks:
     title: "Before you tour."
     questions:
       - { q: "What does AMI mean — and why does it matter?", a: "AMI (Association Montessori Internationale) is the organization founded by Maria Montessori herself. AMI-trained guides have completed a rigorous, multi-year diploma program directly anchored in her curriculum and child-development research. AMI is the strictest standard in the field." }
-      - { q: "Are you part of a chain?", a: "No. Starling is family-run, with one toddler classroom on Capitol Hill and a Primary classroom opening at Saint Mark Episcopal in August 2026. Fabienne meets every family personally." }
+      - { q: "Are you part of a chain?", a: "No. Starling is family-run, with one toddler classroom on Capitol Hill and a Primary classroom opening at Saint Mark Episcopal Church, 301 A St SE, Capitol Hill, Washington D.C. in August 2026. Fabienne meets every family personally." }
       - { q: "How small is the classroom?", a: "Our toddler community is intentionally limited in size, with a low child-to-guide ratio that allows each child to be deeply known. We share specifics during the tour." }
       - { q: "How does this compare to public Montessori?", a: "Public Montessori options on Capitol Hill (e.g. Logan, Lee) are lottery-based and free. Starling is private and tour-to-enroll — placement is certain when you reserve a seat." }
-      - { q: "What ages do you accept?", a: "Our Toddler Community welcomes children from 14 to 28 months. Our Primary Classroom (opening August 2026) is for ages 3 to 6." }
+      - { q: "What ages do you accept?", a: "Our Toddler Community welcomes children from 16 to 36 months. Our Primary Classroom (opening August 2026) is for ages 3 to 6." }
       - { q: "When is the next open enrollment cycle?", a: "Enrollment is open now for the 2026–2027 year. Tours are running through August. We encourage families to schedule early — seats are limited." }
 ---

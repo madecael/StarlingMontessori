@@ -1,6 +1,6 @@
 ---
 title: "About Starling Montessori — Family-run AMI Montessori on Capitol Hill"
-description: "Founded by Fabienne Deaton — AMI-certified guide, M.Ed., M.A. — Starling is intentionally small and family-run. Read our story."
+description: "Founded by Fabienne Deaton — AMI-certified guide with two AMI Diplomas, M.Ed. in Montessori Education, and a Master's in International Education. Starling is intentionally small and family-run. Read our story."
 slug: "about"
 hero:
   eyebrow: "ABOUT US"
@@ -9,12 +9,12 @@ hero:
 blocks:
   - type: founderApproach
     eyebrow: "MEET THE FOUNDER"
-    title: "Fabienne Deaton, Founder & Lead Guide."
+    title: "Fabienne Deaton, Founder."
     photo: "/images/photos/photo-classroom-1.png"
-    photoAlt: "Fabienne with a child at the Starling classroom"
+    photoAlt: "Fabienne, founder of Starling Montessori"
     paragraphs:
-      - "Fabienne Deaton holds the AMI Diploma in Assistants to Infancy (0–3) and the AMI Diploma in Primary (3–6) — the two most rigorous credentials in the Montessori field. She also holds a Master of Education and a Master of Arts."
-      - "After more than seven years guiding D.C. families, Fabienne founded Starling to build the kind of small, intentional Montessori community she had always believed children deserved."
+      - "Fabienne Deaton holds the AMI Diploma in Primary (2.5–6) and the AMI Diploma in Elementary (6–12) — among the most rigorous credentials in the Montessori field. She holds an M.Ed. in Montessori Education and a Master's in International Education."
+      - "After more than 10 years guiding D.C. families, Fabienne founded Starling to build the kind of small, intentional Montessori community she had always believed children deserved."
       - "She personally meets every family who walks through our door."
   - type: valuePillars
     eyebrow: "OUR PILLARS"

@@ -24,7 +24,7 @@ blocks:
     title: "Two classrooms. One continuous Montessori path."
     programs:
       - eyebrow: "TODDLER COMMUNITY"
-        title: "Ages 14–28 months."
+        title: "Ages 16–36 months."
         ages: "ENROLLING NOW"
         body: "A small, calm classroom at Capitol Hill Presbyterian Church — your child's first community outside the home."
         photo: "/images/photos/photo-toddler.png"
@@ -46,7 +46,7 @@ blocks:
     eyebrow: "A FAMILY-RUN SCHOOL"
     title: "Every child's story is cherished."
     paragraphs:
-      - "Starling was founded by Fabienne Deaton — a guide with two AMI diplomas and seven years of experience walking alongside D.C. families. We are intentionally small, by design."
+      - "Starling was founded by Fabienne Deaton — a guide with two AMI diplomas and 10+ years of experience walking alongside D.C. families. We are intentionally small, by design."
       - "When you tour Starling, you meet Fabienne directly. There is no admissions office, no marketing department. There is the classroom, the children, and the conversation."
     cta: { label: "Read our story →", href: "/about", variant: "outline" }
   - type: photoStrip
