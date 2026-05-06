@@ -1,11 +1,11 @@
 ---
 title: "Primary Program (3–6) · Opening August 2026 · Starling Montessori"
-description: "Our new AMI Primary classroom opens at Saint Mark Episcopal in August 2026. Twelve seats, three-year cycle, ages 3–6."
+description: "Our new Primary classroom — led by an AMI-trained guide — opens at Saint Mark Episcopal in August 2026. Twelve seats, three-year cycle, ages 3–6."
 slug: "programs/primary"
 hero:
   eyebrow: "PRIMARY CLASSROOM · AGES 3–6"
   headline: "Opening August 2026 at Saint Mark Episcopal."
-  subhead: "Our new AMI Primary classroom — twelve seats, three-year cycle, designed for families committed to authentic Montessori from age three through kindergarten."
+  subhead: "Our new Primary classroom, led by an AMI-trained guide — twelve seats, three-year cycle, designed for families committed to authentic Montessori from age three through kindergarten."
   photo: "/images/photos/photo-classroom-2.png"
   photoAlt: "A child engaged with Montessori materials"
   ctas:

@@ -1,5 +1,5 @@
 ---
-title: "About Starling Montessori — Family-run AMI Montessori on Capitol Hill"
+title: "About Starling Montessori — Family-run, AMI-trained on Capitol Hill"
 description: "Founded by Fabienne Deaton — AMI-certified guide with two AMI Diplomas, M.Ed. in Montessori Education, and a Master's in International Education. Starling is intentionally small and family-run. Read our story."
 slug: "about"
 hero:

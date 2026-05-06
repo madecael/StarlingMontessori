@@ -1,5 +1,5 @@
 ---
-title: "Authentic AMI Montessori on Capitol Hill — Schedule a tour"
+title: "Montessori on Capitol Hill, AMI-trained guides — Schedule a tour"
 description: "Family-run, with AMI-trained guides. A single toddler classroom in Capitol Hill. Schedule a private tour with Fabienne."
 persona: sarah
 eyebrow: "OPEN ENROLLMENT · TODDLER COMMUNITY"

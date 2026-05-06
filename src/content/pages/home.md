@@ -1,5 +1,5 @@
 ---
-title: "Starling Montessori — Authentic AMI Montessori on Capitol Hill"
+title: "Starling Montessori — Family-run, AMI-trained guides on Capitol Hill"
 description: "Soaring minds. Freeing potential. A family-run Montessori childcare center on Capitol Hill, D.C. Toddler Community + Primary Classroom opening August 2026."
 hero:
   eyebrow: "OPEN ENROLLMENT"
@@ -33,7 +33,7 @@ blocks:
       - eyebrow: "PRIMARY CLASSROOM"
         title: "Ages 3–6."
         ages: "RESERVING NOW"
-        body: "A new AMI Primary classroom opening at Saint Mark Episcopal — twelve seats in our inaugural class."
+        body: "A new Primary classroom led by an AMI-trained guide, opening at Saint Mark Episcopal — twelve seats in our inaugural class."
         photo: "/images/photos/photo-classroom-2.png"
         photoAlt: "A child engaged with Montessori materials"
         cta: { label: "Learn more →", href: "/programs/primary", variant: "ghost" }

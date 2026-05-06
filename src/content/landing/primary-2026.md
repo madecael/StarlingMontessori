@@ -1,10 +1,10 @@
 ---
 title: "Primary Montessori opening Aug 2026 on Capitol Hill — Reserve your tour"
-description: "A new AMI Primary classroom for ages 3–6 opens August 2026 at Saint Mark Episcopal. Twelve seats. Reserve your tour."
+description: "A new Primary classroom (ages 3–6) led by an AMI-trained guide opens August 2026 at Saint Mark Episcopal. Twelve seats. Reserve your tour."
 persona: davidmaya
 eyebrow: "PRIMARY CLASSROOM · AGES 3–6"
-heroHeadline: "A new AMI Primary classroom opening on Capitol Hill, August 2026."
-heroHeadlineHighlight: "AMI Primary classroom"
+heroHeadline: "A new Primary classroom on Capitol Hill, led by an AMI-trained guide. Opening August 2026."
+heroHeadlineHighlight: "AMI-trained guide"
 heroSubhead: "Twelve seats in our inaugural class. Designed for families who want their child to grow inside an authentic, three-year Primary cycle without switching schools."
 heroPhoto: "/images/photos/photo-classroom-1.png"
 heroAlt: "Starling Montessori classroom — soon to be home to the new Primary classroom at Saint Mark Episcopal"
