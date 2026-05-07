@@ -241,6 +241,21 @@ const pages = defineCollection({
           subtitle: z.string().optional(),
         }),
         z.object({
+          type: z.literal("openings"),
+          eyebrow: z.string().optional(),
+          title: z.string().optional(),
+          intro: z.string().optional(),
+          fallbackTitle: z.string().optional(),
+          fallbackBody: z.string().optional(),
+          positions: z.array(z.object({
+            title: z.string(),
+            type: z.string(),
+            startDate: z.string().optional(),
+            summary: z.string(),
+            qualifications: z.array(z.string()).default([]),
+          })).default([]),
+        }),
+        z.object({
           type: z.literal("openHouseList"),
           eyebrow: z.string(),
           title: z.string(),
