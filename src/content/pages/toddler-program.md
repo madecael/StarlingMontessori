@@ -21,14 +21,19 @@ blocks:
       - { time: "10:45–11:45", label: "Outdoor play", body: "Walking on Capitol Hill, the shaded yard, or sensorial play outside." }
       - { time: "12:00–12:30", label: "Family-style lunch", body: "Children help set, serve, and clean — practical life as community." }
       - { time: "12:30–2:45", label: "Rest & quiet activities", body: "Naps for those who need them; quiet activities for those who don't." }
+      - { time: "3:00", label: "Departure", body: "Pickup for school-day families. Extended-care families continue with afternoon activities until 4:30 or 5:00 PM." }
   - type: materialsGrid
     eyebrow: "WHAT THEY WORK WITH"
     title: "Materials & curriculum at the Toddler stage."
     categories:
-      - { name: "Lorem ipsum dolor", examples: ["Sit amet consectetur adipiscing", "Elit sed do eiusmod tempor", "Incididunt ut labore et dolore"] }
-      - { name: "Magna aliqua ut enim", examples: ["Ad minim veniam quis", "Nostrud exercitation ullamco", "Laboris nisi ut aliquip"] }
-      - { name: "Ex ea commodo consequat", examples: ["Duis aute irure dolor", "In reprehenderit in voluptate", "Velit esse cillum dolore"] }
-      - { name: "Eu fugiat nulla pariatur", examples: ["Excepteur sint occaecat", "Cupidatat non proident sunt", "In culpa qui officia deserunt"] }
+      - name: "Practical Life"
+        examples: ["Pouring, transferring, sorting", "Toilet learning", "Food preparation", "Care of self and environment"]
+      - name: "Problem Solving & Manipulatives"
+        examples: ["Puzzles and matching", "Fine motor activities", "Shape recognition", "Object permanence work"]
+      - name: "Language"
+        examples: ["Naming objects in the environment", "Songs, rhymes, and stories", "Picture books and conversation"]
+      - name: "Movement"
+        examples: ["Climbing and walking refinement", "Coordination work", "Outdoor exploration"]
   - type: photoStrip
     photos:
       - "/images/photos/photo-classroom-1.png"
