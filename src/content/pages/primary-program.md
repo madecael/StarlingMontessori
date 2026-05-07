@@ -26,9 +26,10 @@ blocks:
     steps:
       - { time: "8:00–8:30", label: "Arrival", body: "A warm welcome and individual greeting." }
       - { time: "8:30–11:30", label: "Three-hour work cycle", body: "The signature of Montessori Primary — uninterrupted, self-directed work." }
-      - { time: "11:30–12:30", label: "Lunch & community time", body: "Children prepare, serve, and share a family-style lunch together." }
-      - { time: "12:30–1:30", label: "Outdoor & rest", body: "Recess, garden, or quiet time depending on the child's needs." }
-      - { time: "1:30–3:30", label: "Afternoon work cycle", body: "Group lessons, projects, and continued exploration. Half-day pickup at 12:30; full-day pickup at 3:30." }
+      - { time: "11:30–12:30", label: "Outdoor play", body: "Recess in the shaded yard or walking the neighborhood." }
+      - { time: "12:30", label: "Half-day dismissal", body: "Half-day families pick up here. Full-day children continue with the afternoon." }
+      - { time: "1:00–1:30", label: "Lunch", body: "Children prepare, serve, and share a family-style lunch together." }
+      - { time: "1:30–3:30", label: "Afternoon work cycle", body: "Group lessons, projects, and continued exploration — or rest and nap for children under 4." }
   - type: materialsGrid
     eyebrow: "WHAT THEY WORK WITH"
     title: "Materials & curriculum at the Primary stage."
