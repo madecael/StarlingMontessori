@@ -6,8 +6,8 @@ eyebrow: "PRIMARY CLASSROOM · AGES 3–6"
 heroHeadline: "A new Primary classroom on Capitol Hill, led by an AMI-trained guide. Opening August 2026."
 heroHeadlineHighlight: "AMI-trained guide"
 heroSubhead: "Twelve seats in our inaugural class. Designed for families who want their child to grow inside an authentic, three-year Primary cycle without switching schools."
-heroPhoto: "/images/photos/photo-classroom-2.png"
-heroAlt: "Two children working together on Montessori art materials"
+heroPhoto: "/images/photos/pink-tower-build.jpg"
+heroAlt: "A Starling child building the Pink Tower — a foundational Montessori sensorial material — in front of the classroom's stained glass windows"
 heroLocation: "Saint Mark Episcopal Church · 301 A St SE · Capitol Hill · Ages 2.5–6"
 heroCTAs:
   - { label: "Reserve a tour →", href: "#tour", variant: "pearly" }
@@ -49,10 +49,10 @@ blocks:
     title: "Saint Mark Episcopal Church."
     body: "A purpose-built classroom in the heart of Capitol Hill — designed specifically for the developmental needs of children ages 3 to 6. Wood floors, abundant natural light, and a shaded yard."
     imageSlots:
-      - "/images/photos/photo-classroom-3.png"
-      - "/images/photos/photo-classroom-5.png"
-      - "/images/photos/photo-classroom-4.png"
-    disclosure: "Photos shown are from our existing Toddler classroom — they reflect the kind of work and atmosphere your child will experience. Final Primary classroom photos at Saint Mark coming as the build-out completes — Summer 2026."
+      - "/images/photos/classroom-stained-glass.jpg"
+      - "/images/photos/reading-group.jpg"
+      - "/images/photos/garden-walk.jpg"
+    disclosure: "Photos shown are from our existing Toddler classroom — they reflect the kind of work, light, and atmosphere your child will experience. Final Primary classroom photos at Saint Mark coming as the build-out completes — Summer 2026."
   - type: comparisonTable
     eyebrow: "SO YOU CAN DECIDE"
     title: "Comparing your Primary options on Capitol Hill."

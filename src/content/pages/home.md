@@ -55,11 +55,11 @@ blocks:
     cta: { label: "Read our story →", href: "/about", variant: "outline" }
   - type: photoStrip
     photos:
-      - "/images/photos/photo-classroom-2.png"
-      - "/images/photos/photo-classroom-3.png"
-      - "/images/photos/photo-classroom-4.png"
-      - "/images/photos/photo-classroom-5.png"
-      - "/images/photos/photo-toddler.png"
+      - "/images/photos/toddlers-on-bench.jpg"
+      - "/images/photos/kids-working-shapes.jpg"
+      - "/images/photos/classroom-stained-glass.jpg"
+      - "/images/photos/reading-group.jpg"
+      - "/images/photos/pink-tower-build.jpg"
   - type: enrollCTA
     eyebrow: "ENROLLING NOW"
     title: "Come visit. We'd love to meet your family."

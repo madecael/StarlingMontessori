@@ -39,10 +39,10 @@ blocks:
     photo: "/images/photos/founder-portrait.jpeg"
   - type: photoStrip
     photos:
-      - "/images/photos/photo-classroom-2.png"
-      - "/images/photos/photo-classroom-3.png"
-      - "/images/photos/photo-classroom-4.png"
-      - "/images/photos/photo-classroom-5.png"
+      - "/images/photos/toddlers-on-bench.jpg"
+      - "/images/photos/kids-working-shapes.jpg"
+      - "/images/photos/reading-group.jpg"
+      - "/images/photos/garden-walk.jpg"
   - type: tuitionFraming
   - type: tourForm
     eyebrow: "SCHEDULE YOUR VISIT"
