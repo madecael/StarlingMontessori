@@ -4,26 +4,27 @@ const settings = await getEntry("settings", "site");
 const url = settings?.data.bookingUrl;
 ---
 {url && (
-  <dialog id="booking-modal" class="m-auto p-0 rounded-3xl shadow-lg w-[min(92vw,860px)] max-h-[92vh] backdrop:bg-cetacean/40 backdrop:backdrop-blur-sm overflow-hidden bg-seashell">
+  <dialog id="booking-modal" class="m-auto p-0 rounded-3xl shadow-lg w-[min(92vw,520px)] backdrop:bg-cetacean/40 backdrop:backdrop-blur-sm overflow-hidden bg-seashell">
     <div class="flex items-center justify-between px-6 py-4 border-b border-cetacean/10">
-      <div>
-        <div class="eyebrow">SCHEDULE A TOUR</div>
-        <div class="text-lg font-light text-cetacean tracking-tightest">Pick a time that works for your family.</div>
-      </div>
+      <div class="eyebrow">SCHEDULE A TOUR</div>
       <button data-booking-close aria-label="Close" class="text-cetacean text-2xl leading-none px-3 py-1 hover:text-pearly-deep">×</button>
     </div>
-    <iframe
-      src={url}
-      width="100%"
-      height="640"
-      loading="lazy"
-      title="Schedule a tour with Starling Montessori"
-      style="border:0; display:block;"
-      data-booking-iframe
-    ></iframe>
-    <div class="px-6 py-3 border-t border-cetacean/10 text-xs text-cetacean-70 flex justify-between items-center flex-wrap gap-2">
-      <span>Trouble seeing the calendar?</span>
-      <a href={url} target="_blank" rel="noopener" class="underline" data-event="booking_open_in_tab">Open in a new tab →</a>
+    <div class="px-7 py-8">
+      <h2 class="text-2xl lg:text-[28px] font-light text-cetacean tracking-tightest leading-tight">Pick a time that works for your family.</h2>
+      <p class="text-sm text-cetacean-70 leading-relaxed mt-3">
+        30-minute tour with Fabienne, in person at the Toddler classroom on Capitol Hill. Saint Mark Episcopal (Primary) tours are by virtual walkthrough until the build-out completes.
+      </p>
+      <a
+        href={url}
+        target="_blank"
+        rel="noopener"
+        class="btn btn-pearly mt-6 w-full justify-center"
+        data-event="booking_open_in_tab"
+        data-booking-confirm
+      >
+        Open booking calendar →
+      </a>
+      <p class="text-xs text-cetacean-70 mt-3 text-center">Opens Google Calendar in a new tab.</p>
     </div>
   </dialog>
 )}
@@ -39,7 +40,6 @@ const url = settings?.data.bookingUrl;
           (window as any).gtag("event", "booking_modal_open");
         }
       }
-      // If no modal (no bookingUrl set), let the link navigate to its href (e.g. /open-house)
       return;
     }
     const close = (e.target as HTMLElement).closest("[data-booking-close]");
@@ -47,8 +47,13 @@ const url = settings?.data.bookingUrl;
       const modal = document.getElementById("booking-modal") as HTMLDialogElement | null;
       modal?.close();
     }
+    const confirm = (e.target as HTMLElement).closest("[data-booking-confirm]");
+    if (confirm) {
+      const modal = document.getElementById("booking-modal") as HTMLDialogElement | null;
+      // Let the link navigate (target=_blank), then close the modal so they return to the page
+      setTimeout(() => modal?.close(), 100);
+    }
   });
-  // Close on backdrop click
   const modal = document.getElementById("booking-modal") as HTMLDialogElement | null;
   modal?.addEventListener("click", (e) => {
     if (e.target === modal) modal.close();
