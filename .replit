@@ -7,5 +7,5 @@ channel = "stable-24_05"
 
 [deployment]
 deploymentTarget = "cloudrun"
-build = ["npm", "ci", "&&", "npm", "run", "build"]
+build = ["bash", "-c", "npm ci && npm run build"]
 run = ["npm", "start"]
