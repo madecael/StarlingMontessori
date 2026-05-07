@@ -6,8 +6,8 @@ hero:
   headline: "Soaring minds. Freeing potential."
   headlineHighlight: "potential."
   subhead: "A family-run Montessori childcare center on Capitol Hill, D.C. — building community, respectful care, and life-long learning for every unique child."
-  photo: "/images/photos/photo-classroom-1.png"
-  photoAlt: "Children working with Montessori materials in the Starling classroom"
+  photo: "/images/photos/founder-with-child.jpeg"
+  photoAlt: "Fabienne Deaton, founder of Starling Montessori, welcoming a toddler at the school's front door on Capitol Hill"
   ctas:
     - { label: "Schedule a tour →", href: "/open-house", variant: "primary" }
     - { label: "Our programs ↓", href: "#programs", variant: "outline" }

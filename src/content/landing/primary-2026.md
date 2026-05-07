@@ -66,6 +66,7 @@ blocks:
     eyebrow: "FOUNDER"
     quote: "The Primary years are when Montessori does its deepest work."
     attribution: "— Fabienne Deaton, Founder. AMI Diploma in Primary (2.5–6) and AMI Diploma in Elementary (6–12). M.Ed. in Montessori Education. Master's in International Education. The Primary classroom is led by an AMI-trained guide on our team."
+    photo: "/images/photos/founder-portrait.jpeg"
   - type: tuitionFraming
   - type: tourForm
     eyebrow: "RESERVE A TOUR"

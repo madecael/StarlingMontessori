@@ -10,8 +10,8 @@ blocks:
   - type: founderApproach
     eyebrow: "MEET THE FOUNDER"
     title: "Fabienne Deaton, Founder."
-    photo: "/images/photos/photo-classroom-1.png"
-    photoAlt: "Fabienne, founder of Starling Montessori"
+    photo: "/images/photos/founder-portrait.jpeg"
+    photoAlt: "Fabienne Deaton, founder of Starling Montessori, photographed beside the school's banner on Capitol Hill"
     paragraphs:
       - "Fabienne Deaton holds the AMI Diploma in Primary (2.5–6) and the AMI Diploma in Elementary (6–12) — among the most rigorous credentials in the Montessori field. She holds an M.Ed. in Montessori Education and a Master's in International Education."
       - "After more than 10 years guiding D.C. families, Fabienne founded Starling to build the kind of small, intentional Montessori community she had always believed children deserved."

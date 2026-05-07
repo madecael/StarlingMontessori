@@ -36,6 +36,7 @@ blocks:
     eyebrow: "MEET THE FOUNDER"
     quote: "I personally meet every family who walks through our door."
     attribution: "— Fabienne Deaton, Founder. AMI Diploma in Primary (2.5–6) and AMI Diploma in Elementary (6–12). M.Ed. in Montessori Education. Master's in International Education. 10+ years guiding D.C. families."
+    photo: "/images/photos/founder-portrait.jpeg"
   - type: photoStrip
     photos:
       - "/images/photos/photo-classroom-2.png"
