@@ -7,7 +7,11 @@ type EventName =
   | "tuition_contact_click"
   | "hero_cta_primary"
   | "hero_cta_pearly"
-  | "hero_cta_outline";
+  | "hero_cta_outline"
+  | "tour_booking_toddler"
+  | "tour_booking_primary"
+  | "contact_form_submit"
+  | "map_click";
 
 declare global {
   interface Window { gtag?: (...args: any[]) => void; }

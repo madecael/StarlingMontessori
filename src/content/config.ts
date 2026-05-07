@@ -25,7 +25,11 @@ const settings = defineCollection({
     bookingUrl: z.string().url().optional(),
     ga4Id: z.string().optional(),
     googleAdsConversionId: z.string().optional(),
-    googleAdsConversionLabel: z.string().optional(),
+    googleAdsConversionLabels: z.object({
+      tourBookingToddler: z.string().optional(),
+      tourBookingPrimary: z.string().optional(),
+      contactFormSubmit: z.string().optional(),
+    }).optional(),
     resendFromAddress: z.string().email(),
     tourEmailRecipient: z.string().email(),
   }),
@@ -229,6 +233,12 @@ const pages = defineCollection({
           type: z.literal("contactCard"),
           eyebrow: z.string().optional(),
           title: z.string().optional(),
+        }),
+        z.object({
+          type: z.literal("contactForm"),
+          eyebrow: z.string().optional(),
+          title: z.string().optional(),
+          subtitle: z.string().optional(),
         }),
         z.object({
           type: z.literal("openHouseList"),

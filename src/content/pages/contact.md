@@ -10,6 +10,10 @@ blocks:
   - type: contactCard
     eyebrow: "VISIT US"
     title: "On Capitol Hill, two blocks from Eastern Market."
+  - type: contactForm
+    eyebrow: "GET IN TOUCH"
+    title: "Send us a message."
+    subtitle: "Fabienne or someone from our team will respond within one business day. For tour scheduling, the booking calendar is faster."
   - type: enrollCTA
     eyebrow: "TOURS"
     title: "Schedule a private tour."

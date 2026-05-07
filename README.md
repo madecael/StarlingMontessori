@@ -40,6 +40,39 @@ The site uses Google Calendar Appointment Schedules (a free feature in Google Wo
 
 If `bookingUrl` is left empty, the site falls back to the existing form-based "request a tour" flow (visitor submits, Fabienne emails back to coordinate).
 
+## How to wire Google Ads conversions
+
+The website fires three lead conversion events on dedicated confirmation pages:
+
+| Conversion | Confirmation page | GA4 event name | Default value |
+|---|---|---|---|
+| Tour Booking — Toddler | /confirmation-toddler-tour | `tour_booking_toddler` | $50 |
+| Tour Booking — Primary | /confirmation-primary-tour | `tour_booking_primary` | $80 |
+| Contact Form Submit | /confirmation-contact | `contact_form_submit` | $20 |
+
+To wire each conversion in Google Ads:
+
+1. In Google Ads, go to **Tools → Conversions → New conversion action → Website**.
+2. Create the conversion with the matching name (e.g., "Tour Booking — Toddler"), value (e.g., $50), and category "Submit lead form".
+3. After saving, Google Ads gives you the **Conversion ID** (looks like `AW-1234567890`) and the **Conversion Label** (a short string).
+4. Open `src/content/settings/site.md` and set:
+
+```yaml
+googleAdsConversionId: AW-1234567890
+googleAdsConversionLabels:
+  tourBookingToddler: AbCdEfGhIjK
+  tourBookingPrimary: LmNoPqRsTuV
+  contactFormSubmit: WxYzAbCdEfG
+```
+
+5. Commit and push. The conversion will fire on the matching confirmation page after the next deploy.
+
+**External integrations** (NOT wired in the site code):
+
+- **Phone Call — over 60s ($40)**: requires CallRail or Google Ads call extensions with call reporting. Not a website-side change.
+- **Application — Brightwheel ($300)**: requires either (a) GTM cross-domain tracking via Brightwheel's redirect-back URL, or (b) Brightwheel webhook → Zapier → Google Ads offline conversion import.
+- **Pricing Page View ($5, secondary)**: GA4 fires `page_view` automatically on `/tuition`. In GA4 → Admin → Events, mark `page_view` with a custom condition (page_path = /tuition) as a custom event called `pricing_page_view`, then mark it as a conversion. Set it as **secondary** in Google Ads so it doesn't dominate bidding.
+
 ## How to set tracking IDs
 
 Edit `src/content/settings/site.md` and fill in:
@@ -47,7 +80,10 @@ Edit `src/content/settings/site.md` and fill in:
 ```yaml
 ga4Id: G-XXXXXXXXXX
 googleAdsConversionId: AW-1234567890
-googleAdsConversionLabel: AbCdEfGhIjKl
+googleAdsConversionLabels:
+  tourBookingToddler: AbCdEfGhIjK
+  tourBookingPrimary: LmNoPqRsTuV
+  contactFormSubmit: WxYzAbCdEfG
 bookingUrl: https://calendar.app.google/abc123XYZ
 ```
 

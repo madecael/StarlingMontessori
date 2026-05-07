@@ -10,6 +10,7 @@ import MaterialsGrid from "./MaterialsGrid.astro";
 import ThreeYearCycle from "./ThreeYearCycle.astro";
 import ProcessTimeline from "./ProcessTimeline.astro";
 import ContactCard from "./ContactCard.astro";
+import ContactForm from "./ContactForm.astro";
 import OpenHouseList from "./OpenHouseList.astro";
 import SiteFAQ from "./SiteFAQ.astro";
 import TuitionFraming from "../lp/TuitionFraming.astro";
@@ -31,6 +32,7 @@ const { block } = Astro.props;
 {block.type === "threeYearCycle" && <ThreeYearCycle eyebrow={block.eyebrow} title={block.title} intro={block.intro} years={block.years} />}
 {block.type === "processTimeline" && <ProcessTimeline eyebrow={block.eyebrow} title={block.title} steps={block.steps} />}
 {block.type === "contactCard" && <ContactCard eyebrow={block.eyebrow} title={block.title} />}
+{block.type === "contactForm" && <ContactForm eyebrow={block.eyebrow} title={block.title} subtitle={block.subtitle} />}
 {block.type === "openHouseList" && <OpenHouseList eyebrow={block.eyebrow} title={block.title} intro={block.intro} sessions={block.sessions} />}
 {block.type === "faqAccordion" && <SiteFAQ eyebrow={block.eyebrow} title={block.title} categories={block.categories} />}
 {block.type === "tuitionFraming" && <TuitionFraming />}

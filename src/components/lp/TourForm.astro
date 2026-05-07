@@ -73,7 +73,6 @@ const booking = settings?.data.bookingUrl;
   </div>
 </section>
 <script>
-  import { track } from "../../lib/analytics";
   const form = document.getElementById("tour-form") as HTMLFormElement | null;
   if (form) {
     form.addEventListener("submit", async (e) => {
@@ -90,10 +89,12 @@ const booking = settings?.data.bookingUrl;
           body: JSON.stringify(data),
         });
         if (!res.ok) throw new Error("submit failed");
-        status.textContent = "Thank you. Fabienne will reach out within a day.";
+        const page = (data as any).page || location.pathname.replace(/^\/lp\//, "").replace(/\/$/, "");
+        const target = page.includes("primary") ? "/confirmation-primary-tour" : "/confirmation-toddler-tour";
+        status.textContent = "Sending you to confirmation…";
         status.style.color = "var(--cetacean,#0C163D)";
-        track("tour_form_submit", { page: location.pathname });
         form.reset();
+        window.location.assign(target);
       } catch (err) {
         status.textContent = "Something went wrong. Please email info@starlingmontessorischool.com.";
         status.style.color = "#8B5C7E";
