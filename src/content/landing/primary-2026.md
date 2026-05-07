@@ -81,6 +81,6 @@ blocks:
       - { q: "Is AMI accreditation in place from day one?", a: "Our school is not AMI-accredited — that designation requires significant funding and at least five years of operation, and it remains a long-term goal. What we can promise is this: we hire AMI-trained guides, and our Primary classroom is led by one. The curriculum and prepared environment follow the AMI standard from day one." }
       - { q: "My child is already in Montessori — will materials transfer?", a: "Yes. We work with each transferring family to understand the materials and presentations your child has already received, and place them at the right point in our curriculum." }
       - { q: "What happens if our family relocates again?", a: "We provide a transcript-style summary of your child's Montessori work that any AMI school can use to continue placement. Families relocating internationally have used this with schools across Europe and Asia." }
-      - { q: "Do you accept DC vouchers or financial aid?", a: "Tuition rates vary based on our program schedules. Please reach out to us directly for information on payment plans and aid availability." }
+      - { q: "Do you accept DC vouchers or financial aid?", a: "We accept military subsidies through Child Care Aware of America. For other situations, please reach out — we'll discuss what's possible." }
       - { q: "Will the Primary continue through kindergarten?", a: "Yes — the AMI Primary cycle is a three-year experience including the kindergarten year. Children stay in the same classroom from age 3 through 6." }
 ---

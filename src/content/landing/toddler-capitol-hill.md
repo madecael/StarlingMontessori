@@ -53,7 +53,7 @@ blocks:
     questions:
       - { q: "What does AMI mean — and why does it matter?", a: "AMI (Association Montessori Internationale) is the organization founded by Maria Montessori herself. AMI-trained guides have completed a rigorous, multi-year diploma program directly anchored in her curriculum and child-development research. AMI is the strictest standard in the field." }
       - { q: "Are you part of a chain?", a: "No. Starling is family-run, with one toddler classroom on Capitol Hill and a Primary classroom opening at Saint Mark Episcopal Church, 301 A St SE, Capitol Hill, Washington D.C. in August 2026. Fabienne meets every family personally." }
-      - { q: "How small is the classroom?", a: "Our toddler community is intentionally limited in size, with a low child-to-guide ratio that allows each child to be deeply known. We share specifics during the tour." }
+      - { q: "How small is the classroom?", a: "Toddler runs at a 1:4 ratio (one guide for every four children) — well below the licensed maximum and a deliberate part of how we work. Every child is genuinely known." }
       - { q: "How does this compare to public Montessori?", a: "Public Montessori options on Capitol Hill (e.g. Logan, Lee) are lottery-based and free. Starling is private and tour-to-enroll — placement is certain when you reserve a seat." }
       - { q: "What ages do you accept?", a: "Our Toddler Community welcomes children from 16 to 36 months. Our Primary Classroom (opening August 2026) is for ages 3 to 6." }
       - { q: "When is the next open enrollment cycle?", a: "Enrollment is open now for the 2026–2027 year. Tours are running through August. We encourage families to schedule early — seats are limited." }
