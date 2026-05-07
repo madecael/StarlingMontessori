@@ -8,6 +8,7 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
+    "prestart": "test -f ./dist/server/entry.mjs || npm run build",
     "start": "node ./dist/server/entry.mjs",
     "preview": "astro preview",
     "test": "vitest run",
