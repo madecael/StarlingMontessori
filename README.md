@@ -67,10 +67,9 @@ googleAdsConversionLabels:
 
 5. Commit and push. The conversion will fire on the matching confirmation page after the next deploy.
 
-**External integrations** (NOT wired in the site code):
+**Optional integrations** (NOT wired in the site code):
 
-- **Phone Call — over 60s ($40)**: requires CallRail or Google Ads call extensions with call reporting. Not a website-side change.
-- **Application — Brightwheel ($300)**: requires either (a) GTM cross-domain tracking via Brightwheel's redirect-back URL, or (b) Brightwheel webhook → Zapier → Google Ads offline conversion import.
+- **Phone Call — over 60s ($40)**: requires CallRail or Google Ads call extensions with call reporting. Not a website-side change. Add later if call volume warrants it.
 - **Pricing Page View ($5, secondary)**: GA4 fires `page_view` automatically on `/tuition`. In GA4 → Admin → Events, mark `page_view` with a custom condition (page_path = /tuition) as a custom event called `pricing_page_view`, then mark it as a conversion. Set it as **secondary** in Google Ads so it doesn't dominate bidding.
 
 ## How to set tracking IDs
