@@ -6,8 +6,8 @@ eyebrow: "OPEN ENROLLMENT · TODDLER COMMUNITY"
 heroHeadline: "Not a chain. Not a lottery. The small Montessori on Capitol Hill."
 heroHeadlineHighlight: "The small Montessori on Capitol Hill."
 heroSubhead: "Family-run, with AMI-trained guides. A single toddler classroom. Two blocks from Eastern Market — a place where every child is known by name."
-heroPhoto: "/images/photos/photo-classroom-1.png"
-heroAlt: "Toddlers working with Montessori materials in the Starling classroom on Capitol Hill"
+heroPhoto: "/images/photos/founder-with-child.jpeg"
+heroAlt: "Fabienne, founder of Starling Montessori, welcoming a toddler at the school's front door on Capitol Hill"
 heroLocation: "201 4th St SE · Capitol Hill Presbyterian Church · Ages 16–36 months"
 heroCTAs:
   - { label: "Schedule a tour →", href: "#tour", variant: "pearly" }
