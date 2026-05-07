@@ -29,7 +29,7 @@ blocks:
       - { time: "11:30–12:30", label: "Outdoor play", body: "Recess in the shaded yard or walking the neighborhood." }
       - { time: "12:30", label: "Half-day dismissal", body: "Half-day families pick up here. Full-day children continue with the afternoon." }
       - { time: "1:00–1:30", label: "Lunch", body: "Children prepare, serve, and share a family-style lunch together." }
-      - { time: "1:30–3:30", label: "Afternoon work cycle", body: "Group lessons, projects, and continued exploration — or rest and nap for children under 4." }
+      - { time: "1:30–3:30", label: "Afternoon work cycle", body: "Group lessons, projects, and continued exploration. Children under 3 rest and nap in the Primary room from 1:30 to 3:00." }
   - type: materialsGrid
     eyebrow: "WHAT THEY WORK WITH"
     title: "Materials & curriculum at the Primary stage."
