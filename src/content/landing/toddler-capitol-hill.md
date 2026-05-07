@@ -26,6 +26,12 @@ blocks:
       - { label: "CORPORATE DAYCARE", title: "Many classrooms. Standardized care.", body: "Your child is a number on a roster.", highlight: false }
       - { label: "PUBLIC MONTESSORI LOTTERY", title: "Free, but uncertain.", body: "Placement isn't guaranteed, year after year.", highlight: false }
       - { label: "STARLING MONTESSORI", title: "One classroom. Family-run. AMI-trained team.", body: "Authentic Montessori, just minutes from your door.", highlight: true }
+  - type: testimonials
+    eyebrow: "FAMILIES"
+    title: "From Starling parents."
+    quotes:
+      - { quote: "Our son started at Starling Montessori when he was just 18 months old, and now, at 2½, he absolutely loves going to school each day.", attribution: "Jennifer, Starling Parent (2024–25)" }
+      - { quote: "When we found Starling Montessori and took a tour, we knew immediately that it was a special place.", attribution: "Hannah, Current Starling Parent" }
   - type: founderCard
     eyebrow: "MEET THE FOUNDER"
     quote: "I personally meet every family who walks through our door."

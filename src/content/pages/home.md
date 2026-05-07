@@ -39,9 +39,13 @@ blocks:
         cta: { label: "Learn more →", href: "/programs/primary", variant: "ghost" }
         badge: "NEW · AUG 2026"
         dark: true
-  - type: quote
-    quote: "It's the only place we toured where I felt the founder actually wanted to know our daughter — not just enroll her."
-    attribution: "Starling parent · Capitol Hill"
+  - type: testimonials
+    eyebrow: "FAMILIES"
+    title: "What Starling parents say."
+    quotes:
+      - { quote: "Our son started at Starling Montessori when he was just 18 months old, and now, at 2½, he absolutely loves going to school each day.", attribution: "Jennifer, Starling Parent (2024–25)" }
+      - { quote: "Our family has had a wonderful experience at Starling Montessori School during these past few months.", attribution: "Monica, Starling Parent (2024–25)" }
+      - { quote: "When we found Starling Montessori and took a tour, we knew immediately that it was a special place.", attribution: "Hannah, Current Starling Parent" }
   - type: founderApproach
     eyebrow: "A FAMILY-RUN SCHOOL"
     title: "Every child's story is cherished."

@@ -30,6 +30,12 @@ blocks:
       - "Family-to-family intros with current Starling parents in similar roles"
       - "Flexible enrollment timing for international arrivals"
     cta: { label: "Request a virtual tour →", href: "#tour", variant: "outline" }
+  - type: testimonials
+    eyebrow: "FAMILIES"
+    title: "From Starling parents."
+    quotes:
+      - { quote: "Our family has had a wonderful experience at Starling Montessori School during these past few months.", attribution: "Monica, Starling Parent (2024–25)" }
+      - { quote: "When we found Starling Montessori and took a tour, we knew immediately that it was a special place.", attribution: "Hannah, Current Starling Parent" }
   - type: timeline
     eyebrow: "YOUR PATH TO AUGUST 2026"
     title: "Four steps. About four months."

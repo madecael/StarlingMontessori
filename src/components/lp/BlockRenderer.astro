@@ -11,6 +11,7 @@ import PhotoStrip from "./PhotoStrip.astro";
 import TuitionFraming from "./TuitionFraming.astro";
 import TourForm from "./TourForm.astro";
 import FAQAccordion from "./FAQAccordion.astro";
+import Testimonials from "../site/Testimonials.astro";
 
 interface Props { block: any; }
 const { block } = Astro.props;
@@ -27,3 +28,4 @@ const { block } = Astro.props;
 {block.type === "tuitionFraming" && <TuitionFraming />}
 {block.type === "tourForm" && <TourForm eyebrow={block.eyebrow} title={block.title} subtitle={block.subtitle} extraFields={block.extraFields} submitLabel={block.submitLabel} />}
 {block.type === "faqAccordion" && <FAQAccordion eyebrow={block.eyebrow} title={block.title} questions={block.questions} />}
+{block.type === "testimonials" && <Testimonials eyebrow={block.eyebrow} title={block.title} quotes={block.quotes} />}

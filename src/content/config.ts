@@ -118,6 +118,15 @@ const landing = defineCollection({
           title: z.string(),
           questions: z.array(z.object({ q: z.string(), a: z.string() })),
         }),
+        z.object({
+          type: z.literal("testimonials"),
+          eyebrow: z.string().optional(),
+          title: z.string().optional(),
+          quotes: z.array(z.object({
+            quote: z.string(),
+            attribution: z.string(),
+          })).min(1).max(6),
+        }),
       ]),
     ),
   }),
@@ -248,6 +257,15 @@ const pages = defineCollection({
           intro: z.string().optional(),
           fallbackTitle: z.string().optional(),
           fallbackBody: z.string().optional(),
+        }),
+        z.object({
+          type: z.literal("testimonials"),
+          eyebrow: z.string().optional(),
+          title: z.string().optional(),
+          quotes: z.array(z.object({
+            quote: z.string(),
+            attribution: z.string(),
+          })).min(1).max(6),
         }),
       ]),
     ),

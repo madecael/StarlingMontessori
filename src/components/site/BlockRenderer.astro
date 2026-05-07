@@ -15,6 +15,7 @@ import SiteFAQ from "./SiteFAQ.astro";
 import TuitionFraming from "../lp/TuitionFraming.astro";
 import RichBody from "./RichBody.astro";
 import BookingEmbed from "./BookingEmbed.astro";
+import Testimonials from "./Testimonials.astro";
 
 interface Props { block: any; }
 const { block } = Astro.props;
@@ -35,3 +36,4 @@ const { block } = Astro.props;
 {block.type === "tuitionFraming" && <TuitionFraming />}
 {block.type === "richBody" && <RichBody body={block.body} />}
 {block.type === "bookingEmbed" && <BookingEmbed eyebrow={block.eyebrow} title={block.title} intro={block.intro} fallbackTitle={block.fallbackTitle} fallbackBody={block.fallbackBody} />}
+{block.type === "testimonials" && <Testimonials eyebrow={block.eyebrow} title={block.title} quotes={block.quotes} />}

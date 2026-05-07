@@ -16,6 +16,13 @@ blocks:
       - "Fabienne Deaton holds the AMI Diploma in Primary (2.5–6) and the AMI Diploma in Elementary (6–12) — among the most rigorous credentials in the Montessori field. She holds an M.Ed. in Montessori Education and a Master's in International Education."
       - "After more than 10 years guiding D.C. families, Fabienne founded Starling to build the kind of small, intentional Montessori community she had always believed children deserved."
       - "She personally meets every family who walks through our door."
+  - type: testimonials
+    eyebrow: "FAMILIES"
+    title: "What Starling parents say."
+    quotes:
+      - { quote: "Our son started at Starling Montessori when he was just 18 months old, and now, at 2½, he absolutely loves going to school each day.", attribution: "Jennifer, Starling Parent (2024–25)" }
+      - { quote: "Our family has had a wonderful experience at Starling Montessori School during these past few months.", attribution: "Monica, Starling Parent (2024–25)" }
+      - { quote: "When we found Starling Montessori and took a tour, we knew immediately that it was a special place.", attribution: "Hannah, Current Starling Parent" }
   - type: valuePillars
     eyebrow: "OUR PILLARS"
     pillars:
