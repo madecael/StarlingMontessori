@@ -9,4 +9,5 @@ address:
   zip: "20003"
 resendFromAddress: tours@starlingmontessorischool.com
 tourEmailRecipient: info@starlingmontessorischool.com
+bookingUrl: https://calendar.app.google/XdFZLpjtpsTGiMqs5
 ---
