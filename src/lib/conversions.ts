@@ -1,7 +1,7 @@
 import type { CollectionEntry } from "astro:content";
 
 type Settings = CollectionEntry<"settings">["data"];
-type ConversionType = "tourBookingToddler" | "tourBookingPrimary" | "contactFormSubmit";
+type ConversionType = "tourBookingToddler" | "tourBookingPrimary" | "contactFormSubmit" | "applicationSubmit";
 
 interface ConversionConfig {
   value: number;
@@ -13,6 +13,7 @@ const CONVERSIONS: Record<ConversionType, ConversionConfig> = {
   tourBookingToddler: { value: 50, currency: "USD", ga4EventName: "tour_booking_toddler" },
   tourBookingPrimary: { value: 80, currency: "USD", ga4EventName: "tour_booking_primary" },
   contactFormSubmit: { value: 20, currency: "USD", ga4EventName: "contact_form_submit" },
+  applicationSubmit: { value: 300, currency: "USD", ga4EventName: "application_submit" },
 };
 
 /**

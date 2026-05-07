@@ -10,5 +10,6 @@ address:
 resendFromAddress: tours@starlingmontessorischool.com
 tourEmailRecipient: info@starlingmontessorischool.com
 bookingUrl: https://calendar.app.google/XdFZLpjtpsTGiMqs5
+applyUrl: https://schools.mybrightwheel.com/sign-in?redirect_path=forms/722a839c-5f06-4fbd-87f3-afdd364c4be4/self-service
 ga4Id: G-5GEB1HNJYJ
 ---

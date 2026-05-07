@@ -42,13 +42,16 @@ If `bookingUrl` is left empty, the site falls back to the existing form-based "r
 
 ## How to wire Google Ads conversions
 
-The website fires three lead conversion events on dedicated confirmation pages:
+The website fires four lead conversion events on dedicated confirmation pages:
 
 | Conversion | Confirmation page | GA4 event name | Default value |
 |---|---|---|---|
 | Tour Booking — Toddler | /confirmation-toddler-tour | `tour_booking_toddler` | $50 |
 | Tour Booking — Primary | /confirmation-primary-tour | `tour_booking_primary` | $80 |
 | Contact Form Submit | /confirmation-contact | `contact_form_submit` | $20 |
+| Application Submit | /confirmation-application | `application_submit` | $300 |
+
+The first three fire automatically when their respective forms submit on the site. The fourth (Application) fires only when Brightwheel redirects the parent back to `/confirmation-application` after they finish the application form on Brightwheel — see "Activating Brightwheel application tracking" below.
 
 To wire each conversion in Google Ads:
 
@@ -63,9 +66,27 @@ googleAdsConversionLabels:
   tourBookingToddler: AbCdEfGhIjK
   tourBookingPrimary: LmNoPqRsTuV
   contactFormSubmit: WxYzAbCdEfG
+  applicationSubmit: HiJkLmNoPqR
 ```
 
 5. Commit and push. The conversion will fire on the matching confirmation page after the next deploy.
+
+## Activating Brightwheel application tracking
+
+The site is wired so that when a parent finishes the Brightwheel application form, they can be redirected back to `/confirmation-application` on our site, which fires the $300 conversion. To activate:
+
+1. **Verify Brightwheel supports a custom redirect after submission.** In Brightwheel admin → the self-service application form → look for a "Thank you URL", "Custom redirect", or "After-submission URL" setting. If you don't see one, contact Brightwheel support and ask whether your plan supports a custom redirect on this self-service form.
+2. **Set the redirect URL to:**
+
+   ```
+   https://starlingmontessorischool.com/confirmation-application
+   ```
+
+3. **Test it:** submit a test application from a private/incognito browser. After Brightwheel's submit step, you should land on the Starling confirmation page. Check Google Analytics Realtime — you should see the `application_submit` event fire. Once the Google Ads label is configured (see above), the $300 conversion fires too.
+
+If Brightwheel does not support a custom redirect, an alternative path is **Brightwheel webhook → Zapier → Google Ads offline conversion import**. Setup involves a paid Zapier subscription and is best done by a marketing operations engineer.
+
+The application URL itself (where parents click "Apply" on `/admissions`) is in `src/content/settings/site.md` as `applyUrl`.
 
 **Optional integrations** (NOT wired in the site code):
 
@@ -83,7 +104,9 @@ googleAdsConversionLabels:
   tourBookingToddler: AbCdEfGhIjK
   tourBookingPrimary: LmNoPqRsTuV
   contactFormSubmit: WxYzAbCdEfG
+  applicationSubmit: HiJkLmNoPqR
 bookingUrl: https://calendar.app.google/abc123XYZ
+applyUrl: https://schools.mybrightwheel.com/sign-in?redirect_path=forms/...
 ```
 
 The values appear in the live site after the next deploy.
