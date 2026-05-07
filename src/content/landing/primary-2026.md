@@ -26,7 +26,7 @@ blocks:
     body: "World Bank · IMF · State Department · Military · International Diplomatic — we know the timing pressure of a federal or international transfer. Virtual tours, video walkthroughs, and document support are part of how we welcome you."
     benefits:
       - "30-min video walkthrough of the classroom & founder Q&A"
-      - "Documentation packet for HR / relocation services"
+      - "Your packet with tuition, calendars, curriculum, and other program details"
       - "Family-to-family intros with current Starling parents in similar roles"
       - "Flexible enrollment timing for international arrivals"
     cta: { label: "Request a virtual tour →", href: "#tour", variant: "outline" }
