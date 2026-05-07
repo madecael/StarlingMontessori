@@ -23,18 +23,18 @@ blocks:
       - category: "Programs"
         questions:
           - { q: "What ages do you accept?", a: "Toddler: 16–36 months. Primary (opening Aug 2026): ages 3–6, including the kindergarten year." }
-          - { q: "What is the daily schedule?", a: "Toddler runs 8:30 AM – 3:00 PM with a soft start, three-hour work cycle, family lunch, rest, and afternoon activities. See the Toddler program page for the full rhythm." }
+          - { q: "What is the daily schedule?", a: "All days start at 8:00 AM. Toddler offers half-day (8:00–12:00), school-day (8:00–3:00), and full-day (8:00–5:00). Primary offers half-day (8:00–12:30) and full-day (8:00–3:30). Extended care options are listed below." }
           - { q: "Will the Primary continue through kindergarten?", a: "Yes. The AMI Primary cycle is a three-year experience, and children stay in the same classroom from age 3 through 6." }
       - category: "Admissions & Tuition"
         questions:
           - { q: "How do admissions work?", a: "Inquire → tour → apply → reserve. Every family meets Fabienne directly. See the Admissions page for the full process." }
           - { q: "What does tuition cost?", a: "Tuition rates vary based on our program schedules. Please reach out to us directly and indicate the programs you are interested in to receive more information regarding rates & pricing." }
-          - { q: "Do you accept DC vouchers or financial aid?", a: "Please reach out to us directly for information on payment plans and aid availability." }
+          - { q: "Do you accept DC vouchers or financial aid?", a: "We accept military subsidies through Child Care Aware of America. For other situations, please reach out — we'll discuss what's possible." }
       - category: "Daily life"
         questions:
           - { q: "What should my child wear?", a: "Comfortable, layerable clothing they can manage themselves — independence is built into every detail of the day." }
-          - { q: "Do you offer extended hours?", a: "Hours follow the daily rhythm published on each program page. We are intentionally not an extended-hours center; the rhythm is part of the pedagogy." }
-          - { q: "How small is the classroom?", a: "Both classrooms are intentionally small with a low child-to-guide ratio. Specifics are shared during tours." }
+          - { q: "Do you offer extended hours?", a: "Yes. Most of our families are dual-income with demanding jobs, so we offer extended care: Toddler 3:00–4:30 PM or 3:00–5:00 PM (added to the school-day schedule). Primary 3:30–4:30 PM or 3:30–5:30 PM (subject to enrollment numbers)." }
+          - { q: "How small is the classroom?", a: "Toddler runs at a 1:4 ratio (one guide for every four children). Primary runs at a 1:8 ratio. Both are well below the licensed maximum and a deliberate part of how we work — every child is genuinely known." }
   - type: enrollCTA
     eyebrow: "STILL HAVE QUESTIONS?"
     title: "Best to ask in person."
