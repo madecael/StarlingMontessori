@@ -47,7 +47,7 @@ blocks:
   - type: spaceShowcase
     eyebrow: "THE NEW SPACE"
     title: "Saint Mark Episcopal Church."
-    body: "A new classroom in the heart of Capitol Hill — designed specifically for the developmental needs of children ages 3 to 6, in a calm, prepared environment with outdoor space."
+    body: "A new classroom in the heart of Capitol Hill, designed for children ages 3 to 6 — stone walls, soft carpet, bright lighting, and a calm, prepared environment. A kitchenette, a separate nap room, and a children's bathroom. Garden access for picnics, with outdoor play at our Toddler Community's playground or a nearby Capitol Hill park. Decorated with diverse art and plants, the space is made to feel comforting and welcoming."
     imageSlots:
       - "/images/photos/pink-tower-build.jpg"
       - "/images/photos/kids-working-shapes.jpg"

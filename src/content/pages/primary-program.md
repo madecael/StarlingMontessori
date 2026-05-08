@@ -26,7 +26,7 @@ blocks:
     steps:
       - { time: "8:00–8:30", label: "Arrival", body: "A warm welcome and individual greeting." }
       - { time: "8:30–11:30", label: "Three-hour work cycle", body: "The signature of Montessori Primary — uninterrupted, self-directed work." }
-      - { time: "11:30–12:30", label: "Outdoor play", body: "Recess in the shaded yard or walking the neighborhood." }
+      - { time: "11:30–12:30", label: "Outdoor play", body: "Outdoor play at our Toddler Community's playground or a nearby Capitol Hill park." }
       - { time: "12:30", label: "Half-day dismissal", body: "Half-day families pick up here. Full-day children continue with the afternoon." }
       - { time: "1:00–1:30", label: "Lunch", body: "Children prepare, serve, and share a family-style lunch together." }
       - { time: "1:30–3:30", label: "Afternoon work cycle", body: "Group lessons, projects, and continued exploration. Children under 3 rest and nap in the Primary room from 1:30 to 3:00." }
