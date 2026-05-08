@@ -27,15 +27,15 @@ blocks:
         title: "Ages 16–36 months."
         ages: "ENROLLING NOW"
         body: "A small, calm classroom at Capitol Hill Presbyterian Church — your child's first community outside the home."
-        photo: "/images/photos/photo-toddler.png"
-        photoAlt: "A toddler working on a Montessori activity"
+        photo: "/images/photos/toddlers-on-bench.jpg"
+        photoAlt: "Three Starling toddlers sitting together on a bench at the school's red front door on Capitol Hill"
         cta: { label: "Learn more →", href: "/programs/toddler", variant: "ghost" }
       - eyebrow: "PRIMARY CLASSROOM"
         title: "Ages 3–6."
         ages: "RESERVING NOW"
         body: "A new Primary classroom led by an AMI-trained guide, opening at Saint Mark Episcopal — twelve seats in our inaugural class."
-        photo: "/images/photos/photo-classroom-2.png"
-        photoAlt: "A child engaged with Montessori materials"
+        photo: "/images/photos/pink-tower-build.jpg"
+        photoAlt: "A Starling child carefully placing the top cube of the Pink Tower — a foundational Montessori sensorial material"
         cta: { label: "Learn more →", href: "/programs/primary", variant: "ghost" }
         badge: "NEW · AUG 2026"
         dark: true
