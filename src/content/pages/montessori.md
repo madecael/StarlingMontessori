@@ -6,6 +6,8 @@ hero:
   eyebrow: "THE MONTESSORI METHOD"
   headline: "An education built around the child."
   subhead: "Montessori is more than a teaching method — it is a deeply researched understanding of how children learn when they are trusted to follow their own curiosity. Here is what that looks like in practice."
+  photo: "/images/photos/pink-tower-build.jpg"
+  photoAlt: "A Starling child carefully placing the top cube of the Pink Tower — a foundational Montessori sensorial material"
 blocks:
   - type: valuePillars
     eyebrow: "WHY MONTESSORI"
@@ -21,6 +23,8 @@ blocks:
       - "A Montessori classroom is a prepared environment — every shelf, every tray, every material is chosen with intention. Children move freely, choose their own work, and stay with each task as long as it holds their interest."
       - "There are no whole-group lessons in the traditional sense. Guides observe each child, present a new material when readiness shows, and step back to let the child master it through repetition."
       - "What looks like simple play — pouring water, polishing wood, matching shapes — is the careful construction of attention, coordination, language, and order. The ordinary becomes extraordinary."
+    photo: "/images/photos/kids-working-shapes.jpg"
+    photoAlt: "Two Starling children sorting wooden geometric shapes onto a work mat — a sensorial Montessori material"
   - type: quote
     quote: "Free the child's potential, and you will transform him into the world."
     attribution: "Dr. Maria Montessori"
@@ -31,6 +35,14 @@ blocks:
       - "Maria Montessori (1870–1952) was the first woman to graduate from medical school in Italy. Working with children in poverty in Rome, she noticed something the prevailing science missed: when children were given simple, beautiful materials and the freedom to choose their work, they concentrated for hours and learned with extraordinary depth."
       - "Her observations grew into a full method, refined across decades and tested with children in dozens of countries. Today AMI (Association Montessori Internationale) — the organization Dr. Montessori herself founded in 1929 — continues to certify guides in the original method."
       - "What we do at Starling is anchored to those observations. The materials, the rhythm of the day, and the role of the guide all trace back to a doctor who took children seriously when no one else did."
+    photo: "/images/photos/classroom-stained-glass.jpg"
+    photoAlt: "A prepared Montessori classroom at Starling — wooden shelves with materials, child-sized furniture, and warm natural light"
+  - type: photoStrip
+    photos:
+      - "/images/photos/toddlers-on-bench.jpg"
+      - "/images/photos/founder-with-child.jpeg"
+      - "/images/photos/garden-walk.jpg"
+      - "/images/photos/kids-working-shapes.jpg"
   - type: faqAccordion
     eyebrow: "QUESTIONS PARENTS ASK ABOUT MONTESSORI"
     title: "Common questions about the method."
