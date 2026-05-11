@@ -58,7 +58,6 @@ blocks:
       - "/images/photos/toddlers-on-bench.jpg"
       - "/images/photos/kids-working-shapes.jpg"
       - "/images/photos/classroom-stained-glass.jpg"
-      - "/images/photos/pink-tower-build.jpg"
   - type: enrollCTA
     eyebrow: "ENROLLING NOW"
     title: "Come visit. We'd love to meet your family."
