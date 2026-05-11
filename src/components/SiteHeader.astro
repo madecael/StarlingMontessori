@@ -1,5 +1,4 @@
 ---
-import BirdMark from "./BirdMark.astro";
 import BrandWordmark from "./BrandWordmark.astro";
 import { getEntry } from "astro:content";
 
@@ -28,8 +27,7 @@ function isActive(href: string) {
 ---
 <header class="sticky top-0 z-20 bg-seashell/85 backdrop-blur border-b border-cetacean/10">
   <div class="max-w-[1240px] mx-auto px-6 lg:px-8 py-4 flex items-center gap-6 lg:gap-8">
-    <a href="/" class="flex items-center gap-2.5 shrink-0">
-      <BirdMark size={28} />
+    <a href="/" class="flex items-center shrink-0">
       <BrandWordmark size="md" />
     </a>
     <nav class="hidden lg:flex gap-5 xl:gap-7 text-sm">
