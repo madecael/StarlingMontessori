@@ -28,10 +28,8 @@ blocks:
     fallbackTitle: "We're not actively hiring right now."
     fallbackBody: "If Starling resonates with you, we'd love to keep your name on file. Send us a note with your resume — we hire seasonally and stay in touch with people whose values align with ours."
     positions: []
-  - type: enrollCTA
-    eyebrow: "HOW TO APPLY"
+  - type: careerForm
+    eyebrow: "APPLY"
     title: "Send us your application."
-    body: "Email a resume and a brief note (3–5 sentences) about why Starling specifically. We respond to every application personally."
-    primary: { label: "Email your application", href: "mailto:info@starlingmontessorischool.com?subject=Application", variant: "pearly" }
-    secondary: { label: "Read about Starling", href: "/about", variant: "ghost" }
+    subtitle: "Share your name, email, phone, and a short note about why Starling — and attach your CV. Fabienne reviews every application personally."
 ---

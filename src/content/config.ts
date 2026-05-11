@@ -243,6 +243,12 @@ const pages = defineCollection({
           subtitle: z.string().optional(),
         }),
         z.object({
+          type: z.literal("careerForm"),
+          eyebrow: z.string().optional(),
+          title: z.string().optional(),
+          subtitle: z.string().optional(),
+        }),
+        z.object({
           type: z.literal("openings"),
           eyebrow: z.string().optional(),
           title: z.string().optional(),

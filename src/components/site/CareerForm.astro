@@ -1,0 +1,80 @@
+---
+interface Props {
+  eyebrow?: string;
+  title?: string;
+  subtitle?: string;
+}
+const {
+  eyebrow = "APPLY",
+  title = "Send us your application.",
+  subtitle = "Tell us about yourself and attach your CV. Fabienne reviews every application personally.",
+} = Astro.props;
+---
+<section id="career-form" class="px-6 lg:px-8 py-12 max-w-[760px] mx-auto">
+  <div class="eyebrow">{eyebrow}</div>
+  <h2 class="text-3xl lg:text-4xl font-light text-cetacean mt-2 mb-3 tracking-tightest">{title}</h2>
+  <p class="text-base text-cetacean-70 leading-relaxed mb-7">{subtitle}</p>
+  <form id="career-form-el" method="POST" action="/api/career-application" enctype="multipart/form-data" class="bg-white rounded-3xl p-7 shadow-sm" novalidate>
+    <input type="text" name="company" tabindex="-1" autocomplete="off" class="hidden" aria-hidden="true" />
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+      <label class="block">
+        <span class="text-[11px] tracking-eyebrow font-semibold mb-1.5 block">YOUR NAME</span>
+        <input required name="name" type="text" class="w-full px-3 py-2.5 rounded-xl border border-cetacean/20 bg-white text-sm" />
+      </label>
+      <label class="block">
+        <span class="text-[11px] tracking-eyebrow font-semibold mb-1.5 block">EMAIL</span>
+        <input required name="email" type="email" class="w-full px-3 py-2.5 rounded-xl border border-cetacean/20 bg-white text-sm" />
+      </label>
+      <label class="block sm:col-span-2">
+        <span class="text-[11px] tracking-eyebrow font-semibold mb-1.5 block">PHONE</span>
+        <input required name="phone" type="tel" class="w-full px-3 py-2.5 rounded-xl border border-cetacean/20 bg-white text-sm" />
+      </label>
+      <label class="block sm:col-span-2">
+        <span class="text-[11px] tracking-eyebrow font-semibold mb-1.5 block">A SHORT NOTE (OPTIONAL)</span>
+        <textarea name="note" rows="4" placeholder="3–5 sentences about why Starling specifically." class="w-full px-3 py-2.5 rounded-xl border border-cetacean/20 bg-white text-sm leading-relaxed"></textarea>
+      </label>
+      <label class="block sm:col-span-2">
+        <span class="text-[11px] tracking-eyebrow font-semibold mb-1.5 block">ATTACH YOUR CV (PDF, DOC, OR DOCX · MAX 5MB)</span>
+        <input required name="cv" type="file" accept=".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" class="w-full text-sm file:mr-3 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-sm file:font-medium file:bg-pearly/15 file:text-pearly-deep hover:file:bg-pearly/25" />
+      </label>
+    </div>
+    <div class="mt-4 flex justify-between items-center flex-wrap gap-3">
+      <button type="submit" class="btn btn-pearly text-sm font-medium">Send application</button>
+    </div>
+    <p data-form-status class="text-sm mt-3 hidden"></p>
+  </form>
+</section>
+<script>
+  const form = document.getElementById("career-form-el") as HTMLFormElement | null;
+  if (form) {
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const status = form.querySelector("[data-form-status]") as HTMLElement;
+      status.classList.remove("hidden");
+      status.style.color = "";
+      status.textContent = "Sending…";
+      const body = new FormData(form);
+      try {
+        const res = await fetch("/api/career-application", { method: "POST", body });
+        if (res.status === 413) throw new Error("too_large");
+        if (res.status === 415) throw new Error("unsupported");
+        if (!res.ok) throw new Error("submit_failed");
+        try {
+          (window as any).gtag?.("event", "career_application_submit", { event_category: "form" });
+        } catch {}
+        form.reset();
+        window.location.assign("/confirmation-careers");
+      } catch (err) {
+        const code = err instanceof Error ? err.message : "submit_failed";
+        const msg =
+          code === "too_large"
+            ? "Your CV is over 5MB. Please upload a smaller file or email info@starlingmontessorischool.com."
+            : code === "unsupported"
+              ? "Please upload a PDF, DOC, or DOCX file."
+              : "Something went wrong. Please email info@starlingmontessorischool.com.";
+        status.textContent = msg;
+        status.style.color = "#8B5C7E";
+      }
+    });
+  }
+</script>
