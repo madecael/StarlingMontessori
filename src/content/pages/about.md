@@ -33,7 +33,6 @@ blocks:
   - type: photoStrip
     photos:
       - "/images/photos/classroom-stained-glass.jpg"
-      - "/images/photos/reading-group.jpg"
       - "/images/photos/toddlers-on-bench.jpg"
       - "/images/photos/garden-walk.jpg"
   - type: enrollCTA

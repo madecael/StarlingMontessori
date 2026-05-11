@@ -1,5 +1,4 @@
 ---
-import BirdMark from "./BirdMark.astro";
 import BrandWordmark from "./BrandWordmark.astro";
 import { getEntry } from "astro:content";
 const settings = await getEntry("settings", "site");
@@ -27,8 +26,7 @@ const cols: { heading: string; links: { label: string; href: string }[] }[] = [
 <footer class="bg-seashell-shade mt-16 px-6 lg:px-8 pt-14 pb-8">
   <div class="max-w-[1240px] mx-auto grid md:grid-cols-[1.5fr_1fr_1fr_1fr] gap-8">
     <div>
-      <div class="flex items-center gap-2.5">
-        <BirdMark size={32} />
+      <div class="flex items-center">
         <BrandWordmark size="lg" />
       </div>
       <div class="text-[13px] tracking-wide text-cetacean mt-1.5">Montessori School</div>

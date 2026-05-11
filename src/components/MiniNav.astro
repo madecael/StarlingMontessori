@@ -1,5 +1,4 @@
 ---
-import BirdMark from "./BirdMark.astro";
 import BrandWordmark from "./BrandWordmark.astro";
 import { getEntry } from "astro:content";
 interface Props {
@@ -11,8 +10,7 @@ const settings = await getEntry("settings", "site");
 const phone = settings?.data.phone;
 ---
 <header class="flex items-center justify-between px-8 py-3.5 border-b border-cetacean/10 bg-seashell/85 backdrop-blur sticky top-0 z-10">
-  <div class="flex items-center gap-2.5">
-    <BirdMark size={24} />
+  <div class="flex items-center">
     <BrandWordmark size="md" withSubline />
   </div>
   <div class="flex items-center gap-3.5 text-sm text-cetacean">

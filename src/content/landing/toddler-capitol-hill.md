@@ -41,7 +41,6 @@ blocks:
     photos:
       - "/images/photos/toddlers-on-bench.jpg"
       - "/images/photos/kids-working-shapes.jpg"
-      - "/images/photos/reading-group.jpg"
       - "/images/photos/garden-walk.jpg"
   - type: tuitionFraming
   - type: tourForm

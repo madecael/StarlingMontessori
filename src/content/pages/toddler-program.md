@@ -38,7 +38,6 @@ blocks:
     photos:
       - "/images/photos/kids-working-shapes.jpg"
       - "/images/photos/toddlers-on-bench.jpg"
-      - "/images/photos/reading-group.jpg"
       - "/images/photos/garden-walk.jpg"
   - type: tuitionFraming
   - type: enrollCTA
