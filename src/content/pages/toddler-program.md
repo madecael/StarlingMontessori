@@ -36,9 +36,10 @@ blocks:
         examples: ["Climbing and walking refinement", "Coordination work", "Outdoor exploration"]
   - type: photoStrip
     photos:
+      - "/images/photos/spooning.jpg"
       - "/images/photos/kids-working-shapes.jpg"
-      - "/images/photos/toddlers-on-bench.jpg"
-      - "/images/photos/garden-walk.jpg"
+      - "/images/photos/sound-game.jpg"
+      - "/images/photos/table-setting.jpg"
   - type: tuitionFraming
   - type: enrollCTA
     eyebrow: "ENROLLING"

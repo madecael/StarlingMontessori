@@ -56,8 +56,9 @@ blocks:
   - type: photoStrip
     photos:
       - "/images/photos/toddlers-on-bench.jpg"
-      - "/images/photos/kids-working-shapes.jpg"
-      - "/images/photos/classroom-stained-glass.jpg"
+      - "/images/photos/sound-game.jpg"
+      - "/images/photos/table-setting.jpg"
+      - "/images/photos/classroom-kitchen-view.jpg"
   - type: enrollCTA
     eyebrow: "ENROLLING NOW"
     title: "Come visit. We'd love to meet your family."

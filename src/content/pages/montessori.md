@@ -39,10 +39,10 @@ blocks:
     photoAlt: "A prepared Montessori classroom at Starling — wooden shelves with materials, child-sized furniture, and warm natural light"
   - type: photoStrip
     photos:
-      - "/images/photos/toddlers-on-bench.jpg"
-      - "/images/photos/founder-with-child.jpeg"
+      - "/images/photos/transferring.jpg"
+      - "/images/photos/classroom-kitchen-view.jpg"
       - "/images/photos/garden-walk.jpg"
-      - "/images/photos/kids-working-shapes.jpg"
+      - "/images/photos/founder-with-child.jpeg"
   - type: faqAccordion
     eyebrow: "QUESTIONS PARENTS ASK ABOUT MONTESSORI"
     title: "Common questions about the method."

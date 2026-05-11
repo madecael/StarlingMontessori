@@ -40,8 +40,9 @@ blocks:
   - type: photoStrip
     photos:
       - "/images/photos/toddlers-on-bench.jpg"
-      - "/images/photos/kids-working-shapes.jpg"
-      - "/images/photos/garden-walk.jpg"
+      - "/images/photos/spooning.jpg"
+      - "/images/photos/stained-glass-arches.jpg"
+      - "/images/photos/playground-yard.jpg"
   - type: tuitionFraming
   - type: tourForm
     eyebrow: "SCHEDULE YOUR VISIT"

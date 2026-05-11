@@ -32,9 +32,10 @@ blocks:
       - { label: "TAILORED & INTENTIONAL", body: "Education shaped to each unique child." }
   - type: photoStrip
     photos:
-      - "/images/photos/classroom-stained-glass.jpg"
-      - "/images/photos/toddlers-on-bench.jpg"
+      - "/images/photos/stained-glass-arches.jpg"
+      - "/images/photos/transferring.jpg"
       - "/images/photos/garden-walk.jpg"
+      - "/images/photos/playground-yard.jpg"
   - type: enrollCTA
     eyebrow: "VISIT"
     title: "The best way to understand Starling is to come see it."
