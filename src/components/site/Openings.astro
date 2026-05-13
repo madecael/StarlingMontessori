@@ -1,10 +1,11 @@
 ---
+type Qualification = string | { label: string; href?: string };
 interface Position {
   title: string;
   type: string;
   startDate?: string;
   summary: string;
-  qualifications: string[];
+  qualifications: Qualification[];
 }
 interface Props {
   eyebrow?: string;
@@ -32,7 +33,12 @@ const { eyebrow, title, intro, fallbackTitle, fallbackBody, positions } = Astro.
           <p class="text-sm text-cetacean-70 leading-relaxed">{p.summary}</p>
           {p.qualifications.length > 0 && (
             <ul class="grid gap-1.5 text-sm text-cetacean mt-1">
-              {p.qualifications.map((q) => <li>· {q}</li>)}
+              {p.qualifications.map((q) => {
+                if (typeof q === "string") return <li>· {q}</li>;
+                return q.href
+                  ? <li>· <a href={q.href} target="_blank" rel="noopener" class="underline decoration-pearly-deep/40 underline-offset-2 hover:decoration-pearly-deep">{q.label}</a></li>
+                  : <li>· {q.label}</li>;
+              })}
             </ul>
           )}
         </article>

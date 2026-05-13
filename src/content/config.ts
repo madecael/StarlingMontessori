@@ -264,7 +264,12 @@ const pages = defineCollection({
             type: z.string(),
             startDate: z.string().optional(),
             summary: z.string(),
-            qualifications: z.array(z.string()).default([]),
+            qualifications: z.array(
+              z.union([
+                z.string(),
+                z.object({ label: z.string(), href: z.string().url().optional() }),
+              ]),
+            ).default([]),
           })).default([]),
         }),
         z.object({

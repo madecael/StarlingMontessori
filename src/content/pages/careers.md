@@ -31,7 +31,23 @@ blocks:
     intro: "We hire seasonally — usually in spring for the following school year. If you don't see a role that fits but Starling resonates, send us your resume anyway."
     fallbackTitle: "We're not actively hiring right now."
     fallbackBody: "If Starling resonates with you, we'd love to keep your name on file. Send us a note with your resume — we hire seasonally and stay in touch with people whose values align with ours."
-    positions: []
+    positions:
+      - title: "Lead Toddler Teacher"
+        type: "Full-time"
+        summary: "Lead our Toddler Community classroom (ages 16–36 months) on Capitol Hill — small group, 1:4 ratio, alongside an experienced assistant."
+        qualifications:
+          - { label: "AMS-certified — American Montessori Society", href: "https://amshq.org/" }
+          - { label: "AMI-certified — Association Montessori Internationale", href: "https://amiusa.org/" }
+      - title: "Primary & Toddler Classroom Assistants"
+        type: "Full-time"
+        summary: "Support the lead guide in either the Toddler Community or the new Primary classroom (ages 3–6, opening August 2026)."
+        qualifications:
+          - { label: "AMS Assistants certificate", href: "https://amshq.org/" }
+          - { label: "AMI Assistants certificate", href: "https://amiusa.org/" }
+      - title: "General interest"
+        type: "Always open"
+        summary: "We're always looking for qualified staff and volunteers who share our values. If Starling resonates with you, send your resume below and we'll keep your name on file."
+        qualifications: []
   - type: careerForm
     eyebrow: "APPLY"
     title: "Send us your application."
