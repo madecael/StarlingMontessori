@@ -85,5 +85,6 @@ const ogImageAbsolute = ogPath.startsWith("http")
     ],
     educationalProgramMode: "onsite",
     audience: { "@type": "EducationalAudience", educationalRole: "Parents of children ages 16 months to 6 years" },
+    ...(settings?.data.hours ? { openingHours: settings.data.hours.openingHours } : {}),
   })} />
 </head>

@@ -14,6 +14,7 @@ const mapHref = `https://www.google.com/maps/search/?api=1&query=${encodeURIComp
       <div><div class="eyebrow">Address</div><a href={mapHref} target="_blank" rel="noopener" class="text-base mt-1 block" data-event="map_click">{s.address.line1}<br>{s.address.city}, {s.address.state} {s.address.zip}</a></div>
       <div><div class="eyebrow">Phone</div><a href={`tel:${s.phone.replace(/[^0-9+]/g, "")}`} class="text-base mt-1 block" data-event="phone_click">{s.phone}</a></div>
       <div><div class="eyebrow">Email</div><a href={`mailto:${s.email}`} class="text-base mt-1 block">{s.email}</a></div>
+      {s.hours && <div><div class="eyebrow">Hours</div><div class="text-base mt-1">{s.hours.display}</div></div>}
     </div>
   </div>
   <div class="bg-cetacean-10 rounded-3xl aspect-square lg:aspect-auto min-h-[280px]">

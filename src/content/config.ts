@@ -22,6 +22,10 @@ const settings = defineCollection({
       state: z.string(),
       zip: z.string(),
     }),
+    hours: z.object({
+      display: z.string(),
+      openingHours: z.string(), // schema.org format e.g. "Mo-Fr 08:00-17:00"
+    }).optional(),
     bookingUrl: z.string().url().optional(),
     applyUrl: z.string().url().optional(),
     ga4Id: z.string().optional(),

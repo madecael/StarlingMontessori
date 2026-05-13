@@ -7,6 +7,9 @@ address:
   city: Washington
   state: DC
   zip: "20003"
+hours:
+  display: "Monday – Friday · 8:00 AM – 5:00 PM"
+  openingHours: "Mo-Fr 08:00-17:00"
 resendFromAddress: tours@starlingmontessorischool.com
 tourEmailRecipient: info@starlingmontessorischool.com
 bookingUrl: https://calendar.app.google/XdFZLpjtpsTGiMqs5

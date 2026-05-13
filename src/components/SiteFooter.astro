@@ -44,7 +44,10 @@ const cols: { heading: string; links: { label: string; href: string }[] }[] = [
     ))}
   </div>
   <div class="max-w-[1240px] mx-auto mt-10 pt-5 border-t border-cetacean/10 flex flex-wrap justify-between gap-3 text-xs text-cetacean-70">
-    <div>{s.address.line1}, {s.address.city} {s.address.state} {s.address.zip} · {s.phone} · {s.email}</div>
+    <div>
+      <div>{s.address.line1}, {s.address.city} {s.address.state} {s.address.zip} · {s.phone} · {s.email}</div>
+      {s.hours && <div class="mt-1">{s.hours.display}</div>}
+    </div>
     <div>© {new Date().getFullYear()} {s.schoolName}</div>
   </div>
 </footer>
