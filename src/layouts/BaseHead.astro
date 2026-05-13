@@ -23,7 +23,7 @@ const ga4 = settings?.data.ga4Id;
 const adsId = settings?.data.googleAdsConversionId;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site).toString();
-const defaultOG = "/images/photos/photo-classroom-1.png";
+const defaultOG = "/images/photos/toddlers-on-bench.jpg";
 const ogPath = image ?? defaultOG;
 const ogImageAbsolute = ogPath.startsWith("http")
   ? ogPath
