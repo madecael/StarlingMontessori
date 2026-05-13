@@ -1,14 +1,14 @@
 ---
 interface Props {
   size?: "sm" | "md" | "lg";
+  /** Kept for backwards-compat; the PNG already includes the "Montessori School" subline. */
   withSubline?: boolean;
 }
-const { size = "md", withSubline = false } = Astro.props;
-const fontSize = size === "lg" ? "text-3xl" : size === "sm" ? "text-lg" : "text-2xl";
+const { size = "md" } = Astro.props;
+const heightClass = size === "lg" ? "h-16" : size === "sm" ? "h-9" : "h-12";
 ---
-<div class="flex items-center gap-2">
-  <span class={`font-display italic font-medium leading-none text-cetacean ${fontSize}`}>Starling</span>
-  {withSubline && (
-    <span class="text-[11px] tracking-eyebrow text-cetacean">MONTESSORI SCHOOL</span>
-  )}
-</div>
+<img
+  src="/images/starling-logo.png"
+  alt="Starling Montessori School"
+  class={`${heightClass} w-auto block`}
+/>
