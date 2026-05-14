@@ -36,14 +36,14 @@ blocks:
         type: "Full-time"
         summary: "Lead our Toddler Community classroom (ages 16–36 months) on Capitol Hill — small group, 1:4 ratio, alongside an experienced assistant."
         qualifications:
-          - { label: "AMS-certified — American Montessori Society", href: "https://amshq.org/" }
-          - { label: "AMI-certified — Association Montessori Internationale", href: "https://amiusa.org/" }
+          - { label: "AMS — American Montessori Society", href: "https://jobs.amshq.org/job/dvemgc/lead-toddler-classroom-teacher/washington/dc/united-states" }
+          - { label: "AMI — Association Montessori Internationale", href: "https://montessori-ami.org/training-programmes/job-openings/starling-montessori-school-washington-dc" }
       - title: "Primary & Toddler Classroom Assistants"
-        type: "Full-time"
+        type: "Full-time or part-time"
         summary: "Support the lead guide in either the Toddler Community or the new Primary classroom (ages 3–6, opening August 2026)."
         qualifications:
-          - { label: "AMS Assistants certificate", href: "https://amshq.org/" }
-          - { label: "AMI Assistants certificate", href: "https://amiusa.org/" }
+          - { label: "AMS Assistants", href: "https://jobs.amshq.org/job/n3scty/classroom-assistants/washington/dc/united-states" }
+          - { label: "AMI Assistants", href: "https://montessori-ami.org/training-programmes/job-openings/starling-montessori-school-washington-dc-0" }
       - title: "General interest"
         type: "Always open"
         summary: "We're always looking for qualified staff and volunteers who share our values. If Starling resonates with you, send your resume below and we'll keep your name on file."
