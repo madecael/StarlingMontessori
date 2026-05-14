@@ -1,10 +1,8 @@
 ---
-import { getEntry } from "astro:content";
 import SiteLayout from "../layouts/SiteLayout.astro";
 import { conversionScript } from "../lib/conversions";
 
-const settings = (await getEntry("settings", "site"))!.data;
-const fireScript = conversionScript("contactFormSubmit", settings);
+const fireScript = conversionScript("contactFormSubmit");
 ---
 <SiteLayout title="Thank you — your message is in" description="Your message was received. We'll respond within one business day." noindex>
   <section class="px-6 lg:px-8 py-24 lg:py-32 max-w-[760px] mx-auto text-center">

@@ -1,10 +1,8 @@
 ---
-import { getEntry } from "astro:content";
 import SiteLayout from "../layouts/SiteLayout.astro";
 import { conversionScript } from "../lib/conversions";
 
-const settings = (await getEntry("settings", "site"))!.data;
-const fireScript = conversionScript("applicationSubmit", settings);
+const fireScript = conversionScript("applicationSubmit");
 ---
 <SiteLayout title="Thank you — your application is in" description="Your Starling Montessori application was received. Fabienne will review and reach out within a few business days." noindex>
   <section class="px-6 lg:px-8 py-24 lg:py-32 max-w-[760px] mx-auto text-center">
