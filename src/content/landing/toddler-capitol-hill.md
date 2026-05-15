@@ -6,7 +6,7 @@ eyebrow: "OPEN ENROLLMENT · TODDLER COMMUNITY"
 heroHeadline: "Not a chain. Not a lottery. The small Montessori on Capitol Hill."
 heroHeadlineHighlight: "The small Montessori on Capitol Hill."
 heroSubhead: "Family-run, with AMI-trained guides. A single toddler classroom. Two blocks from Eastern Market — a place where every child is known by name."
-heroPhoto: "/images/photos/founder-with-child.jpeg"
+heroPhoto: "/images/photos/founder-with-child.webp"
 heroAlt: "Fabienne, founder of Starling Montessori, welcoming a toddler at the school's front door on Capitol Hill"
 heroLocation: "201 4th St SE · Capitol Hill Presbyterian Church · Ages 16–36 months"
 heroCTAs:
@@ -36,13 +36,13 @@ blocks:
     eyebrow: "MEET THE FOUNDER"
     quote: "I personally meet every family who walks through our door."
     attribution: "— Fabienne Deaton, Founder. AMI Diploma in Primary (2.5–6) and AMI Diploma in Elementary (6–12). M.Ed. in Montessori Education. Master's in International Education. 10+ years guiding D.C. families."
-    photo: "/images/photos/founder-portrait.jpeg"
+    photo: "/images/photos/founder-portrait.webp"
   - type: photoStrip
     photos:
-      - "/images/photos/toddlers-on-bench.jpg"
-      - "/images/photos/spooning.jpg"
-      - "/images/photos/stained-glass-arches.jpg"
-      - "/images/photos/playground-yard.jpg"
+      - "/images/photos/toddlers-on-bench.webp"
+      - "/images/photos/spooning.webp"
+      - "/images/photos/stained-glass-arches.webp"
+      - "/images/photos/playground-yard.webp"
   - type: tuitionFraming
   - type: tourForm
     eyebrow: "SCHEDULE YOUR VISIT"

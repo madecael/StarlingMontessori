@@ -6,7 +6,7 @@ eyebrow: "PRIMARY CLASSROOM · AGES 3–6"
 heroHeadline: "A new Primary classroom on Capitol Hill, led by an AMI-trained guide. Opening August 2026."
 heroHeadlineHighlight: "AMI-trained guide"
 heroSubhead: "Twelve seats in our inaugural class. Designed for families who want their child to grow inside an authentic, three-year Primary cycle without switching schools."
-heroPhoto: "/images/photos/pink-tower-build.jpg"
+heroPhoto: "/images/photos/pink-tower-build.webp"
 heroAlt: "A Starling child carefully placing the top cube of the Pink Tower — a foundational Montessori sensorial material"
 heroLocation: "Saint Mark Episcopal Church · 301 A St SE · Capitol Hill · Ages 2.5–6"
 heroCTAs:
@@ -49,9 +49,9 @@ blocks:
     title: "Saint Mark Episcopal Church."
     body: "A new classroom in the heart of Capitol Hill, designed for children ages 3 to 6 — stone walls, soft carpet, bright lighting, and a calm, prepared environment. A kitchenette, a separate nap room, and a children's bathroom. Garden access for picnics, with outdoor play at our Toddler Community's playground or a nearby Capitol Hill park. Decorated with diverse art and plants, the space is made to feel comforting and welcoming."
     imageSlots:
-      - "/images/photos/pink-tower-build.jpg"
-      - "/images/photos/kids-working-shapes.jpg"
-      - "/images/photos/garden-walk.jpg"
+      - "/images/photos/pink-tower-build.webp"
+      - "/images/photos/kids-working-shapes.webp"
+      - "/images/photos/garden-walk.webp"
     disclosure: "Photos shown are from our existing Toddler classroom — they reflect the kind of work and atmosphere your child will experience. Final Primary classroom photos at Saint Mark coming as the build-out completes — Summer 2026."
   - type: comparisonTable
     eyebrow: "SO YOU CAN DECIDE"
@@ -66,7 +66,7 @@ blocks:
     eyebrow: "FOUNDER"
     quote: "The Primary years are when Montessori does its deepest work."
     attribution: "— Fabienne Deaton, Founder. AMI Diploma in Primary (2.5–6) and AMI Diploma in Elementary (6–12). M.Ed. in Montessori Education. Master's in International Education. The Primary classroom is led by an AMI-trained guide on our team."
-    photo: "/images/photos/founder-portrait.jpeg"
+    photo: "/images/photos/founder-portrait.webp"
   - type: tuitionFraming
   - type: tourForm
     eyebrow: "RESERVE A TOUR"

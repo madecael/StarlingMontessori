@@ -6,7 +6,7 @@ hero:
   eyebrow: "JOIN OUR TEAM"
   headline: "Become part of a small, intentional school."
   subhead: "Starling is family-run by design. Our team is small, our pay is fair for D.C., and the work — by every measure — meaningful."
-  photo: "/images/photos/sound-game.jpg"
+  photo: "/images/photos/sound-game.webp"
   photoAlt: "A Starling guide working closely with two young children on the Montessori sound game — a foundational language lesson"
 blocks:
   - type: valuePillars
@@ -23,7 +23,7 @@ blocks:
       - "We hire AMI-trained guides whenever possible. We also welcome applications from candidates with strong child-development backgrounds (early childhood education degrees, AMS-trained guides) — what matters is alignment with how Montessori children actually learn."
       - "More than credentials, we look for people who bring warmth, calm, attention to detail, and curiosity. Our team invests in long-term work — we want people who plan to stay."
       - "If you've worked in a Montessori classroom and know what a three-hour work cycle feels like, we'd especially love to hear from you."
-    photo: "/images/photos/classroom-stained-glass.jpg"
+    photo: "/images/photos/classroom-stained-glass.webp"
     photoAlt: "The Starling Toddler classroom — wooden Montessori shelves, child-sized furniture, and warm natural light through stained glass"
   - type: openings
     eyebrow: "CURRENT OPENINGS"

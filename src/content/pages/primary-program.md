@@ -6,7 +6,7 @@ hero:
   eyebrow: "PRIMARY CLASSROOM · AGES 3–6"
   headline: "Opening August 2026 at Saint Mark Episcopal."
   subhead: "Our new Primary classroom, led by an AMI-trained guide — twelve seats, three-year cycle, designed for families committed to authentic Montessori from age three through kindergarten."
-  photo: "/images/photos/pink-tower-build.jpg"
+  photo: "/images/photos/pink-tower-build.webp"
   photoAlt: "A Starling child carefully placing the top cube of the Pink Tower — a foundational Montessori sensorial material"
   ctas:
     - { label: "Reserve a tour →", href: "/open-house", variant: "primary" }

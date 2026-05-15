@@ -6,7 +6,7 @@ hero:
   eyebrow: "TODDLER COMMUNITY · AGES 16–36 MONTHS"
   headline: "Your child's first community."
   subhead: "A small, calm AMI Toddler classroom at Capitol Hill Presbyterian Church — designed around the developmental needs of children 16 to 36 months."
-  photo: "/images/photos/toddlers-on-bench.jpg"
+  photo: "/images/photos/toddlers-on-bench.webp"
   photoAlt: "Three Starling toddlers sitting together on a bench at the school's red front door on Capitol Hill"
   ctas:
     - { label: "Schedule a tour →", href: "/open-house", variant: "primary" }
@@ -36,10 +36,10 @@ blocks:
         examples: ["Climbing and walking refinement", "Coordination work", "Outdoor exploration"]
   - type: photoStrip
     photos:
-      - "/images/photos/spooning.jpg"
-      - "/images/photos/kids-working-shapes.jpg"
-      - "/images/photos/sound-game.jpg"
-      - "/images/photos/table-setting.jpg"
+      - "/images/photos/spooning.webp"
+      - "/images/photos/kids-working-shapes.webp"
+      - "/images/photos/sound-game.webp"
+      - "/images/photos/table-setting.webp"
   - type: tuitionFraming
   - type: enrollCTA
     eyebrow: "ENROLLING"

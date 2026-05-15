@@ -6,7 +6,7 @@ hero:
   headline: "Soaring minds. Freeing potential."
   headlineHighlight: "potential."
   subhead: "A family-run Montessori childcare center on Capitol Hill, D.C. — building community, respectful care, and life-long learning for every unique child."
-  photo: "/images/photos/founder-with-child.jpeg"
+  photo: "/images/photos/founder-with-child.webp"
   photoAlt: "Fabienne Deaton, founder of Starling Montessori, welcoming a toddler at the school's front door on Capitol Hill"
   ctas:
     - { label: "Schedule a tour →", href: "/open-house", variant: "primary" }
@@ -27,14 +27,14 @@ blocks:
         title: "Ages 16–36 months."
         ages: "ENROLLING NOW"
         body: "A small, calm classroom at Capitol Hill Presbyterian Church — your child's first community outside the home."
-        photo: "/images/photos/toddlers-on-bench.jpg"
+        photo: "/images/photos/toddlers-on-bench.webp"
         photoAlt: "Three Starling toddlers sitting together on a bench at the school's red front door on Capitol Hill"
         cta: { label: "Learn more →", href: "/programs/toddler", variant: "ghost" }
       - eyebrow: "PRIMARY CLASSROOM"
         title: "Ages 3–6."
         ages: "RESERVING NOW"
         body: "A new Primary classroom led by an AMI-trained guide, opening at Saint Mark Episcopal — twelve seats in our inaugural class."
-        photo: "/images/photos/pink-tower-build.jpg"
+        photo: "/images/photos/pink-tower-build.webp"
         photoAlt: "A Starling child carefully placing the top cube of the Pink Tower — a foundational Montessori sensorial material"
         cta: { label: "Learn more →", href: "/programs/primary", variant: "ghost" }
         badge: "NEW · AUG 2026"
@@ -55,10 +55,10 @@ blocks:
     cta: { label: "Read our story →", href: "/about", variant: "outline" }
   - type: photoStrip
     photos:
-      - "/images/photos/toddlers-on-bench.jpg"
-      - "/images/photos/sound-game.jpg"
-      - "/images/photos/table-setting.jpg"
-      - "/images/photos/classroom-kitchen-view.jpg"
+      - "/images/photos/toddlers-on-bench.webp"
+      - "/images/photos/sound-game.webp"
+      - "/images/photos/table-setting.webp"
+      - "/images/photos/classroom-kitchen-view.webp"
   - type: enrollCTA
     eyebrow: "ENROLLING NOW"
     title: "Come visit. We'd love to meet your family."

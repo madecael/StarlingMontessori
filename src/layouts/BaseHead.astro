@@ -22,7 +22,7 @@ const settings = await getEntry("settings", "site");
 const ga4 = settings?.data.ga4Id;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site).toString();
-const defaultOG = "/images/photos/toddlers-on-bench.jpg";
+const defaultOG = "/images/photos/toddlers-on-bench.webp";
 const ogPath = image ?? defaultOG;
 const ogImageAbsolute = ogPath.startsWith("http")
   ? ogPath
