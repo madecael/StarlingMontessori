@@ -1,30 +1,92 @@
 ---
 import { getEntry } from "astro:content";
 const settings = await getEntry("settings", "site");
-const url = settings?.data.bookingUrl;
+const toddlerUrl = settings?.data.bookingUrlToddler;
+const primaryUrl = settings?.data.bookingUrlPrimary;
+const pathname = Astro.url.pathname;
+const isPrimary = pathname.includes("primary");
+const isToddler = pathname.includes("toddler");
+const mode: "toddler" | "primary" | "choose" = isPrimary ? "primary" : isToddler ? "toddler" : "choose";
+const hasAnyUrl = !!(toddlerUrl || primaryUrl);
 ---
-{url && (
+{hasAnyUrl && (
   <dialog id="booking-modal" class="m-auto p-0 rounded-3xl shadow-lg w-[min(92vw,520px)] backdrop:bg-cetacean/40 backdrop:backdrop-blur-sm overflow-hidden bg-seashell">
     <div class="flex items-center justify-between px-6 py-4 border-b border-cetacean/10">
       <div class="eyebrow">SCHEDULE A TOUR</div>
       <button data-booking-close aria-label="Close" class="text-cetacean text-2xl leading-none px-3 py-1 hover:text-pearly-deep">×</button>
     </div>
     <div class="px-7 py-8">
-      <h2 class="text-2xl lg:text-[28px] font-light text-cetacean tracking-tightest leading-tight">Pick a time that works for your family.</h2>
-      <p class="text-sm text-cetacean-70 leading-relaxed mt-3">
-        30-minute tour with Fabienne, in person at the Toddler classroom on Capitol Hill. Saint Mark Episcopal (Primary) tours are by virtual walkthrough until the build-out completes.
-      </p>
-      <a
-        href={url}
-        target="_blank"
-        rel="noopener"
-        class="btn btn-pearly mt-6 w-full justify-center"
-        data-event="booking_open_in_tab"
-        data-booking-confirm
-      >
-        Open booking calendar →
-      </a>
-      <p class="text-xs text-cetacean-70 mt-3 text-center">Opens Google Calendar in a new tab.</p>
+      {mode === "toddler" && toddlerUrl && (
+        <>
+          <h2 class="text-2xl lg:text-[28px] font-light text-cetacean tracking-tightest leading-tight">Pick a time for your Toddler tour.</h2>
+          <p class="text-sm text-cetacean-70 leading-relaxed mt-3">
+            30-minute in-person tour with Fabienne at our Toddler classroom on Capitol Hill.
+          </p>
+          <a
+            href={toddlerUrl}
+            target="_blank"
+            rel="noopener"
+            class="btn btn-pearly mt-6 w-full justify-center"
+            data-event="booking_open_in_tab"
+            data-booking-confirm
+          >
+            Open booking calendar →
+          </a>
+        </>
+      )}
+      {mode === "primary" && primaryUrl && (
+        <>
+          <h2 class="text-2xl lg:text-[28px] font-light text-cetacean tracking-tightest leading-tight">Pick a time for your Primary tour.</h2>
+          <p class="text-sm text-cetacean-70 leading-relaxed mt-3">
+            30-minute tour for prospective Primary families — Toddler classroom visit plus Saint Mark Episcopal walkthrough. Virtual option available if you're relocating.
+          </p>
+          <a
+            href={primaryUrl}
+            target="_blank"
+            rel="noopener"
+            class="btn btn-pearly mt-6 w-full justify-center"
+            data-event="booking_open_in_tab"
+            data-booking-confirm
+          >
+            Open booking calendar →
+          </a>
+        </>
+      )}
+      {mode === "choose" && (
+        <>
+          <h2 class="text-2xl lg:text-[28px] font-light text-cetacean tracking-tightest leading-tight">Which program is your child considering?</h2>
+          <p class="text-sm text-cetacean-70 leading-relaxed mt-3">
+            Choose the tour that fits — Fabienne will guide you through the right classroom.
+          </p>
+          <div class="grid gap-3 mt-6">
+            {toddlerUrl && (
+              <a
+                href={toddlerUrl}
+                target="_blank"
+                rel="noopener"
+                class="btn btn-pearly justify-center text-center"
+                data-event="booking_open_in_tab"
+                data-booking-confirm
+              >
+                Toddler Tour · 16 months – 3 years
+              </a>
+            )}
+            {primaryUrl && (
+              <a
+                href={primaryUrl}
+                target="_blank"
+                rel="noopener"
+                class="btn btn-outline justify-center text-center"
+                data-event="booking_open_in_tab"
+                data-booking-confirm
+              >
+                Primary Tour · 3 – 6 years (Aug 2026)
+              </a>
+            )}
+          </div>
+        </>
+      )}
+      <p class="text-xs text-cetacean-70 mt-4 text-center">Opens Calendly in a new tab.</p>
     </div>
   </dialog>
 )}

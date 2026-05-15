@@ -12,7 +12,8 @@ hours:
   openingHours: "Mo-Fr 08:00-17:00"
 resendFromAddress: tours@starlingmontessorischool.com
 tourEmailRecipient: info@starlingmontessorischool.com
-bookingUrl: https://calendar.app.google/XdFZLpjtpsTGiMqs5
+bookingUrlToddler: https://calendly.com/admin-starlingmontessorischool/schedule-a-toddler-tour
+bookingUrlPrimary: https://calendly.com/admin-starlingmontessorischool/schedule-a-primary-tour
 applyUrl: https://schools.mybrightwheel.com/sign-in?redirect_path=forms/722a839c-5f06-4fbd-87f3-afdd364c4be4/self-service
 ga4Id: G-5GEB1HNJYJ
 ---

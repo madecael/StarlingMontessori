@@ -9,38 +9,56 @@ interface Props {
 }
 const { eyebrow, title, intro, fallbackTitle, fallbackBody } = Astro.props;
 const settings = await getEntry("settings", "site");
-const url = settings?.data.bookingUrl;
+const toddlerUrl = settings?.data.bookingUrlToddler;
+const primaryUrl = settings?.data.bookingUrlPrimary;
+const hasAnyUrl = !!(toddlerUrl || primaryUrl);
 ---
 <section class="px-6 lg:px-8 py-16 max-w-[1240px] mx-auto">
   {eyebrow && <div class="eyebrow">{eyebrow}</div>}
   {title && <h2 class="text-3xl lg:text-4xl font-light text-cetacean mt-2 mb-3 tracking-tightest">{title}</h2>}
   {intro && <p class="text-base text-cetacean-70 mb-7 max-w-2xl leading-relaxed">{intro}</p>}
-  {url ? (
-    <div class="bg-white rounded-3xl p-10 lg:p-14 shadow-sm grid lg:grid-cols-[1.3fr_1fr] gap-8 items-center">
-      <div>
-        <div class="text-[11px] uppercase tracking-eyebrow font-semibold text-pearly-deep">BOOK A TOUR</div>
-        <h3 class="text-2xl lg:text-[28px] font-light text-cetacean mt-2 tracking-tightest leading-tight">
-          Pick a time that works for your family.
-        </h3>
-        <p class="text-sm text-cetacean-70 mt-3 leading-relaxed max-w-md">
-          30-minute tour with Fabienne, in person at the Toddler classroom on Capitol Hill. Saint Mark Episcopal (Primary) tours are by virtual walkthrough until the build-out completes.
-        </p>
-        <p class="text-sm text-cetacean-70 mt-2 leading-relaxed max-w-md">
-          Booking is handled directly in Fabienne's Google Calendar — choose a slot, confirm, and you'll get an email confirmation right away.
-        </p>
-      </div>
-      <div class="flex flex-col gap-3 items-stretch">
-        <a
-          href={url}
-          target="_blank"
-          rel="noopener"
-          class="btn btn-pearly text-base justify-center py-4"
-          data-event="booking_open_in_tab"
-        >
-          Open booking calendar →
-        </a>
-        <p class="text-xs text-cetacean-70 text-center">Opens in a new tab.</p>
-      </div>
+  {hasAnyUrl ? (
+    <div class="grid gap-5 md:grid-cols-2">
+      {toddlerUrl && (
+        <div class="bg-white rounded-3xl p-8 lg:p-10 shadow-sm flex flex-col">
+          <div class="text-[11px] uppercase tracking-eyebrow font-semibold text-pearly-deep">TODDLER PROGRAM</div>
+          <h3 class="text-2xl font-light text-cetacean mt-2 tracking-tightest leading-tight">
+            16 months – 3 years
+          </h3>
+          <p class="text-sm text-cetacean-70 mt-3 leading-relaxed flex-1">
+            30-minute in-person tour with Fabienne at our Toddler classroom on Capitol Hill. See the work cycle in motion and meet the team.
+          </p>
+          <a
+            href={toddlerUrl}
+            target="_blank"
+            rel="noopener"
+            class="btn btn-pearly mt-6 justify-center"
+            data-event="booking_open_in_tab"
+          >
+            Schedule Toddler tour →
+          </a>
+        </div>
+      )}
+      {primaryUrl && (
+        <div class="bg-white rounded-3xl p-8 lg:p-10 shadow-sm flex flex-col">
+          <div class="text-[11px] uppercase tracking-eyebrow font-semibold text-pearly-deep">PRIMARY PROGRAM</div>
+          <h3 class="text-2xl font-light text-cetacean mt-2 tracking-tightest leading-tight">
+            3 – 6 years · Opening Aug 2026
+          </h3>
+          <p class="text-sm text-cetacean-70 mt-3 leading-relaxed flex-1">
+            30-minute tour for prospective Primary families. Toddler classroom visit plus Saint Mark Episcopal walkthrough. Virtual option for relocating families.
+          </p>
+          <a
+            href={primaryUrl}
+            target="_blank"
+            rel="noopener"
+            class="btn btn-outline mt-6 justify-center"
+            data-event="booking_open_in_tab"
+          >
+            Schedule Primary tour →
+          </a>
+        </div>
+      )}
     </div>
   ) : (
     <div class="bg-white rounded-3xl p-8 text-cetacean-70">

@@ -26,7 +26,8 @@ const settings = defineCollection({
       display: z.string(),
       openingHours: z.string(), // schema.org format e.g. "Mo-Fr 08:00-17:00"
     }).optional(),
-    bookingUrl: z.string().url().optional(),
+    bookingUrlToddler: z.string().url().optional(),
+    bookingUrlPrimary: z.string().url().optional(),
     applyUrl: z.string().url().optional(),
     ga4Id: z.string().optional(),
     resendFromAddress: z.string().email(),
