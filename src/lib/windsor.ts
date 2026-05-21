@@ -19,13 +19,24 @@ export interface AdsDaily {
 const STARLING_ACCOUNT_ID = "133-116-5701";
 const WINDSOR_BASE = "https://connectors.windsor.ai/google_ads";
 
-async function windsorFetch<T>(fields: string[], datePreset: string): Promise<T[]> {
+function normalizeAccountId(v: unknown): string {
+  // Windsor sometimes returns account IDs with dashes ("133-116-5701"),
+  // sometimes as plain digits ("1331165701"). Normalize both to plain digits.
+  return String(v ?? "").replace(/\D/g, "");
+}
+const STARLING_ACCOUNT_NORM = normalizeAccountId(STARLING_ACCOUNT_ID);
+
+async function windsorFetch<T extends Record<string, unknown>>(
+  fields: string[],
+  datePreset: string,
+): Promise<T[]> {
   const apiKey = process.env.WINDSOR_API_KEY;
   if (!apiKey) throw new Error("WINDSOR_API_KEY env var not set");
+  // Always request the account identifier so we can filter to Starling.
+  const fieldSet = Array.from(new Set([...fields, "account_id"]));
   const params = new URLSearchParams({
     api_key: apiKey,
-    account_id: STARLING_ACCOUNT_ID,
-    fields: fields.join(","),
+    fields: fieldSet.join(","),
     date_preset: datePreset,
   });
   const url = `${WINDSOR_BASE}?${params}`;
@@ -42,13 +53,15 @@ async function windsorFetch<T>(fields: string[], datePreset: string): Promise<T[
     throw new Error(`Windsor API ${res.status} ${res.statusText}: ${text.slice(0, 300)}`);
   }
   const body = await res.json();
-  // Windsor returns either {data: [...]}, {result: [...]}, or [...] directly
-  const rows = Array.isArray(body) ? body : (body?.data ?? body?.result ?? []);
-  return rows as T[];
+  const all = (Array.isArray(body) ? body : (body?.data ?? body?.result ?? [])) as T[];
+  // Filter to Starling's Google Ads account only. The REST endpoint returns
+  // all accounts on the API key by default; the MCP-style account_id filter
+  // is not honored here, so we filter client-side.
+  return all.filter((row) => normalizeAccountId(row.account_id) === STARLING_ACCOUNT_NORM);
 }
 
 export async function fetchSummary(datePreset: string): Promise<AdsSummary> {
-  const rows = await windsorFetch<Record<string, unknown>>(
+  const rows = await windsorFetch(
     ["clicks", "impressions", "cost", "conversions", "conversion_value"],
     datePreset,
   );
@@ -71,18 +84,18 @@ export async function fetchSummary(datePreset: string): Promise<AdsSummary> {
 }
 
 export async function fetchDaily(datePreset: string): Promise<AdsDaily[]> {
-  const rows = await windsorFetch<Record<string, unknown>>(
-    ["date", "clicks", "impressions", "cost", "conversions"],
-    datePreset,
-  );
-  return rows
-    .filter((r) => r.date)
-    .map((r) => ({
-      date: String(r.date),
-      clicks: Number(r.clicks ?? 0),
-      impressions: Number(r.impressions ?? 0),
-      cost: Number(r.cost ?? 0),
-      conversions: Number(r.conversions ?? 0),
-    }))
-    .sort((a, b) => a.date.localeCompare(b.date));
+  const rows = await windsorFetch(["date", "clicks", "impressions", "cost", "conversions"], datePreset);
+  // Group by date in case the API returns multiple rows per day (e.g. one per campaign).
+  const byDate = new Map<string, AdsDaily>();
+  for (const r of rows) {
+    if (!r.date) continue;
+    const key = String(r.date);
+    const prev = byDate.get(key) ?? { date: key, clicks: 0, impressions: 0, cost: 0, conversions: 0 };
+    prev.clicks += Number(r.clicks ?? 0);
+    prev.impressions += Number(r.impressions ?? 0);
+    prev.cost += Number(r.cost ?? 0);
+    prev.conversions += Number(r.conversions ?? 0);
+    byDate.set(key, prev);
+  }
+  return Array.from(byDate.values()).sort((a, b) => a.date.localeCompare(b.date));
 }
