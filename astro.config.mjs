@@ -9,6 +9,11 @@ export default defineConfig({
   site: "https://starlingmontessorischool.com",
   output: "static",
   adapter: node({ mode: "standalone" }),
+  // Disable Astro 5's default cross-origin POST check. We're hosted on Replit
+  // where the preview/production hostnames may not match `site`, which trips
+  // the check on legitimate admin/tour-request form submissions. Auth still
+  // enforced via the password cookie in src/middleware.ts.
+  security: { checkOrigin: false },
   // Dev server only — production runs via the Node adapter and doesn't read these.
   // Allow any host so Replit's preview URLs (which can be multi-level subdomains
   // like *.spock.replit.dev, *.kirk.replit.dev, etc.) reach the dev server.
