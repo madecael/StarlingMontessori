@@ -17,29 +17,38 @@ export interface AdsDaily {
 }
 
 const STARLING_ACCOUNT_ID = "133-116-5701";
-const WINDSOR_BASE = "https://api.windsor.ai/all";
+const WINDSOR_BASE = "https://connectors.windsor.ai/google_ads";
 
 async function windsorFetch<T>(fields: string[], datePreset: string): Promise<T[]> {
   const apiKey = process.env.WINDSOR_API_KEY;
   if (!apiKey) throw new Error("WINDSOR_API_KEY env var not set");
   const params = new URLSearchParams({
     api_key: apiKey,
-    connector: "google_ads",
     account_id: STARLING_ACCOUNT_ID,
     fields: fields.join(","),
     date_preset: datePreset,
   });
-  const res = await fetch(`${WINDSOR_BASE}?${params}`, { headers: { accept: "application/json" } });
+  const url = `${WINDSOR_BASE}?${params}`;
+  let res: Response;
+  try {
+    res = await fetch(url, { headers: { accept: "application/json" } });
+  } catch (e) {
+    const cause = (e as Error & { cause?: { code?: string; message?: string } }).cause;
+    const causeMsg = cause?.code ? `${cause.code}: ${cause.message ?? ""}`.trim() : (e as Error).message;
+    throw new Error(`Network error reaching connectors.windsor.ai — ${causeMsg}`);
+  }
   if (!res.ok) {
     const text = await res.text().catch(() => "");
-    throw new Error(`Windsor API ${res.status}: ${text.slice(0, 200)}`);
+    throw new Error(`Windsor API ${res.status} ${res.statusText}: ${text.slice(0, 300)}`);
   }
   const body = await res.json();
-  return (body?.result ?? body ?? []) as T[];
+  // Windsor returns either {data: [...]}, {result: [...]}, or [...] directly
+  const rows = Array.isArray(body) ? body : (body?.data ?? body?.result ?? []);
+  return rows as T[];
 }
 
 export async function fetchSummary(datePreset: string): Promise<AdsSummary> {
-  const rows = await windsorFetch<Partial<AdsSummary> & Record<string, unknown>>(
+  const rows = await windsorFetch<Record<string, unknown>>(
     ["clicks", "impressions", "cost", "conversions", "conversion_value"],
     datePreset,
   );
@@ -62,7 +71,7 @@ export async function fetchSummary(datePreset: string): Promise<AdsSummary> {
 }
 
 export async function fetchDaily(datePreset: string): Promise<AdsDaily[]> {
-  const rows = await windsorFetch<AdsDaily>(
+  const rows = await windsorFetch<Record<string, unknown>>(
     ["date", "clicks", "impressions", "cost", "conversions"],
     datePreset,
   );
