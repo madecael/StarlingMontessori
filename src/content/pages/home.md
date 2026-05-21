@@ -15,10 +15,10 @@ blocks:
   - type: valuePillars
     eyebrow: "OUR PILLARS"
     pillars:
-      - { label: "COMMUNITY", body: "Building a small, intentional community of families." }
-      - { label: "RESPECTFUL CARE", body: "Honoring each child's pace and dignity, every day." }
-      - { label: "LIFE-LONG LEARNING", body: "Cultivating curiosity that lasts beyond the classroom." }
-      - { label: "TAILORED & INTENTIONAL", body: "Education shaped to each unique child." }
+      - { label: "Community", body: "Building a small, intentional community of families." }
+      - { label: "Respectful care", body: "Honoring each child's pace and dignity, every day." }
+      - { label: "Life-long learning", body: "Cultivating curiosity that lasts beyond the classroom." }
+      - { label: "Tailored & intentional", body: "Education shaped to each unique child." }
   - type: programSplit
     eyebrow: "OUR PROGRAMS"
     title: "Two classrooms. One continuous Montessori path."

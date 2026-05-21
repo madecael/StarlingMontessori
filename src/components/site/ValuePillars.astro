@@ -8,8 +8,8 @@ const cols = pillars.length;
   <div class={`grid gap-6 md:grid-cols-${cols > 4 ? 3 : cols}`}>
     {pillars.map((p) => (
       <div>
-        <div class="eyebrow">{p.label}</div>
-        <p class="text-base text-cetacean mt-2 leading-relaxed">{p.body}</p>
+        <div class="font-display italic text-xl text-cetacean tracking-tightest leading-tight">{p.label}</div>
+        <p class="text-base text-cetacean-70 mt-2.5 leading-relaxed">{p.body}</p>
       </div>
     ))}
   </div>

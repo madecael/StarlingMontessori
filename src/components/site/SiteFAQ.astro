@@ -3,6 +3,27 @@ interface Q { q: string; a: string; }
 interface Cat { category: string; questions: Q[]; }
 interface Props { eyebrow: string; title: string; categories: Cat[]; }
 const { eyebrow, title, categories } = Astro.props;
+
+type Block =
+  | { type: "paragraph"; text: string }
+  | { type: "quote"; text: string }
+  | { type: "list"; items: string[] };
+
+function parseAnswer(a: string): Block[] {
+  const chunks = a.trim().split(/\n\s*\n+/);
+  return chunks.map((chunk) => {
+    const lines = chunk.split("\n");
+    if (lines.every((l) => l.trim().startsWith(">"))) {
+      const text = lines.map((l) => l.replace(/^\s*>\s?/, "")).join("\n");
+      return { type: "quote", text };
+    }
+    if (lines.every((l) => l.trim().startsWith("- "))) {
+      const items = lines.map((l) => l.replace(/^\s*-\s+/, ""));
+      return { type: "list", items };
+    }
+    return { type: "paragraph", text: chunk };
+  });
+}
 ---
 <section class="px-6 lg:px-8 py-16 max-w-[1240px] mx-auto">
   <div class="eyebrow">{eyebrow}</div>
@@ -12,15 +33,36 @@ const { eyebrow, title, categories } = Astro.props;
       <div>
         <h3 class="text-xl font-light text-cetacean mb-4 tracking-tightest">{cat.category}</h3>
         <div class="grid gap-3">
-          {cat.questions.map((qa) => (
-            <details class="bg-white rounded-2xl p-5 group">
-              <summary class="font-semibold text-cetacean cursor-pointer list-none flex justify-between items-start gap-3">
-                <span>{qa.q}</span>
-                <span class="text-pearly-deep text-2xl leading-none transition-transform group-open:rotate-45">+</span>
-              </summary>
-              <div class="text-sm text-cetacean-70 mt-3 leading-relaxed">{qa.a}</div>
-            </details>
-          ))}
+          {cat.questions.map((qa) => {
+            const blocks = parseAnswer(qa.a);
+            return (
+              <details class="bg-white rounded-2xl p-5 group">
+                <summary class="font-semibold text-cetacean cursor-pointer list-none flex justify-between items-start gap-3">
+                  <span>{qa.q}</span>
+                  <span class="text-pearly-deep text-2xl leading-none transition-transform group-open:rotate-45">+</span>
+                </summary>
+                <div class="text-sm text-cetacean-70 mt-3 leading-relaxed space-y-3">
+                  {blocks.map((b) => {
+                    if (b.type === "quote") {
+                      return (
+                        <blockquote class="border-l-2 border-pearly/40 pl-4 italic text-cetacean-70 whitespace-pre-line">
+                          {b.text}
+                        </blockquote>
+                      );
+                    }
+                    if (b.type === "list") {
+                      return (
+                        <ul class="list-disc pl-5 space-y-1.5">
+                          {b.items.map((item) => <li>{item}</li>)}
+                        </ul>
+                      );
+                    }
+                    return <p>{b.text}</p>;
+                  })}
+                </div>
+              </details>
+            );
+          })}
         </div>
       </div>
     ))}

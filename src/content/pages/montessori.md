@@ -12,10 +12,10 @@ blocks:
   - type: valuePillars
     eyebrow: "WHY MONTESSORI"
     pillars:
-      - { label: "INDEPENDENCE", body: "Children learn to do things for themselves — pour their own water, dress themselves, choose their own work. Independence builds confidence." }
-      - { label: "CONCENTRATION", body: "An uninterrupted three-hour work cycle protects deep focus, the foundation of all later learning." }
-      - { label: "RESPECT", body: "We follow the child's pace, interests, and developmental stage — never the schedule of a curriculum or the noise of a group." }
-      - { label: "COMMUNITY", body: "Mixed-age classrooms let younger children learn from older ones, and older children consolidate knowledge by mentoring." }
+      - { label: "Independence", body: "Children learn to do things for themselves — pour their own water, dress themselves, choose their own work. Independence builds confidence." }
+      - { label: "Concentration", body: "An uninterrupted three-hour work cycle protects deep focus, the foundation of all later learning." }
+      - { label: "Respect", body: "We follow the child's pace, interests, and developmental stage — never the schedule of a curriculum or the noise of a group." }
+      - { label: "Community", body: "Mixed-age classrooms let younger children learn from older ones, and older children consolidate knowledge by mentoring." }
   - type: founderApproach
     eyebrow: "OUR APPROACH"
     title: "What a Montessori day actually looks like."

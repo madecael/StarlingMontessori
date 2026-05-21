@@ -12,10 +12,10 @@ blocks:
   - type: valuePillars
     eyebrow: "WHY STARLING"
     pillars:
-      - { label: "SMALL BY DESIGN", body: "Low ratios, deep relationships. Toddler runs at 1:4, Primary at 1:8 — well below the licensed maximum." }
-      - { label: "AMI-ALIGNED PRACTICE", body: "We hire AMI-trained guides and follow the AMI standard. The work is anchored to the original method, not to a curriculum vendor." }
-      - { label: "CAPITOL HILL COMMUNITY", body: "Walkable neighborhood, family-run, and a community of parents who know our team by name." }
-      - { label: "WORK THAT MATTERS", body: "Children at the most formative ages, in environments built carefully and with intention." }
+      - { label: "Small by design", body: "Low ratios, deep relationships. Toddler runs at 1:4, Primary at 1:8 — well below the licensed maximum." }
+      - { label: "AMI-aligned practice", body: "We hire AMI-trained guides and follow the AMI standard. The work is anchored to the original method, not to a curriculum vendor." }
+      - { label: "Capitol Hill community", body: "Walkable neighborhood, family-run, and a community of parents who know our team by name." }
+      - { label: "Work that matters", body: "Children at the most formative ages, in environments built carefully and with intention." }
   - type: founderApproach
     eyebrow: "WHO WE LOOK FOR"
     title: "Warmth, calm, and care for the prepared environment."
