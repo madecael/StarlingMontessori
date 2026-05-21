@@ -1,0 +1,164 @@
+---
+export const prerender = false;
+import AdminLayout from "../../layouts/AdminLayout.astro";
+import { fetchSummary, fetchDaily, type AdsSummary, type AdsDaily } from "../../lib/windsor";
+
+const rangeParam = Astro.url.searchParams.get("range") ?? "30d";
+const ranges: Record<string, { preset: string; label: string }> = {
+  "7d": { preset: "last_7dT", label: "Last 7 days" },
+  "30d": { preset: "last_30dT", label: "Last 30 days" },
+  "90d": { preset: "last_90dT", label: "Last 90 days" },
+};
+const range = ranges[rangeParam] ?? ranges["30d"];
+
+let summary: AdsSummary | null = null;
+let daily: AdsDaily[] = [];
+let error: string | null = null;
+try {
+  [summary, daily] = await Promise.all([fetchSummary(range.preset), fetchDaily(range.preset)]);
+} catch (e) {
+  error = e instanceof Error ? e.message : "Unknown error";
+}
+
+const fmt = {
+  int: (n: number) => n.toLocaleString("en-US"),
+  money: (n: number) => n.toLocaleString("en-US", { style: "currency", currency: "USD" }),
+  pct: (n: number) => `${(n * 100).toFixed(2)}%`,
+};
+
+// Build SVG line chart for clicks per day
+const W = 800;
+const H = 280;
+const PAD = { top: 20, right: 20, bottom: 32, left: 40 };
+const innerW = W - PAD.left - PAD.right;
+const innerH = H - PAD.top - PAD.bottom;
+const maxClicks = Math.max(1, ...daily.map((d) => d.clicks));
+const pointsClicks = daily.length
+  ? daily
+      .map((d, i) => {
+        const x = PAD.left + (daily.length === 1 ? innerW / 2 : (i / (daily.length - 1)) * innerW);
+        const y = PAD.top + innerH - (d.clicks / maxClicks) * innerH;
+        return `${x.toFixed(1)},${y.toFixed(1)}`;
+      })
+      .join(" ")
+  : "";
+const areaPath = daily.length
+  ? `M ${PAD.left},${PAD.top + innerH} L ${pointsClicks.split(" ").join(" L ")} L ${PAD.left + innerW},${PAD.top + innerH} Z`
+  : "";
+
+const yTicks = [0, maxClicks / 2, maxClicks].map((v) => ({
+  v,
+  y: PAD.top + innerH - (v / maxClicks) * innerH,
+}));
+const xLabels = daily.length
+  ? [0, Math.floor((daily.length - 1) / 2), daily.length - 1].map((i) => ({
+      label: daily[i].date.slice(5), // MM-DD
+      x: PAD.left + (daily.length === 1 ? innerW / 2 : (i / (daily.length - 1)) * innerW),
+    }))
+  : [];
+---
+<AdminLayout title="Dashboard" showLogout>
+  <section class="max-w-[1240px] mx-auto px-6 lg:px-8 py-10">
+    <div class="flex flex-wrap items-end justify-between gap-4 mb-8">
+      <div>
+        <div class="eyebrow">PEAK SPRINT · GOOGLE ADS</div>
+        <h1 class="text-3xl lg:text-4xl font-light text-cetacean tracking-tightest mt-1">{range.label}</h1>
+      </div>
+      <div class="flex gap-2">
+        {Object.entries(ranges).map(([key, r]) => (
+          <a
+            href={`?range=${key}`}
+            class:list={[
+              "px-4 py-2 rounded-pill text-sm border",
+              rangeParam === key
+                ? "bg-cetacean text-seashell border-cetacean"
+                : "bg-white text-cetacean border-cetacean/20 hover:border-cetacean/50",
+            ]}
+          >
+            {r.label}
+          </a>
+        ))}
+      </div>
+    </div>
+
+    {error && (
+      <div class="bg-pearly/10 border border-pearly/30 rounded-2xl p-5 mb-8">
+        <div class="text-sm font-semibold text-pearly-deep mb-1">Couldn't load data</div>
+        <div class="text-sm text-cetacean-70">{error}</div>
+        <div class="text-xs text-cetacean-70 mt-3">
+          Check that <code class="bg-white px-1.5 py-0.5 rounded">WINDSOR_API_KEY</code> is set in Replit env vars and that the Windsor.ai account has access to Google Ads account <code class="bg-white px-1.5 py-0.5 rounded">133-116-5701</code>.
+        </div>
+      </div>
+    )}
+
+    {summary && (
+      <>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+          <div class="bg-white rounded-2xl p-5">
+            <div class="text-[11px] uppercase tracking-eyebrow font-semibold text-cetacean-70">Impressions</div>
+            <div class="text-3xl font-light text-cetacean mt-1.5">{fmt.int(summary.impressions)}</div>
+          </div>
+          <div class="bg-white rounded-2xl p-5">
+            <div class="text-[11px] uppercase tracking-eyebrow font-semibold text-cetacean-70">Clicks</div>
+            <div class="text-3xl font-light text-cetacean mt-1.5">{fmt.int(summary.clicks)}</div>
+            <div class="text-xs text-cetacean-70 mt-1">CTR {fmt.pct(summary.ctr)}</div>
+          </div>
+          <div class="bg-white rounded-2xl p-5">
+            <div class="text-[11px] uppercase tracking-eyebrow font-semibold text-cetacean-70">Cost</div>
+            <div class="text-3xl font-light text-cetacean mt-1.5">{fmt.money(summary.cost)}</div>
+            <div class="text-xs text-cetacean-70 mt-1">Avg CPC {fmt.money(summary.cpc)}</div>
+          </div>
+          <div class="bg-white rounded-2xl p-5">
+            <div class="text-[11px] uppercase tracking-eyebrow font-semibold text-cetacean-70">Conversions</div>
+            <div class="text-3xl font-light text-cetacean mt-1.5">{fmt.int(summary.conversions)}</div>
+            <div class="text-xs text-cetacean-70 mt-1">Value {fmt.money(summary.conversion_value)}</div>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-3xl p-6 lg:p-8">
+          <div class="flex items-baseline justify-between mb-4">
+            <h2 class="text-xl font-light text-cetacean tracking-tightest">Daily clicks</h2>
+            <div class="text-xs text-cetacean-70">{daily.length} day{daily.length === 1 ? "" : "s"} with data</div>
+          </div>
+          {daily.length ? (
+            <svg viewBox={`0 0 ${W} ${H}`} class="w-full h-auto" role="img" aria-label="Daily clicks chart">
+              {yTicks.map((t) => (
+                <>
+                  <line x1={PAD.left} x2={W - PAD.right} y1={t.y} y2={t.y} stroke="#0c163d" stroke-opacity="0.08" />
+                  <text x={PAD.left - 8} y={t.y + 4} text-anchor="end" font-size="11" fill="#4a557a">
+                    {Math.round(t.v)}
+                  </text>
+                </>
+              ))}
+              <path d={areaPath} fill="#a9729b" fill-opacity="0.15" />
+              <polyline
+                points={pointsClicks}
+                fill="none"
+                stroke="#8b5c7e"
+                stroke-width="2"
+                stroke-linejoin="round"
+                stroke-linecap="round"
+              />
+              {daily.map((_, i) => {
+                const x = PAD.left + (daily.length === 1 ? innerW / 2 : (i / (daily.length - 1)) * innerW);
+                const y = PAD.top + innerH - (daily[i].clicks / maxClicks) * innerH;
+                return <circle cx={x} cy={y} r="3" fill="#8b5c7e" />;
+              })}
+              {xLabels.map((l) => (
+                <text x={l.x} y={H - 10} text-anchor="middle" font-size="11" fill="#4a557a">
+                  {l.label}
+                </text>
+              ))}
+            </svg>
+          ) : (
+            <div class="text-sm text-cetacean-70 py-10 text-center">No data for this period yet.</div>
+          )}
+        </div>
+      </>
+    )}
+
+    <p class="text-xs text-cetacean-70 mt-8 text-center">
+      Data via Windsor.ai · Google Ads account 133-116-5701 · Refreshes on page load
+    </p>
+  </section>
+</AdminLayout>

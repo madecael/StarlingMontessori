@@ -1,0 +1,34 @@
+---
+import "../styles/global.css";
+interface Props {
+  title: string;
+  showLogout?: boolean;
+}
+const { title, showLogout = false } = Astro.props;
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="robots" content="noindex,nofollow" />
+    <title>{title} · Starling Admin</title>
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+  </head>
+  <body class="bg-seashell text-cetacean min-h-screen">
+    <header class="border-b border-cetacean/10 bg-seashell-shade/60">
+      <div class="max-w-[1240px] mx-auto px-6 lg:px-8 py-4 flex items-center justify-between">
+        <a href="/admin/dashboard" class="flex items-center gap-3">
+          <img src="/images/starling-logo.png" alt="Starling" class="h-9 w-auto" />
+          <span class="text-sm uppercase tracking-eyebrow font-semibold text-cetacean-70">Admin</span>
+        </a>
+        {showLogout && (
+          <form action="/api/admin/logout" method="POST" class="inline">
+            <button type="submit" class="text-sm text-cetacean-70 hover:text-pearly-deep">Sign out</button>
+          </form>
+        )}
+      </div>
+    </header>
+    <main><slot /></main>
+  </body>
+</html>

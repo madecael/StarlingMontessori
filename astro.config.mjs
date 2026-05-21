@@ -24,7 +24,7 @@ export default defineConfig({
   integrations: [
     tailwind({ applyBaseStyles: false }),
     sitemap({
-      filter: (p) => !p.includes("/api/"),
+      filter: (p) => !p.includes("/api/") && !p.includes("/admin/"),
     }),
   ],
   redirects: {
