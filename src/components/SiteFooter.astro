@@ -3,28 +3,30 @@ import BrandWordmark from "./BrandWordmark.astro";
 import { getEntry } from "astro:content";
 const settings = await getEntry("settings", "site");
 const s = settings!.data;
+
 const cols: { heading: string; links: { label: string; href: string }[] }[] = [
-  { heading: "School", links: [
+  { heading: "About", links: [
     { label: "About", href: "/about" },
-    { label: "Montessori method", href: "/montessori" },
-    { label: "Faculty", href: "/about" },
-    { label: "FAQ", href: "/faq" },
+    { label: "The Method", href: "/montessori" },
     { label: "Careers", href: "/careers" },
   ]},
   { heading: "Programs", links: [
     { label: "Toddler Community", href: "/programs/toddler" },
     { label: "Primary Classroom", href: "/programs/primary" },
   ]},
-  { heading: "Visit", links: [
-    { label: "Schedule a tour", href: "/open-house" },
-    { label: "Open House", href: "/open-house" },
+  { heading: "Enroll", links: [
     { label: "Admissions", href: "/admissions" },
+    { label: "Tuition", href: "/tuition" },
+    { label: "FAQ", href: "/faq" },
+  ]},
+  { heading: "Connect", links: [
+    { label: "Visit", href: "/open-house" },
     { label: "Contact", href: "/contact" },
   ]},
 ];
 ---
 <footer class="bg-seashell-shade mt-16 px-6 lg:px-8 pt-14 pb-8">
-  <div class="max-w-[1240px] mx-auto grid md:grid-cols-[1.5fr_1fr_1fr_1fr] gap-8">
+  <div class="max-w-[1240px] mx-auto grid md:grid-cols-[1.5fr_repeat(4,1fr)] gap-8">
     <div>
       <div class="flex items-center">
         <BrandWordmark size="lg" />
