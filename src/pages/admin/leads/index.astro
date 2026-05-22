@@ -1,0 +1,227 @@
+---
+export const prerender = false;
+import AdminLayout from "../../../layouts/AdminLayout.astro";
+import { listLeads, STATUSES, type Status, type Lead } from "../../../lib/leads";
+
+const params = Astro.url.searchParams;
+const statusParam = (params.get("status") ?? "all") as Status | "all";
+const q = (params.get("q") ?? "").trim();
+const sort = params.get("sort") ?? "lastActivityAt";
+const dir = params.get("dir") === "asc" ? "asc" : "desc";
+
+const validStatus: Status | "all" = ([...STATUSES, "all"] as (Status | "all")[]).includes(statusParam)
+  ? statusParam
+  : "all";
+
+let leads: Lead[] = [];
+let error: string | null = null;
+try {
+  leads = await listLeads({
+    status: validStatus,
+    search: q || undefined,
+  });
+} catch (e) {
+  error = e instanceof Error ? e.message : "Unknown error";
+}
+
+type SortKey = "name" | "email" | "program" | "status" | "source" | "firstContactAt" | "lastActivityAt";
+const sortKey: SortKey = (
+  ["name", "email", "program", "status", "source", "firstContactAt", "lastActivityAt"].includes(sort)
+    ? sort
+    : "lastActivityAt"
+) as SortKey;
+
+leads = [...leads].sort((a, b) => {
+  const av = String(a[sortKey] ?? "");
+  const bv = String(b[sortKey] ?? "");
+  const cmp = av.localeCompare(bv);
+  return dir === "asc" ? cmp : -cmp;
+});
+
+const statusLabels: Record<Status, string> = {
+  inquired: "Inquired",
+  toured: "Toured",
+  applied: "Applied",
+  enrolled: "Enrolled",
+  lost: "Lost",
+};
+
+const sourceLabels: Record<string, string> = {
+  calendly: "Calendly",
+  tour_form: "Tour form",
+  contact_form: "Contact form",
+};
+
+const statusPillClass: Record<Status, string> = {
+  inquired: "bg-cetacean/10 text-cetacean",
+  toured: "bg-pearly/20 text-pearly-deep",
+  applied: "bg-pearly/40 text-pearly-deep",
+  enrolled: "bg-green-100 text-green-800",
+  lost: "bg-cetacean/5 text-cetacean-70",
+};
+
+const chips: { key: Status | "all"; label: string }[] = [
+  { key: "all", label: "All" },
+  { key: "inquired", label: "Inquired" },
+  { key: "toured", label: "Toured" },
+  { key: "applied", label: "Applied" },
+  { key: "enrolled", label: "Enrolled" },
+  { key: "lost", label: "Lost" },
+];
+
+function chipHref(s: Status | "all"): string {
+  const u = new URLSearchParams();
+  if (s !== "all") u.set("status", s);
+  if (q) u.set("q", q);
+  if (sortKey !== "lastActivityAt") u.set("sort", sortKey);
+  if (dir !== "desc") u.set("dir", dir);
+  const qs = u.toString();
+  return qs ? `?${qs}` : "/admin/leads";
+}
+
+function sortHref(col: SortKey): string {
+  const u = new URLSearchParams();
+  if (validStatus !== "all") u.set("status", validStatus);
+  if (q) u.set("q", q);
+  u.set("sort", col);
+  const nextDir = sortKey === col && dir === "desc" ? "asc" : "desc";
+  u.set("dir", nextDir);
+  return `?${u.toString()}`;
+}
+
+function leadHref(email: string): string {
+  return `/admin/leads/${encodeURIComponent(email)}`;
+}
+
+function fmtDate(iso?: string): string {
+  if (!iso) return "—";
+  try {
+    return new Date(iso).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
+  } catch {
+    return "—";
+  }
+}
+
+const columns: { key: SortKey; label: string }[] = [
+  { key: "name", label: "Name" },
+  { key: "email", label: "Email" },
+  { key: "program", label: "Program" },
+  { key: "status", label: "Status" },
+  { key: "source", label: "Source" },
+  { key: "firstContactAt", label: "First contact" },
+  { key: "lastActivityAt", label: "Last activity" },
+];
+---
+<AdminLayout title="Leads" showLogout>
+  <section class="max-w-[1240px] mx-auto px-6 lg:px-8 py-10">
+    <div class="flex flex-wrap items-end justify-between gap-4 mb-8">
+      <div>
+        <div class="eyebrow">STARLING CRM</div>
+        <h1 class="text-3xl lg:text-4xl font-light text-cetacean tracking-tightest mt-1">Leads</h1>
+      </div>
+    </div>
+
+    <div class="flex flex-wrap gap-2 mb-4">
+      {chips.map((c) => (
+        <a
+          href={chipHref(c.key)}
+          class:list={[
+            "px-4 py-2 rounded-pill text-sm border",
+            validStatus === c.key
+              ? "bg-cetacean text-seashell border-cetacean"
+              : "bg-white text-cetacean border-cetacean/20 hover:border-cetacean/50",
+          ]}
+        >
+          {c.label}
+        </a>
+      ))}
+    </div>
+
+    <form method="get" class="mb-6">
+      {validStatus !== "all" && <input type="hidden" name="status" value={validStatus} />}
+      {sortKey !== "lastActivityAt" && <input type="hidden" name="sort" value={sortKey} />}
+      {dir !== "desc" && <input type="hidden" name="dir" value={dir} />}
+      <input
+        type="text"
+        name="q"
+        value={q}
+        placeholder="Search by name or email…"
+        class="w-full md:max-w-sm px-3 py-2.5 rounded-xl border border-cetacean/20 bg-white text-sm"
+      />
+    </form>
+
+    {error && (
+      <div class="bg-pearly/10 border border-pearly/30 rounded-2xl p-5 mb-6">
+        <div class="text-sm font-semibold text-pearly-deep mb-1">Couldn't load leads</div>
+        <div class="text-sm text-cetacean-70">{error}</div>
+      </div>
+    )}
+
+    <div class="bg-white rounded-2xl overflow-hidden">
+      {leads.length === 0 ? (
+        <div class="text-cetacean-70 py-12 text-center text-sm">
+          No leads yet — they'll appear here as Calendly bookings and form submissions roll in.
+        </div>
+      ) : (
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm">
+            <thead class="bg-seashell-shade/40 text-left">
+              <tr>
+                {columns.map((c) => {
+                  const active = sortKey === c.key;
+                  const arrow = active ? (dir === "desc" ? " ↓" : " ↑") : "";
+                  return (
+                    <th class="px-4 py-3 text-[11px] uppercase tracking-eyebrow font-semibold text-cetacean-70">
+                      <a href={sortHref(c.key)} class="hover:text-cetacean">
+                        {c.label}{arrow}
+                      </a>
+                    </th>
+                  );
+                })}
+              </tr>
+            </thead>
+            <tbody>
+              {leads.map((l) => {
+                const href = leadHref(l.email);
+                const status = l.status;
+                return (
+                  <tr class="border-t border-cetacean/5 hover:bg-seashell-shade/30">
+                    <td class="px-4 py-3">
+                      <a href={href} class="block text-cetacean font-medium">{l.name || l.email}</a>
+                    </td>
+                    <td class="px-4 py-3">
+                      <a href={href} class="block text-cetacean-70">{l.email}</a>
+                    </td>
+                    <td class="px-4 py-3">
+                      <a href={href} class="block text-cetacean-70 capitalize">{l.program ?? "—"}</a>
+                    </td>
+                    <td class="px-4 py-3">
+                      <a href={href} class="block">
+                        <span class:list={["rounded-pill px-2.5 py-0.5 text-xs font-medium", statusPillClass[status]]}>
+                          {statusLabels[status]}
+                        </span>
+                      </a>
+                    </td>
+                    <td class="px-4 py-3">
+                      <a href={href} class="block text-cetacean-70">{sourceLabels[l.source] ?? l.source}</a>
+                    </td>
+                    <td class="px-4 py-3">
+                      <a href={href} class="block text-cetacean-70">{fmtDate(l.firstContactAt)}</a>
+                    </td>
+                    <td class="px-4 py-3">
+                      <a href={href} class="block text-cetacean-70">{fmtDate(l.lastActivityAt)}</a>
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+      )}
+    </div>
+
+    <p class="text-xs text-cetacean-70 mt-8 text-center">
+      {leads.length} lead{leads.length === 1 ? "" : "s"} shown
+    </p>
+  </section>
+</AdminLayout>

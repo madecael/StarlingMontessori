@@ -9,6 +9,8 @@
  *     [--url https://starlingmontessorischool.com/api/calendly-webhook] \
  *     [--scope organization] [--dry-run]
  *
+ * Either CALENDLY_TOKEN or CALENDLY_API_TOKEN works for the auth token.
+ *
  * Run once from a machine that has the two secrets in env. The subscription
  * URI is recorded in `.data/calendly-subscriptions.json` so future runs can
  * detect the existing subscription and exit cleanly.
@@ -60,9 +62,9 @@ async function api(token, path, init = {}) {
 async function main() {
   const args = parseArgs(process.argv.slice(2));
 
-  const token = process.env.CALENDLY_TOKEN;
+  const token = process.env.CALENDLY_TOKEN || process.env.CALENDLY_API_TOKEN;
   const secret = process.env.CALENDLY_WEBHOOK_SECRET;
-  if (!token) throw new Error("CALENDLY_TOKEN env var not set");
+  if (!token) throw new Error("CALENDLY_TOKEN (or CALENDLY_API_TOKEN) env var not set");
   if (!secret) throw new Error("CALENDLY_WEBHOOK_SECRET env var not set");
   if (secret.length < 32) {
     console.warn(`Warning: CALENDLY_WEBHOOK_SECRET is only ${secret.length} chars — Calendly recommends 32+ random chars.`);

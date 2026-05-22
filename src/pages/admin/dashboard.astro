@@ -2,6 +2,7 @@
 export const prerender = false;
 import AdminLayout from "../../layouts/AdminLayout.astro";
 import { fetchSummary, fetchDaily, type AdsSummary, type AdsDaily } from "../../lib/windsor";
+import { listEvents, readLeads, type Lead, type LeadEvent, type Status, type Author } from "../../lib/leads";
 
 const rangeParam = Astro.url.searchParams.get("range") ?? "30d";
 const ranges: Record<string, { preset: string; label: string }> = {
@@ -56,6 +57,74 @@ const xLabels = daily.length
       x: PAD.left + (daily.length === 1 ? innerW / 2 : (i / (daily.length - 1)) * innerW),
     }))
   : [];
+
+let recentEvents: LeadEvent[] = [];
+let leadsByEmail = new Map<string, Lead>();
+try {
+  const [allEvents, allLeads] = await Promise.all([listEvents(), readLeads()]);
+  recentEvents = allEvents.slice(0, 5);
+  leadsByEmail = new Map(allLeads.map((l) => [l.email, l]));
+} catch (e) {
+  console.error("dashboard recent activity failed", e);
+}
+
+const statusLabels: Record<Status, string> = {
+  inquired: "Inquired",
+  toured: "Toured",
+  applied: "Applied",
+  enrolled: "Enrolled",
+  lost: "Lost",
+};
+const authorLabels: Record<Author, string> = {
+  fabienne: "Fabienne",
+  carlos: "Carlos",
+  mau: "Mau",
+};
+const sourceLabels: Record<string, string> = {
+  calendly: "Calendly",
+  tour_form: "Tour form",
+  contact_form: "Contact form",
+  admin: "admin",
+};
+
+function describeEvent(ev: LeadEvent): string {
+  const md = ev.metadata ?? {};
+  switch (ev.type) {
+    case "tour_booked":
+      return md.program ? `Tour booked (${String(md.program)})` : "Tour booked";
+    case "tour_canceled":
+      return "Tour canceled";
+    case "form_submit":
+      return `Form submitted via ${sourceLabels[ev.source] ?? ev.source}`;
+    case "contact":
+      return "Contact request submitted";
+    case "status_change": {
+      const from = md.from ? statusLabels[md.from as Status] ?? String(md.from) : "?";
+      const to = md.to ? statusLabels[md.to as Status] ?? String(md.to) : "?";
+      const by = md.author ? authorLabels[md.author as Author] ?? String(md.author) : "admin";
+      return `Status changed from ${from} to ${to} by ${by}`;
+    }
+    case "note_added": {
+      const by = md.author ? authorLabels[md.author as Author] ?? String(md.author) : "admin";
+      return `Note added by ${by}`;
+    }
+    default:
+      return ev.type;
+  }
+}
+
+function fmtEventTime(iso: string): string {
+  try {
+    return new Date(iso).toLocaleString("en-US", {
+      month: "short",
+      day: "numeric",
+      hour: "numeric",
+      minute: "2-digit",
+    });
+  } catch {
+    return iso;
+  }
+}
 ---
 <AdminLayout title="Dashboard" showLogout>
   <section class="max-w-[1240px] mx-auto px-6 lg:px-8 py-10">
@@ -156,6 +225,37 @@ const xLabels = daily.length
         </div>
       </>
     )}
+
+    <div class="bg-white rounded-3xl p-6 lg:p-8 mt-8">
+      <div class="flex items-baseline justify-between mb-4">
+        <div>
+          <div class="eyebrow">STARLING CRM</div>
+          <h2 class="text-xl font-light text-cetacean tracking-tightest mt-1">Recent activity</h2>
+        </div>
+        <a href="/admin/leads" class="text-sm text-pearly-deep hover:text-pearly">All leads →</a>
+      </div>
+      {recentEvents.length === 0 ? (
+        <div class="text-sm text-cetacean-70 py-10 text-center">
+          No activity yet — leads will appear here as Calendly bookings come in.
+        </div>
+      ) : (
+        <ul class="space-y-3">
+          {recentEvents.map((ev) => {
+            const lead = leadsByEmail.get(ev.leadEmail);
+            const name = lead?.name ?? ev.leadEmail;
+            const href = `/admin/leads/${encodeURIComponent(ev.leadEmail)}`;
+            return (
+              <li class="flex flex-wrap items-baseline gap-x-3 gap-y-1 border-t border-cetacean/5 pt-3 first:border-t-0 first:pt-0">
+                <span class="text-xs text-cetacean-70 w-28 shrink-0">{fmtEventTime(ev.timestamp)}</span>
+                <span class="text-sm text-cetacean">{describeEvent(ev)}</span>
+                <span class="text-sm text-cetacean-70">—</span>
+                <a href={href} class="text-sm text-pearly-deep hover:text-pearly">{name}</a>
+              </li>
+            );
+          })}
+        </ul>
+      )}
+    </div>
 
     <p class="text-xs text-cetacean-70 mt-8 text-center">
       Data via Windsor.ai · Google Ads account 133-116-5701 · Refreshes on page load

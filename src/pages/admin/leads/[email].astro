@@ -1,0 +1,361 @@
+---
+export const prerender = false;
+import AdminLayout from "../../../layouts/AdminLayout.astro";
+import { getLead, listEvents, STATUSES, AUTHORS, type Status, type Author, type Lead, type LeadEvent } from "../../../lib/leads";
+
+const emailParam = Astro.params.email ?? "";
+const email = decodeURIComponent(emailParam);
+
+let lead: Lead | undefined;
+let events: LeadEvent[] = [];
+let error: string | null = null;
+try {
+  lead = await getLead(email);
+  if (lead) events = await listEvents(lead.email);
+} catch (e) {
+  error = e instanceof Error ? e.message : "Unknown error";
+}
+
+const statusLabels: Record<Status, string> = {
+  inquired: "Inquired",
+  toured: "Toured",
+  applied: "Applied",
+  enrolled: "Enrolled",
+  lost: "Lost",
+};
+const authorLabels: Record<Author, string> = {
+  fabienne: "Fabienne",
+  carlos: "Carlos",
+  mau: "Mau",
+};
+const sourceLabels: Record<string, string> = {
+  calendly: "Calendly",
+  tour_form: "Tour form",
+  contact_form: "Contact form",
+};
+
+function fmtDateTime(iso?: string): string {
+  if (!iso) return "—";
+  try {
+    return new Date(iso).toLocaleString("en-US", {
+      month: "short",
+      day: "numeric",
+      year: "numeric",
+      hour: "numeric",
+      minute: "2-digit",
+    });
+  } catch {
+    return "—";
+  }
+}
+
+function humanizeEvent(ev: LeadEvent): string {
+  const md = ev.metadata ?? {};
+  switch (ev.type) {
+    case "tour_booked": {
+      const program = md.program ? ` (${md.program})` : "";
+      const when = md.startTime ? ` for ${fmtDateTime(String(md.startTime))}` : "";
+      return `Tour booked${program}${when}`;
+    }
+    case "tour_canceled":
+      return "Tour canceled";
+    case "form_submit":
+      return `Form submitted via ${sourceLabels[ev.source] ?? ev.source}`;
+    case "contact":
+      return "Contact request submitted";
+    case "status_change": {
+      const from = md.from ? statusLabels[md.from as Status] ?? String(md.from) : "?";
+      const to = md.to ? statusLabels[md.to as Status] ?? String(md.to) : "?";
+      const by = md.author ? authorLabels[md.author as Author] ?? String(md.author) : "admin";
+      return `Status changed from ${from} to ${to} by ${by}`;
+    }
+    case "note_added": {
+      const by = md.author ? authorLabels[md.author as Author] ?? String(md.author) : "admin";
+      return `Note added by ${by}`;
+    }
+    default:
+      return ev.type;
+  }
+}
+
+const stageIndex = lead ? STATUSES.indexOf(lead.status) : -1;
+---
+<AdminLayout title={lead?.name ?? "Lead"} showLogout>
+  <section class="max-w-[960px] mx-auto px-6 lg:px-8 py-10">
+    <a href="/admin/leads" class="text-sm text-cetacean-70 hover:text-cetacean">← Back to leads</a>
+
+    {error && (
+      <div class="bg-pearly/10 border border-pearly/30 rounded-2xl p-5 mt-6">
+        <div class="text-sm font-semibold text-pearly-deep mb-1">Couldn't load lead</div>
+        <div class="text-sm text-cetacean-70">{error}</div>
+      </div>
+    )}
+
+    {!lead && !error && (
+      <div class="bg-white rounded-2xl p-8 mt-6 text-center">
+        <h1 class="text-2xl font-light text-cetacean tracking-tightest mb-2">Lead not found</h1>
+        <p class="text-sm text-cetacean-70 mb-4">No lead with email <code>{email}</code> exists yet.</p>
+        <a href="/admin/leads" class="text-sm text-pearly-deep hover:text-pearly">Back to leads</a>
+      </div>
+    )}
+
+    {lead && (
+      <>
+        <div class="mt-4 mb-8">
+          <div class="eyebrow">STARLING CRM</div>
+          <h1 class="text-3xl lg:text-4xl font-light text-cetacean tracking-tightest mt-1">{lead.name}</h1>
+          <a href={`mailto:${lead.email}`} class="text-sm text-pearly-deep hover:text-pearly">{lead.email}</a>
+        </div>
+
+        <div class="bg-white rounded-2xl p-5 mb-6">
+          <div class="eyebrow mb-4">Contact</div>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+            <div>
+              <div class="text-[11px] uppercase tracking-eyebrow font-semibold text-cetacean-70">Name</div>
+              <div class="text-cetacean mt-0.5">{lead.name}</div>
+            </div>
+            <div>
+              <div class="text-[11px] uppercase tracking-eyebrow font-semibold text-cetacean-70">Email</div>
+              <div class="mt-0.5"><a href={`mailto:${lead.email}`} class="text-pearly-deep hover:text-pearly">{lead.email}</a></div>
+            </div>
+            {lead.phone && (
+              <div>
+                <div class="text-[11px] uppercase tracking-eyebrow font-semibold text-cetacean-70">Phone</div>
+                <div class="mt-0.5"><a href={`tel:${lead.phone}`} class="text-pearly-deep hover:text-pearly">{lead.phone}</a></div>
+              </div>
+            )}
+            <div>
+              <div class="text-[11px] uppercase tracking-eyebrow font-semibold text-cetacean-70">Child</div>
+              <div class="text-cetacean mt-0.5">{lead.childName ?? "—"}{lead.childAge ? ` · ${lead.childAge}` : ""}</div>
+            </div>
+            <div>
+              <div class="text-[11px] uppercase tracking-eyebrow font-semibold text-cetacean-70">Program</div>
+              <div class="text-cetacean mt-0.5 capitalize">{lead.program ?? "—"}</div>
+            </div>
+            <div>
+              <div class="text-[11px] uppercase tracking-eyebrow font-semibold text-cetacean-70">Source</div>
+              <div class="text-cetacean mt-0.5">{sourceLabels[lead.source] ?? lead.source}</div>
+            </div>
+            <div>
+              <div class="text-[11px] uppercase tracking-eyebrow font-semibold text-cetacean-70">First contact</div>
+              <div class="text-cetacean mt-0.5">{fmtDateTime(lead.firstContactAt)}</div>
+            </div>
+            <div>
+              <div class="text-[11px] uppercase tracking-eyebrow font-semibold text-cetacean-70">Last activity</div>
+              <div class="text-cetacean mt-0.5">{fmtDateTime(lead.lastActivityAt)}</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-2xl p-5 mb-6">
+          <div class="eyebrow mb-4">Pipeline</div>
+          <div class="flex flex-wrap gap-2" id="stage-row">
+            {STATUSES.map((s, i) => {
+              const isCurrent = i === stageIndex;
+              const isPast = i < stageIndex;
+              const cls = isCurrent
+                ? "bg-cetacean text-seashell border-cetacean"
+                : isPast
+                  ? "bg-cetacean/30 text-cetacean border-cetacean/30"
+                  : "bg-white text-cetacean border-cetacean/20 hover:border-cetacean/50";
+              return (
+                <button
+                  type="button"
+                  data-stage={s}
+                  class:list={["stage-btn px-4 py-2 rounded-pill text-sm border", cls]}
+                >
+                  {statusLabels[s]}
+                </button>
+              );
+            })}
+          </div>
+        </div>
+
+        <div class="bg-white rounded-2xl p-5 mb-6">
+          <div class="eyebrow mb-4">Timeline</div>
+          {events.length === 0 ? (
+            <div class="text-sm text-cetacean-70 py-6 text-center">No events recorded yet.</div>
+          ) : (
+            <ul class="space-y-4">
+              {events.map((ev) => (
+                <li class="relative pl-5">
+                  <span class="absolute left-0 top-2 w-2 h-2 rounded-full bg-pearly"></span>
+                  <div class="text-sm text-cetacean">{humanizeEvent(ev)}</div>
+                  <div class="text-xs text-cetacean-70 mt-0.5">{fmtDateTime(ev.timestamp)}</div>
+                  {ev.type === "status_change" && ev.metadata?.note && (
+                    <div class="text-xs text-cetacean-70 mt-1 italic">"{String(ev.metadata.note)}"</div>
+                  )}
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+
+        <div class="bg-white rounded-2xl p-5 mb-6">
+          <div class="eyebrow mb-4">Notes</div>
+          {lead.notes.length === 0 ? (
+            <div class="text-sm text-cetacean-70 py-2">No notes yet.</div>
+          ) : (
+            <ul class="space-y-3 mb-5">
+              {[...lead.notes].reverse().map((n) => (
+                <li class="border-l-2 border-pearly/40 pl-3">
+                  <div class="text-sm text-cetacean whitespace-pre-wrap">{n.text}</div>
+                  <div class="text-xs text-cetacean-70 mt-1">
+                    {authorLabels[n.author] ?? n.author} · {fmtDateTime(n.createdAt)}
+                  </div>
+                </li>
+              ))}
+            </ul>
+          )}
+          <form id="note-form" class="space-y-3">
+            <textarea
+              id="note-text"
+              name="text"
+              rows="3"
+              required
+              placeholder="Add a note…"
+              class="w-full px-3 py-2.5 rounded-xl border border-cetacean/20 bg-white text-sm"
+            ></textarea>
+            <div class="flex flex-wrap items-center gap-3">
+              <label class="text-sm text-cetacean-70">
+                Author
+                <select id="note-author" name="author" class="ml-2 px-3 py-2 rounded-xl border border-cetacean/20 bg-white text-sm">
+                  {AUTHORS.map((a) => <option value={a}>{authorLabels[a]}</option>)}
+                </select>
+              </label>
+              <button type="submit" class="btn btn-pearly text-sm">Add note</button>
+            </div>
+            <div id="note-error" class="text-sm text-pearly-deep hidden"></div>
+          </form>
+        </div>
+
+        <dialog id="stage-dialog" class="rounded-2xl p-0 backdrop:bg-cetacean/30 max-w-md w-full">
+          <form method="dialog" id="stage-form" class="bg-white p-6">
+            <div class="eyebrow mb-3">Change status</div>
+            <p class="text-sm text-cetacean-70 mb-4">
+              Move <strong class="text-cetacean">{lead.name}</strong> to
+              <strong class="text-cetacean" id="stage-target-label">—</strong>?
+            </p>
+            <input type="hidden" id="stage-target" />
+            <label class="block mb-3">
+              <span class="text-[11px] uppercase tracking-eyebrow font-semibold text-cetacean-70 mb-1.5 block">Who is making this change?</span>
+              <select id="stage-author" class="w-full px-3 py-2.5 rounded-xl border border-cetacean/20 bg-white text-sm">
+                {AUTHORS.map((a) => <option value={a}>{authorLabels[a]}</option>)}
+              </select>
+            </label>
+            <label class="block mb-4">
+              <span class="text-[11px] uppercase tracking-eyebrow font-semibold text-cetacean-70 mb-1.5 block">Note (optional)</span>
+              <textarea id="stage-note" rows="3" class="w-full px-3 py-2.5 rounded-xl border border-cetacean/20 bg-white text-sm"></textarea>
+            </label>
+            <div id="stage-error" class="text-sm text-pearly-deep mb-3 hidden"></div>
+            <div class="flex justify-end gap-2">
+              <button type="button" id="stage-cancel" class="px-4 py-2 rounded-pill text-sm border border-cetacean/20 text-cetacean hover:border-cetacean/50">Cancel</button>
+              <button type="button" id="stage-confirm" class="btn btn-pearly text-sm">Confirm</button>
+            </div>
+          </form>
+        </dialog>
+
+        <script is:inline define:vars={{ email: lead.email, statusLabels }}>
+          (function () {
+            const dialog = document.getElementById("stage-dialog");
+            const targetLabel = document.getElementById("stage-target-label");
+            const targetInput = document.getElementById("stage-target");
+            const authorSel = document.getElementById("stage-author");
+            const noteEl = document.getElementById("stage-note");
+            const errEl = document.getElementById("stage-error");
+            const confirmBtn = document.getElementById("stage-confirm");
+            const cancelBtn = document.getElementById("stage-cancel");
+
+            function openDialog(stage) {
+              targetInput.value = stage;
+              targetLabel.textContent = statusLabels[stage] ?? stage;
+              errEl.classList.add("hidden");
+              errEl.textContent = "";
+              noteEl.value = "";
+              if (typeof dialog.showModal === "function") dialog.showModal();
+              else dialog.setAttribute("open", "");
+            }
+            function closeDialog() {
+              if (typeof dialog.close === "function") dialog.close();
+              else dialog.removeAttribute("open");
+            }
+
+            document.querySelectorAll(".stage-btn").forEach((btn) => {
+              btn.addEventListener("click", () => {
+                const s = btn.getAttribute("data-stage");
+                if (s) openDialog(s);
+              });
+            });
+            cancelBtn.addEventListener("click", closeDialog);
+
+            dialog.addEventListener("cancel", () => {
+              confirmBtn.removeAttribute("disabled");
+              errEl.classList.add("hidden");
+            });
+
+            dialog.addEventListener("click", (e) => {
+              if (e.target === dialog) {
+                closeDialog();
+                confirmBtn.removeAttribute("disabled");
+                errEl.classList.add("hidden");
+              }
+            });
+
+            confirmBtn.addEventListener("click", async () => {
+              const value = targetInput.value;
+              const author = authorSel.value;
+              const note = noteEl.value.trim();
+              confirmBtn.setAttribute("disabled", "");
+              errEl.classList.add("hidden");
+              try {
+                const res = await fetch("/api/admin/lead-update", {
+                  method: "POST",
+                  headers: { "content-type": "application/json" },
+                  body: JSON.stringify({ email, action: "status", value, author, note: note || undefined }),
+                });
+                if (!res.ok) {
+                  const body = await res.json().catch(() => ({}));
+                  throw new Error(body.error || `Request failed (${res.status})`);
+                }
+                window.location.reload();
+              } catch (e) {
+                errEl.textContent = e instanceof Error ? e.message : "Unknown error";
+                errEl.classList.remove("hidden");
+                confirmBtn.removeAttribute("disabled");
+              }
+            });
+
+            const noteForm = document.getElementById("note-form");
+            const noteText = document.getElementById("note-text");
+            const noteAuthor = document.getElementById("note-author");
+            const noteError = document.getElementById("note-error");
+            noteForm.addEventListener("submit", async (ev) => {
+              ev.preventDefault();
+              const text = noteText.value.trim();
+              if (!text) return;
+              const submitBtn = noteForm.querySelector("button[type=submit]");
+              submitBtn.setAttribute("disabled", "");
+              noteError.classList.add("hidden");
+              try {
+                const res = await fetch("/api/admin/lead-update", {
+                  method: "POST",
+                  headers: { "content-type": "application/json" },
+                  body: JSON.stringify({ email, action: "note", value: text, author: noteAuthor.value }),
+                });
+                if (!res.ok) {
+                  const body = await res.json().catch(() => ({}));
+                  throw new Error(body.error || `Request failed (${res.status})`);
+                }
+                window.location.reload();
+              } catch (e) {
+                noteError.textContent = e instanceof Error ? e.message : "Unknown error";
+                noteError.classList.remove("hidden");
+                submitBtn.removeAttribute("disabled");
+              }
+            });
+          })();
+        </script>
+      </>
+    )}
+  </section>
+</AdminLayout>
