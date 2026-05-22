@@ -2,6 +2,7 @@ import type { APIRoute } from "astro";
 import { Resend } from "resend";
 import { getEntry } from "astro:content";
 import { contactRequestSchema } from "../../lib/validate-contact-request";
+import { upsertLead, addEvent } from "../../lib/leads";
 
 export const prerender = false;
 
@@ -42,6 +43,22 @@ export const POST: APIRoute = async ({ request }) => {
   } catch (err) {
     console.error("Resend error", err);
     return new Response("Send failed", { status: 502 });
+  }
+  try {
+    await upsertLead({
+      email: data.email,
+      name: data.name,
+      source: "contact_form",
+      metadata: { subject: data.subject, message: data.message },
+    });
+    await addEvent({
+      leadEmail: data.email,
+      type: "contact",
+      source: "contact_form",
+      metadata: { subject: data.subject },
+    });
+  } catch (err) {
+    console.error("Lead persistence error (contact-request)", err);
   }
   return new Response(JSON.stringify({ ok: true }), { status: 200, headers: { "content-type": "application/json" } });
 };

@@ -2,8 +2,16 @@ import type { APIRoute } from "astro";
 import { Resend } from "resend";
 import { getEntry } from "astro:content";
 import { tourRequestSchema } from "../../lib/validate-tour-request";
+import { upsertLead, addEvent, type Program } from "../../lib/leads";
 
 export const prerender = false;
+
+function inferProgramFromPage(page: string): Program | undefined {
+  const p = page.toLowerCase();
+  if (p.includes("toddler")) return "toddler";
+  if (p.includes("primary")) return "primary";
+  return undefined;
+}
 
 export const POST: APIRoute = async ({ request }) => {
   let payload: unknown;
@@ -44,6 +52,29 @@ export const POST: APIRoute = async ({ request }) => {
   } catch (err) {
     console.error("Resend error", err);
     return new Response("Send failed", { status: 502 });
+  }
+  try {
+    await upsertLead({
+      email: data.email,
+      name: data.parentName,
+      childAge: data.childAge,
+      program: inferProgramFromPage(data.page),
+      source: "tour_form",
+      metadata: {
+        page: data.page,
+        preferredWeek: data.preferredWeek,
+        relocating: data.relocating,
+        currentMontessori: data.currentMontessori,
+      },
+    });
+    await addEvent({
+      leadEmail: data.email,
+      type: "form_submit",
+      source: "tour_form",
+      metadata: { page: data.page },
+    });
+  } catch (err) {
+    console.error("Lead persistence error (tour-request)", err);
   }
   return new Response(JSON.stringify({ ok: true }), { status: 200, headers: { "content-type": "application/json" } });
 };
