@@ -1,7 +1,5 @@
-import { mkdir, readFile, writeFile, rename } from "node:fs/promises";
-import { existsSync } from "node:fs";
 import { randomUUID } from "node:crypto";
-import { join, dirname } from "node:path";
+import Client from "@replit/database";
 
 export type Program = "toddler" | "primary";
 export type Source = "calendly" | "tour_form" | "contact_form";
@@ -51,60 +49,102 @@ export interface LeadEvent {
   dedupeKey?: string;
 }
 
-const DATA_DIR = join(process.cwd(), ".data");
-const LEADS_PATH = join(DATA_DIR, "leads.json");
-const EVENTS_PATH = join(DATA_DIR, "events.json");
+const LEADS_KEY = "leads";
+const EVENTS_KEY = "events";
+
+// Minimal structural interface matching the parts of @replit/database we use.
+// Lets tests inject an in-memory mock without pulling in the real Client (which
+// throws at construction time when REPLIT_DB_URL is unset).
+export interface ReplitDbLike {
+  get(
+    key: string,
+  ): Promise<{ ok: true; value: unknown } | { ok: false; error: { message: string } }>;
+  set(
+    key: string,
+    value: unknown,
+  ): Promise<{ ok: true; value: unknown } | { ok: false; error: { message: string } }>;
+}
+
+// Lazy singleton: `new Client()` throws synchronously when REPLIT_DB_URL is
+// missing, which would crash module-load (and therefore `astro build`) in any
+// non-Replit environment. Deferring construction keeps build green and only
+// requires the env var at first DB call.
+let _client: ReplitDbLike | null = null;
+function getDefaultClient(): ReplitDbLike {
+  if (!_client) {
+    try {
+      _client = new Client() as unknown as ReplitDbLike;
+    } catch (err) {
+      throw new Error(
+        `Failed to initialize Replit Database client — confirm REPLIT_DB_URL is set in deployment env vars. Underlying error: ${err instanceof Error ? err.message : String(err)}`,
+      );
+    }
+  }
+  return _client;
+}
+
+// Test seam: swap the default client (e.g. with an in-memory mock).
+/**
+ * @internal — test-only injection seam. Do not call from production code.
+ */
+export function __setDbClient(client: ReplitDbLike | null): void {
+  _client = client;
+}
 
 function normalizeEmail(email: string): string {
   return email.trim().toLowerCase();
 }
 
-async function ensureDir(path: string): Promise<void> {
-  if (!existsSync(path)) await mkdir(path, { recursive: true });
-}
-
-async function readJsonArray<T>(path: string): Promise<T[]> {
-  await ensureDir(dirname(path));
-  if (!existsSync(path)) return [];
+async function dbGetArray<T>(key: string, client: ReplitDbLike = getDefaultClient()): Promise<T[]> {
   try {
-    const raw = await readFile(path, "utf-8");
-    if (!raw.trim()) return [];
-    const parsed = JSON.parse(raw);
-    return Array.isArray(parsed) ? (parsed as T[]) : [];
+    const res = await client.get(key);
+    if (!res.ok) {
+      // Missing key surfaces as ok:true value:null on Replit DB; a genuine error
+      // here means the request failed. Log and return [] to keep callers safe.
+      console.error(`dbGetArray(${key}) failed`, res.error);
+      return [];
+    }
+    const value = res.value;
+    if (value == null) return [];
+    return Array.isArray(value) ? (value as T[]) : [];
   } catch (e) {
-    console.error(`Failed to read ${path}, returning empty array`, e);
+    console.error(`dbGetArray(${key}) threw`, e);
     return [];
   }
 }
 
-async function writeJsonAtomic(path: string, data: unknown): Promise<void> {
-  await ensureDir(dirname(path));
-  const tmp = `${path}.${process.pid}.${Date.now()}.tmp`;
-  await writeFile(tmp, JSON.stringify(data, null, 2), "utf-8");
-  await rename(tmp, path);
+async function dbSetArray(
+  key: string,
+  data: unknown,
+  client: ReplitDbLike = getDefaultClient(),
+): Promise<void> {
+  const res = await client.set(key, data);
+  if (!res.ok) {
+    throw new Error(`dbSetArray(${key}) failed: ${res.error.message}`);
+  }
 }
 
-// In-process write queue per file. Astro SSR runs in a single Node process,
-// so a Promise chain is sufficient to serialize writes and prevent
-// read-modify-write races between concurrent requests.
+// In-process write queue per key. Replit Autoscale is configured to a single
+// max instance, so a Promise chain is sufficient to serialize writes and
+// prevent read-modify-write races between concurrent requests.
 const writeQueues = new Map<string, Promise<unknown>>();
 
-function withLock<T>(path: string, fn: () => Promise<T>): Promise<T> {
-  const prev = writeQueues.get(path) ?? Promise.resolve();
-  const next = prev.then(fn, fn);
+function withLock<T>(key: string, fn: () => Promise<T>): Promise<T> {
+  const prev = writeQueues.get(key) ?? Promise.resolve();
+  const next = prev.then(fn);
   writeQueues.set(
-    path,
+    key,
     next.catch(() => undefined),
   );
   return next;
 }
 
 export async function readLeads(): Promise<Lead[]> {
-  return readJsonArray<Lead>(LEADS_PATH);
+  return dbGetArray<Lead>(LEADS_KEY);
 }
 
 export async function readEvents(): Promise<LeadEvent[]> {
-  return readJsonArray<LeadEvent>(EVENTS_PATH);
+  return dbGetArray<LeadEvent>(EVENTS_KEY);
 }
 
 export async function getLead(email: string): Promise<Lead | undefined> {
@@ -151,7 +191,7 @@ export interface UpsertInput {
 }
 
 export async function upsertLead(input: UpsertInput): Promise<Lead> {
-  return withLock(LEADS_PATH, async () => {
+  return withLock(LEADS_KEY, async () => {
     const key = normalizeEmail(input.email);
     if (!key) throw new Error("upsertLead: email required");
     const now = input.timestamp ?? new Date().toISOString();
@@ -173,7 +213,7 @@ export async function upsertLead(input: UpsertInput): Promise<Lead> {
         metadata: input.metadata ?? {},
       };
       leads.push(lead);
-      await writeJsonAtomic(LEADS_PATH, leads);
+      await dbSetArray(LEADS_KEY, leads);
       return lead;
     }
     const existing = leads[idx];
@@ -190,7 +230,7 @@ export async function upsertLead(input: UpsertInput): Promise<Lead> {
       metadata: { ...existing.metadata, ...(input.metadata ?? {}) },
     };
     leads[idx] = merged;
-    await writeJsonAtomic(LEADS_PATH, leads);
+    await dbSetArray(LEADS_KEY, leads);
     return merged;
   });
 }
@@ -205,7 +245,7 @@ export interface AddEventInput {
 }
 
 export async function addEvent(input: AddEventInput): Promise<LeadEvent> {
-  return withLock(EVENTS_PATH, async () => {
+  return withLock(EVENTS_KEY, async () => {
     const events = await readEvents();
     if (input.dedupeKey) {
       const existing = events.find((e) => e.dedupeKey === input.dedupeKey);
@@ -221,7 +261,7 @@ export async function addEvent(input: AddEventInput): Promise<LeadEvent> {
       ...(input.dedupeKey ? { dedupeKey: input.dedupeKey } : {}),
     };
     events.push(event);
-    await writeJsonAtomic(EVENTS_PATH, events);
+    await dbSetArray(EVENTS_KEY, events);
     return event;
   });
 }
@@ -234,7 +274,7 @@ export async function updateStatus(
 ): Promise<Lead> {
   const key = normalizeEmail(email);
   const trimmedNote = note?.trim() || undefined;
-  const { lead, prev, timestamp } = await withLock(LEADS_PATH, async () => {
+  const { lead, prev, timestamp } = await withLock(LEADS_KEY, async () => {
     const leads = await readLeads();
     const idx = leads.findIndex((l) => l.email === key);
     if (idx === -1) throw new Error(`updateStatus: lead not found: ${key}`);
@@ -247,7 +287,7 @@ export async function updateStatus(
         { id: randomUUID(), text: trimmedNote, author, createdAt: now },
       ];
     }
-    await writeJsonAtomic(LEADS_PATH, leads);
+    await dbSetArray(LEADS_KEY, leads);
     return { lead: leads[idx], prev: prevStatus, timestamp: now };
   });
   await addEvent({
@@ -264,7 +304,7 @@ export async function addNote(email: string, text: string, author: Author): Prom
   const trimmed = text.trim();
   if (!trimmed) throw new Error("addNote: text required");
   const key = normalizeEmail(email);
-  const { note, timestamp } = await withLock(LEADS_PATH, async () => {
+  const { note, timestamp } = await withLock(LEADS_KEY, async () => {
     const leads = await readLeads();
     const idx = leads.findIndex((l) => l.email === key);
     if (idx === -1) throw new Error(`addNote: lead not found: ${key}`);
@@ -275,7 +315,7 @@ export async function addNote(email: string, text: string, author: Author): Prom
       notes: [...leads[idx].notes, newNote],
       lastActivityAt: now,
     };
-    await writeJsonAtomic(LEADS_PATH, leads);
+    await dbSetArray(LEADS_KEY, leads);
     return { note: newNote, timestamp: now };
   });
   await addEvent({
