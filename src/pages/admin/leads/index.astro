@@ -121,6 +121,30 @@ const columns: { key: SortKey; label: string }[] = [
       </div>
     </div>
 
+    <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
+      <div class="flex gap-2">
+        <a
+          href="/admin/leads"
+          class="px-4 py-2 rounded-pill text-sm border bg-cetacean text-seashell border-cetacean"
+          aria-current="page"
+        >
+          List
+        </a>
+        <a
+          href="/admin/leads/board"
+          class="px-4 py-2 rounded-pill text-sm border bg-white text-cetacean border-cetacean/20 hover:border-cetacean/50"
+        >
+          Board
+        </a>
+      </div>
+      <a
+        href="/api/admin/leads-export"
+        class="px-4 py-2 rounded-pill text-sm border bg-white text-cetacean border-cetacean/20 hover:border-cetacean/50"
+      >
+        Export CSV
+      </a>
+    </div>
+
     <div class="flex flex-wrap gap-2 mb-4">
       {chips.map((c) => (
         <a

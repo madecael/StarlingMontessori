@@ -1,0 +1,303 @@
+---
+export const prerender = false;
+import AdminLayout from "../../../layouts/AdminLayout.astro";
+import { listLeads, STATUSES, AUTHORS, type Status, type Lead, type Author } from "../../../lib/leads";
+
+let leads: Lead[] = [];
+let error: string | null = null;
+try {
+  leads = await listLeads();
+} catch (e) {
+  error = e instanceof Error ? e.message : "Unknown error";
+}
+
+const statusLabels: Record<Status, string> = {
+  inquired: "Inquired",
+  toured: "Toured",
+  applied: "Applied",
+  enrolled: "Enrolled",
+  lost: "Lost",
+};
+
+const authorLabels: Record<Author, string> = {
+  fabienne: "Fabienne",
+  carlos: "Carlos",
+  mau: "Mau",
+};
+
+const sourceLabels: Record<string, string> = {
+  calendly: "Calendly",
+  tour_form: "Tour form",
+  contact_form: "Contact form",
+};
+
+const columns: Status[] = STATUSES;
+const byStatus = new Map<Status, Lead[]>(columns.map((s) => [s, []]));
+for (const l of leads) {
+  const arr = byStatus.get(l.status);
+  if (arr) arr.push(l);
+}
+---
+<AdminLayout title="Leads board" showLogout>
+  <section class="max-w-[1400px] mx-auto px-6 lg:px-8 py-10">
+    <div class="flex flex-wrap items-end justify-between gap-4 mb-8">
+      <div>
+        <div class="eyebrow">STARLING CRM</div>
+        <h1 class="text-3xl lg:text-4xl font-light text-cetacean tracking-tightest mt-1">Board</h1>
+      </div>
+    </div>
+
+    <div class="flex flex-wrap items-center justify-between gap-3 mb-6">
+      <div class="flex gap-2">
+        <a
+          href="/admin/leads"
+          class="px-4 py-2 rounded-pill text-sm border bg-white text-cetacean border-cetacean/20 hover:border-cetacean/50"
+        >
+          List
+        </a>
+        <a
+          href="/admin/leads/board"
+          class="px-4 py-2 rounded-pill text-sm border bg-cetacean text-seashell border-cetacean"
+          aria-current="page"
+        >
+          Board
+        </a>
+      </div>
+      <label class="flex items-center gap-2 text-sm text-cetacean-70">
+        Acting as
+        <select
+          id="board-author"
+          class="px-3 py-2 rounded-xl border border-cetacean/20 bg-white text-sm text-cetacean"
+        >
+          {AUTHORS.map((a) => <option value={a}>{authorLabels[a]}</option>)}
+        </select>
+      </label>
+    </div>
+
+    {error && (
+      <div class="bg-pearly/10 border border-pearly/30 rounded-2xl p-5 mb-6">
+        <div class="text-sm font-semibold text-pearly-deep mb-1">Couldn't load leads</div>
+        <div class="text-sm text-cetacean-70">{error}</div>
+      </div>
+    )}
+
+    <div
+      id="board-error"
+      class="hidden bg-pearly/10 border border-pearly/30 rounded-2xl p-3 mb-4 text-sm text-pearly-deep"
+    ></div>
+
+    {leads.length === 0 && !error ? (
+      <div class="bg-white rounded-2xl py-12 text-center text-sm text-cetacean-70">
+        No leads yet — they'll appear here as Calendly bookings and form submissions come in.
+      </div>
+    ) : (
+      <div class="flex gap-4 overflow-x-auto pb-4" id="board-root">
+        {columns.map((s) => {
+          const items = byStatus.get(s) ?? [];
+          return (
+            <div
+              class="board-column flex-shrink-0 w-72 bg-seashell-shade/40 rounded-2xl p-3"
+              data-status={s}
+            >
+              <div class="flex items-center justify-between px-2 py-2 mb-2">
+                <div class="text-[11px] uppercase tracking-eyebrow font-semibold text-cetacean">
+                  {statusLabels[s]}
+                </div>
+                <span
+                  class="column-count rounded-pill px-2 py-0.5 text-xs font-medium bg-white text-cetacean-70 border border-cetacean/10"
+                >
+                  {items.length}
+                </span>
+              </div>
+              <div class="column-body space-y-2 min-h-[160px]" data-status={s}>
+                {items.map((l) => {
+                  const program = l.program ? l.program.charAt(0).toUpperCase() + l.program.slice(1) : "—";
+                  const source = sourceLabels[l.source] ?? l.source;
+                  return (
+                    <article
+                      class="lead-card cursor-grab active:cursor-grabbing bg-white rounded-2xl p-4 shadow-sm border border-cetacean/10 hover:border-cetacean/30"
+                      draggable="true"
+                      data-email={l.email}
+                      data-status={l.status}
+                      data-last-activity={l.lastActivityAt}
+                    >
+                      <div class="text-sm font-medium text-cetacean truncate">{l.name || l.email}</div>
+                      <div class="text-xs text-cetacean-70 truncate mt-0.5">{l.email}</div>
+                      <div class="text-xs text-cetacean-70 mt-1.5">
+                        {program} · {source}
+                      </div>
+                      <div class="card-time text-[11px] text-cetacean-70/80 mt-2"></div>
+                    </article>
+                  );
+                })}
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    )}
+
+    <p class="text-xs text-cetacean-70 mt-8 text-center">
+      Drag cards between columns to update status · Acting-as choice is saved locally
+    </p>
+  </section>
+
+  <script is:inline>
+    (function () {
+      const AUTHOR_KEY = "starling_crm_author";
+      const authorSelect = document.getElementById("board-author");
+      const errEl = document.getElementById("board-error");
+
+      function showError(msg) {
+        if (!errEl) return;
+        errEl.textContent = msg;
+        errEl.classList.remove("hidden");
+        clearTimeout(showError._t);
+        showError._t = setTimeout(() => errEl.classList.add("hidden"), 4000);
+      }
+
+      if (authorSelect) {
+        const saved = localStorage.getItem(AUTHOR_KEY);
+        if (saved && [...authorSelect.options].some((o) => o.value === saved)) {
+          authorSelect.value = saved;
+        }
+        authorSelect.addEventListener("change", () => {
+          localStorage.setItem(AUTHOR_KEY, authorSelect.value);
+        });
+      }
+
+      function fmtRelative(iso) {
+        if (!iso) return "";
+        const d = new Date(iso).getTime();
+        if (!Number.isFinite(d)) return "";
+        const diff = Math.max(0, Date.now() - d);
+        const s = Math.floor(diff / 1000);
+        if (s < 45) return "just now";
+        const m = Math.floor(s / 60);
+        if (m < 60) return m + "m ago";
+        const h = Math.floor(m / 60);
+        if (h < 24) return h + "h ago";
+        const days = Math.floor(h / 24);
+        if (days < 30) return days + "d ago";
+        const months = Math.floor(days / 30);
+        if (months < 12) return months + "mo ago";
+        return Math.floor(months / 12) + "y ago";
+      }
+
+      document.querySelectorAll(".lead-card").forEach((card) => {
+        const t = card.querySelector(".card-time");
+        if (t) t.textContent = fmtRelative(card.getAttribute("data-last-activity"));
+      });
+
+      function updateCounts() {
+        document.querySelectorAll(".board-column").forEach((col) => {
+          const body = col.querySelector(".column-body");
+          const badge = col.querySelector(".column-count");
+          if (body && badge) badge.textContent = String(body.querySelectorAll(".lead-card").length);
+          if (body) ensurePlaceholder(body);
+        });
+      }
+
+      function ensurePlaceholder(body) {
+        const hasCards = body.querySelectorAll(".lead-card").length > 0;
+        let ph = body.querySelector(".empty-ph");
+        if (!hasCards && !ph) {
+          ph = document.createElement("div");
+          ph.className =
+            "empty-ph rounded-2xl border border-dashed border-cetacean/20 text-center text-xs text-cetacean-70/60 py-6";
+          ph.textContent = "Drop here";
+          body.appendChild(ph);
+        } else if (hasCards && ph) {
+          ph.remove();
+        }
+      }
+
+      let draggedEl = null;
+      let originBody = null;
+      let inFlight = false;
+
+      document.querySelectorAll(".lead-card").forEach((card) => {
+        card.addEventListener("click", (e) => {
+          if (card.classList.contains("is-dragging")) return;
+          const email = card.getAttribute("data-email");
+          if (email) window.location.href = "/admin/leads/" + encodeURIComponent(email);
+        });
+
+        card.addEventListener("dragstart", (e) => {
+          draggedEl = card;
+          originBody = card.parentElement;
+          card.classList.add("is-dragging", "opacity-50");
+          if (e.dataTransfer) {
+            e.dataTransfer.setData("text/plain", card.getAttribute("data-email") || "");
+            e.dataTransfer.effectAllowed = "move";
+          }
+        });
+
+        card.addEventListener("dragend", () => {
+          card.classList.remove("is-dragging", "opacity-50");
+          setTimeout(() => {
+            draggedEl = null;
+            originBody = null;
+          }, 0);
+        });
+      });
+
+      document.querySelectorAll(".board-column").forEach((col) => {
+        const body = col.querySelector(".column-body");
+        if (!body) return;
+
+        col.addEventListener("dragover", (e) => {
+          e.preventDefault();
+          if (e.dataTransfer) e.dataTransfer.dropEffect = "move";
+          col.classList.add("bg-pearly/10");
+        });
+        col.addEventListener("dragleave", (e) => {
+          if (e.target === col) col.classList.remove("bg-pearly/10");
+        });
+        col.addEventListener("drop", async (e) => {
+          e.preventDefault();
+          col.classList.remove("bg-pearly/10");
+          const card = draggedEl;
+          const origin = originBody;
+          if (!card) return;
+          const newStatus = col.getAttribute("data-status");
+          const oldStatus = card.getAttribute("data-status");
+          if (!newStatus || newStatus === oldStatus) return;
+          if (inFlight) return;
+          inFlight = true;
+
+          const email = card.getAttribute("data-email") || "";
+          const author = (authorSelect && authorSelect.value) || "fabienne";
+
+          body.appendChild(card);
+          card.setAttribute("data-status", newStatus);
+          updateCounts();
+
+          try {
+            const res = await fetch("/api/admin/lead-update", {
+              method: "POST",
+              headers: { "content-type": "application/json" },
+              body: JSON.stringify({ email, action: "status", value: newStatus, author }),
+            });
+            if (!res.ok) {
+              const j = await res.json().catch(() => ({}));
+              throw new Error(j.error || "Request failed (" + res.status + ")");
+            }
+            const t = card.querySelector(".card-time");
+            if (t) t.textContent = "just now";
+            card.setAttribute("data-last-activity", new Date().toISOString());
+          } catch (err) {
+            if (origin) origin.appendChild(card);
+            card.setAttribute("data-status", oldStatus || "");
+            updateCounts();
+            showError(err && err.message ? err.message : "Update failed — reverted.");
+          } finally {
+            inFlight = false;
+          }
+        });
+      });
+
+      updateCounts();
+    })();
+  </script>
+</AdminLayout>

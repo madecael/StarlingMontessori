@@ -60,13 +60,33 @@ const xLabels = daily.length
 
 let recentEvents: LeadEvent[] = [];
 let leadsByEmail = new Map<string, Lead>();
+let allLeadsForSummary: Lead[] = [];
+let allEventsForSummary: LeadEvent[] = [];
 try {
   const [allEvents, allLeads] = await Promise.all([listEvents(), readLeads()]);
   recentEvents = allEvents.slice(0, 5);
   leadsByEmail = new Map(allLeads.map((l) => [l.email, l]));
+  allLeadsForSummary = allLeads;
+  allEventsForSummary = allEvents;
 } catch (e) {
   console.error("dashboard recent activity failed", e);
 }
+
+const now = new Date();
+const monthStart = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), 1)).toISOString();
+const nextMonthStart = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth() + 1, 1)).toISOString();
+const inThisMonth = (iso: string) => iso >= monthStart && iso < nextMonthStart;
+
+const newLeadsThisMonth = allLeadsForSummary.filter((l) => inThisMonth(l.firstContactAt)).length;
+const toursScheduledThisMonth = allEventsForSummary.filter(
+  (e) => e.type === "tour_booked" && inThisMonth(e.timestamp),
+).length;
+const appliedThisMonth = allEventsForSummary.filter(
+  (e) => e.type === "status_change" && e.metadata?.to === "applied" && inThisMonth(e.timestamp),
+).length;
+const enrolledThisMonth = allEventsForSummary.filter(
+  (e) => e.type === "status_change" && e.metadata?.to === "enrolled" && inThisMonth(e.timestamp),
+).length;
 
 const statusLabels: Record<Status, string> = {
   inquired: "Inquired",
@@ -159,6 +179,29 @@ function fmtEventTime(iso: string): string {
         </div>
       </div>
     )}
+
+    <div class="bg-white rounded-3xl p-6 lg:p-8 mb-8">
+      <div class="eyebrow">THIS MONTH · CRM</div>
+      <h2 class="text-xl font-light text-cetacean tracking-tightest mt-1 mb-5">Pipeline summary</h2>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div>
+          <div class="text-[11px] uppercase tracking-eyebrow font-semibold text-cetacean-70">New leads</div>
+          <div class="text-3xl font-light text-cetacean mt-1.5">{fmt.int(newLeadsThisMonth)}</div>
+        </div>
+        <div>
+          <div class="text-[11px] uppercase tracking-eyebrow font-semibold text-cetacean-70">Tours scheduled</div>
+          <div class="text-3xl font-light text-cetacean mt-1.5">{fmt.int(toursScheduledThisMonth)}</div>
+        </div>
+        <div>
+          <div class="text-[11px] uppercase tracking-eyebrow font-semibold text-cetacean-70">Applied</div>
+          <div class="text-3xl font-light text-cetacean mt-1.5">{fmt.int(appliedThisMonth)}</div>
+        </div>
+        <div>
+          <div class="text-[11px] uppercase tracking-eyebrow font-semibold text-cetacean-70">Enrolled</div>
+          <div class="text-3xl font-light text-cetacean mt-1.5">{fmt.int(enrolledThisMonth)}</div>
+        </div>
+      </div>
+    </div>
 
     {summary && (
       <>
