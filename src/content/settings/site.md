@@ -1,6 +1,6 @@
 ---
 schoolName: Starling Montessori School
-phone: "(202) 743-1359"
+phone: "(202) 743-0060"
 email: info@starlingmontessorischool.com
 address:
   line1: 201 4th St SE
