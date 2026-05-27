@@ -22,10 +22,10 @@ blocks:
         <li><strong>Google Analytics (GA4)</strong> — aggregated traffic data; helps us see which pages are useful.</li>
         <li><strong>Microsoft Clarity</strong> — heatmaps and session recordings (cursor movement, scroll, clicks). Form fields and any text you type are automatically masked.</li>
       </ul>
-      <p>These tools set cookies only if you accept them through the banner. If you decline, both tools fall back to a privacy-preserving mode that collects no identifying information.</p>
+      <p>These analytics tools are active by default so we can keep improving the site. You may opt out at any time using the \"Cookie preferences\" link in the footer; once you opt out, both tools fall back to a privacy-preserving mode that collects no identifying information.</p>
 
       <h2>Cookies</h2>
-      <p>Essential cookies (like your cookie-preference choice itself) are always set so the site functions. Analytics cookies are set only with your consent. You can change your choice anytime via the \"Cookie preferences\" link in the footer.</p>
+      <p>Essential cookies (like your cookie-preference choice itself) are always set so the site functions. Analytics cookies are set by default and can be turned off via the \"Cookie preferences\" link in the footer. Your preference is remembered on this device.</p>
 
       <h2>Who we share information with</h2>
       <p>We share information only with the service providers we use to operate the school:</p>
