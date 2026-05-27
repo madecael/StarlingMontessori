@@ -1,0 +1,98 @@
+---
+import { getEntry } from "astro:content";
+import { getGoogleReviews } from "../../lib/google-reviews";
+
+interface Props {
+  eyebrow?: string;
+  title?: string;
+  limit?: number;
+  minRating?: number;
+}
+const { eyebrow = "From families on Google", title = "What parents are saying", limit = 6, minRating = 4 } = Astro.props;
+
+const settings = await getEntry("settings", "site");
+const data = await getGoogleReviews(settings?.data.googlePlaceId);
+
+const reviews = (data?.reviews ?? [])
+  .filter((r) => r.rating >= minRating && r.text.length >= 40)
+  .slice(0, limit);
+
+const rating = data?.rating;
+const count = data?.userRatingCount;
+const mapsUri = data?.googleMapsUri;
+
+function stars(n: number): string {
+  const full = Math.round(n);
+  return "★★★★★".slice(0, full) + "☆☆☆☆☆".slice(0, 5 - full);
+}
+
+function clamp(text: string, max = 320): string {
+  if (text.length <= max) return text;
+  const cut = text.slice(0, max);
+  const lastSpace = cut.lastIndexOf(" ");
+  return (lastSpace > max - 60 ? cut.slice(0, lastSpace) : cut).trimEnd() + "…";
+}
+---
+{reviews.length > 0 && (
+  <section class="px-6 lg:px-8 py-16 max-w-[1240px] mx-auto">
+    <div class="mb-10 text-center">
+      <div class="eyebrow">{eyebrow}</div>
+      <h2 class="text-3xl lg:text-4xl font-light text-cetacean mt-2 tracking-tightest">{title}</h2>
+      {rating !== undefined && count !== undefined && (
+        <div class="mt-4 flex items-center justify-center gap-2 text-sm text-cetacean-70">
+          <span class="text-pearly-deep text-lg leading-none tracking-wider" aria-hidden="true">{stars(rating)}</span>
+          <span class="font-semibold text-cetacean">{rating.toFixed(1)}</span>
+          <span aria-hidden="true">·</span>
+          <span>{count} {count === 1 ? "review" : "reviews"} on Google</span>
+        </div>
+      )}
+    </div>
+
+    <div class={reviews.length === 1 ? "max-w-2xl mx-auto" : "grid md:grid-cols-2 lg:grid-cols-3 gap-5"}>
+      {reviews.map((r) => (
+        <figure class="bg-white rounded-3xl p-7 flex flex-col">
+          <div class="flex items-center gap-3 mb-4">
+            {r.authorPhotoUri ? (
+              <img
+                src={r.authorPhotoUri}
+                alt=""
+                width="40"
+                height="40"
+                loading="lazy"
+                referrerpolicy="no-referrer"
+                class="w-10 h-10 rounded-full object-cover bg-cetacean-10"
+              />
+            ) : (
+              <div class="w-10 h-10 rounded-full bg-cetacean-10 flex items-center justify-center text-cetacean-70 text-sm font-semibold" aria-hidden="true">
+                {r.authorName.slice(0, 1)}
+              </div>
+            )}
+            <div class="min-w-0">
+              <div class="text-sm font-semibold text-cetacean truncate">{r.authorName}</div>
+              <div class="text-[12px] text-cetacean-70">{r.relativeTime}</div>
+            </div>
+          </div>
+          <div class="text-pearly-deep tracking-wider mb-3" aria-label={`Rated ${r.rating} out of 5`}>{stars(r.rating)}</div>
+          <blockquote class="font-display italic text-[17px] text-cetacean leading-snug tracking-tightest">
+            &ldquo;{clamp(r.text)}&rdquo;
+          </blockquote>
+        </figure>
+      ))}
+    </div>
+
+    {mapsUri && (
+      <div class="mt-8 text-center">
+        <a
+          href={mapsUri}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center gap-2 text-[12px] uppercase tracking-eyebrow font-semibold text-cetacean-70 hover:text-cetacean"
+          data-event="google_reviews_click"
+        >
+          <span>Read all reviews on Google</span>
+          <span aria-hidden="true">→</span>
+        </a>
+      </div>
+    )}
+  </section>
+)}
