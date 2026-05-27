@@ -138,6 +138,10 @@ const landing = defineCollection({
           title: z.string().optional(),
           limit: z.number().int().min(1).max(6).optional(),
           minRating: z.number().min(1).max(5).optional(),
+          fallbackQuotes: z.array(z.object({
+            quote: z.string(),
+            attribution: z.string(),
+          })).optional(),
         }),
       ]),
     ),
@@ -317,6 +321,10 @@ const pages = defineCollection({
           title: z.string().optional(),
           limit: z.number().int().min(1).max(6).optional(),
           minRating: z.number().min(1).max(5).optional(),
+          fallbackQuotes: z.array(z.object({
+            quote: z.string(),
+            attribution: z.string(),
+          })).optional(),
         }),
       ]),
     ),

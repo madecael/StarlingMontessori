@@ -43,5 +43,5 @@ const { block } = Astro.props;
 {block.type === "richBody" && <RichBody body={block.body} />}
 {block.type === "bookingEmbed" && <BookingEmbed eyebrow={block.eyebrow} title={block.title} intro={block.intro} fallbackTitle={block.fallbackTitle} fallbackBody={block.fallbackBody} />}
 {block.type === "testimonials" && <Testimonials eyebrow={block.eyebrow} title={block.title} quotes={block.quotes} />}
-{block.type === "googleReviews" && <GoogleReviews eyebrow={block.eyebrow} title={block.title} limit={block.limit} minRating={block.minRating} />}
+{block.type === "googleReviews" && <GoogleReviews eyebrow={block.eyebrow} title={block.title} limit={block.limit} minRating={block.minRating} fallbackQuotes={block.fallbackQuotes} />}
 {block.type === "openings" && <Openings eyebrow={block.eyebrow} title={block.title} intro={block.intro} fallbackTitle={block.fallbackTitle} fallbackBody={block.fallbackBody} positions={block.positions} />}

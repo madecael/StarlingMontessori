@@ -30,4 +30,4 @@ const { block } = Astro.props;
 {block.type === "tourForm" && <TourForm eyebrow={block.eyebrow} title={block.title} subtitle={block.subtitle} extraFields={block.extraFields} submitLabel={block.submitLabel} />}
 {block.type === "faqAccordion" && <FAQAccordion eyebrow={block.eyebrow} title={block.title} questions={block.questions} />}
 {block.type === "testimonials" && <Testimonials eyebrow={block.eyebrow} title={block.title} quotes={block.quotes} />}
-{block.type === "googleReviews" && <GoogleReviews eyebrow={block.eyebrow} title={block.title} limit={block.limit} minRating={block.minRating} />}
+{block.type === "googleReviews" && <GoogleReviews eyebrow={block.eyebrow} title={block.title} limit={block.limit} minRating={block.minRating} fallbackQuotes={block.fallbackQuotes} />}

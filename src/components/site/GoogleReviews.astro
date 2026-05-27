@@ -2,13 +2,21 @@
 import { getEntry } from "astro:content";
 import { getGoogleReviews } from "../../lib/google-reviews";
 
+interface FallbackQuote { quote: string; attribution: string; }
 interface Props {
   eyebrow?: string;
   title?: string;
   limit?: number;
   minRating?: number;
+  fallbackQuotes?: FallbackQuote[];
 }
-const { eyebrow = "From families on Google", title = "What parents are saying", limit = 6, minRating = 4 } = Astro.props;
+const {
+  eyebrow = "From families on Google",
+  title = "What parents are saying",
+  limit = 6,
+  minRating = 4,
+  fallbackQuotes = [],
+} = Astro.props;
 
 const settings = await getEntry("settings", "site");
 const data = await getGoogleReviews(settings?.data.googlePlaceId);
@@ -16,6 +24,9 @@ const data = await getGoogleReviews(settings?.data.googlePlaceId);
 const reviews = (data?.reviews ?? [])
   .filter((r) => r.rating >= minRating && r.text.length >= 40)
   .slice(0, limit);
+
+const useGoogle = reviews.length > 0;
+const useFallback = !useGoogle && fallbackQuotes.length > 0;
 
 const rating = data?.rating;
 const count = data?.userRatingCount;
@@ -32,8 +43,10 @@ function clamp(text: string, max = 320): string {
   const lastSpace = cut.lastIndexOf(" ");
   return (lastSpace > max - 60 ? cut.slice(0, lastSpace) : cut).trimEnd() + "…";
 }
+
+const fallbackIsSingle = fallbackQuotes.length === 1;
 ---
-{reviews.length > 0 && (
+{useGoogle && (
   <section class="px-6 lg:px-8 py-16 max-w-[1240px] mx-auto">
     <div class="mb-10 text-center">
       <div class="eyebrow">{eyebrow}</div>
@@ -94,5 +107,24 @@ function clamp(text: string, max = 320): string {
         </a>
       </div>
     )}
+  </section>
+)}
+
+{useFallback && (
+  <section class="px-6 lg:px-8 py-16 max-w-[1240px] mx-auto">
+    <div class="mb-10 text-center">
+      <div class="eyebrow">{eyebrow}</div>
+      <h2 class="text-3xl lg:text-4xl font-light text-cetacean mt-2 tracking-tightest">{title}</h2>
+    </div>
+    <div class={fallbackIsSingle ? "max-w-2xl mx-auto" : "grid md:grid-cols-2 lg:grid-cols-3 gap-5"}>
+      {fallbackQuotes.map((q) => (
+        <figure class={`bg-white rounded-3xl p-7 ${fallbackIsSingle ? "text-center" : ""}`}>
+          <blockquote class="font-display italic text-xl lg:text-[22px] text-cetacean leading-snug tracking-tightest">
+            &ldquo;{q.quote}&rdquo;
+          </blockquote>
+          <figcaption class="text-[11px] uppercase tracking-eyebrow font-semibold text-cetacean-70 mt-5">— {q.attribution}</figcaption>
+        </figure>
+      ))}
+    </div>
   </section>
 )}

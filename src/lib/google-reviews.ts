@@ -82,9 +82,9 @@ function normalize(raw: PlacesApiResponse): GoogleReviewsData {
 
 export async function getGoogleReviews(placeId: string | undefined): Promise<GoogleReviewsData | null> {
   if (!placeId) return readCache();
-  const apiKey = process.env.GOOGLE_PLACES_API_KEY;
+  const apiKey = process.env.GOOGLE_API_KEY ?? process.env.GOOGLE_PLACES_API_KEY;
   if (!apiKey) {
-    console.warn("[google-reviews] GOOGLE_PLACES_API_KEY not set; falling back to cache");
+    console.warn("[google-reviews] GOOGLE_API_KEY not set; falling back to cache");
     return readCache();
   }
   try {
