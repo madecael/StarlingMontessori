@@ -54,10 +54,13 @@ const ogImageAbsolute = ogPath.startsWith("http")
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  {(ga4 || clarity) && (
+    <script set:html={`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('consent','default',{ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied',analytics_storage:'denied',wait_for_update:500});`}></script>
+  )}
   {ga4 && (
     <>
       <script async src={`https://www.googletagmanager.com/gtag/js?id=${ga4}`}></script>
-      <script set:html={`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','${ga4}');`}></script>
+      <script set:html={`gtag('js',new Date());gtag('config','${ga4}');`}></script>
     </>
   )}
   {clarity && (

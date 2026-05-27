@@ -3,6 +3,7 @@ import BaseHead from "./BaseHead.astro";
 import SiteHeader from "../components/SiteHeader.astro";
 import SiteFooter from "../components/SiteFooter.astro";
 import BookingModal from "../components/BookingModal.astro";
+import CookieConsent from "../components/CookieConsent.astro";
 
 interface Props {
   title: string;
@@ -19,6 +20,7 @@ const currentPath = Astro.url.pathname;
     <main><slot /></main>
     <SiteFooter />
     <BookingModal />
+    <CookieConsent />
     <script>
       document.addEventListener("click", (e) => {
         const target = (e.target as HTMLElement).closest("[data-event]");

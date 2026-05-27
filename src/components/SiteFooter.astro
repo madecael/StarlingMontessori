@@ -49,6 +49,11 @@ const cols: { heading: string; links: { label: string; href: string }[] }[] = [
       <div>{s.address.line1}, {s.address.city} {s.address.state} {s.address.zip} · {s.phone} · {s.email}</div>
       {s.hours && <div class="mt-1">{s.hours.display}</div>}
     </div>
-    <div>© {new Date().getFullYear()} {s.schoolName}</div>
+    <div class="flex flex-wrap items-center gap-x-4 gap-y-1">
+      <a href="/privacy" class="hover:text-cetacean">Privacy</a>
+      <a href="/terms" class="hover:text-cetacean">Terms</a>
+      <button type="button" data-cookie-prefs class="hover:text-cetacean">Cookie preferences</button>
+      <span>© {new Date().getFullYear()} {s.schoolName}</span>
+    </div>
   </div>
 </footer>
