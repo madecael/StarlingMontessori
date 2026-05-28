@@ -9,12 +9,14 @@ hero:
 blocks:
   - type: richBody
     body: |
-      <p class="text-sm text-cetacean-70">Last updated: May 27, 2026</p>
+      <p class="text-sm text-cetacean-70">Last updated: May 28, 2026</p>
 
       <p>This policy explains what information Starling Montessori School (\"Starling,\" \"we,\" \"our\") collects through this website, how we use it, and the choices you have. We aim to be transparent: we collect only what we need to serve families well, and we never sell personal information.</p>
 
       <h2>Information you give us</h2>
       <p>When you book a tour, send a contact message, or apply for a position, we receive what you choose to share — typically your name, email, phone number, your child's age or program of interest, and any notes you add. We use this to respond personally and to schedule your visit.</p>
+
+      <p>We also collect email addresses when you download the Decision Guide or take the Roadmap Quiz. If you complete the Roadmap Quiz, we send up to five follow-up emails over approximately 70 days with timing reminders and tour offers. Each of these emails includes a one-click unsubscribe link, and you may opt out at any time.</p>
 
       <h2>Information collected automatically</h2>
       <p>When you visit the site, we receive standard information your browser sends — pages viewed, approximate location, device type, referring source. We use a small set of analytics tools to understand how the site works for families:</p>
@@ -31,11 +33,11 @@ blocks:
       <p>We share information only with the service providers we use to operate the school:</p>
       <ul>
         <li><strong>Calendly</strong> — to schedule your tour.</li>
-        <li><strong>Resend</strong> — to deliver tour-request emails to our team.</li>
+        <li><strong>Resend</strong> — to deliver tour-request emails to our team and to send the nurture email sequence after you complete the Roadmap Quiz.</li>
         <li><strong>Brightwheel</strong> — for enrollment applications, if you choose to apply.</li>
         <li><strong>Google</strong> and <strong>Microsoft</strong> — for the analytics described above.</li>
       </ul>
-      <p>Each provider is bound by their own privacy commitments. We do not sell or rent your information to anyone.</p>
+      <p>We do not share your email address with third parties beyond these delivery and analytics providers. Each provider is bound by their own privacy commitments. We do not sell or rent your information to anyone.</p>
 
       <h2>Children's privacy</h2>
       <p>This site is intended for parents and guardians. We do not knowingly collect information directly from children under 13. If you believe we have received information from a child without parental involvement, please contact us at <a href=\"mailto:info@starlingmontessorischool.com\">info@starlingmontessorischool.com</a> and we will remove it.</p>
