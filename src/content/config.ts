@@ -31,6 +31,7 @@ const settings = defineCollection({
     applyUrl: z.string().url().optional(),
     ga4Id: z.string().optional(),
     clarityProjectId: z.string().optional(),
+    crispWebsiteId: z.string().optional(),
     googlePlaceId: z.string().optional(),
     resendFromAddress: z.string().email(),
     tourEmailRecipient: z.string().email(),
