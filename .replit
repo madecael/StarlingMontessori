@@ -9,3 +9,6 @@ channel = "stable-24_05"
 deploymentTarget = "cloudrun"
 build = ["bash", "-c", "npm ci && npm run build"]
 run = ["npm", "start"]
+
+[agent]
+expertMode = true
