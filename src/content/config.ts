@@ -327,6 +327,12 @@ const pages = defineCollection({
             attribution: z.string(),
           })).optional(),
         }),
+        z.object({
+          type: z.literal("guideForm"),
+          eyebrow: z.string().optional(),
+          title: z.string().optional(),
+          subtitle: z.string().optional(),
+        }),
       ]),
     ),
   }),

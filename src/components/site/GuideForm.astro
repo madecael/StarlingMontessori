@@ -1,0 +1,138 @@
+---
+interface Props {
+  eyebrow?: string;
+  title?: string;
+  subtitle?: string;
+}
+const {
+  eyebrow = "DOWNLOAD",
+  title = "Send me the guide.",
+  subtitle = "Tell us where to send it. We'll email you the PDF in under a minute.",
+} = Astro.props;
+---
+<section id="guide-form" class="px-6 lg:px-8 py-12 max-w-[760px] mx-auto">
+  <div id="guide-form-wrap">
+    <div class="bg-white rounded-3xl p-7 shadow-sm">
+      <div class="eyebrow mb-1">{eyebrow}</div>
+      <h2 class="text-3xl lg:text-4xl font-light text-cetacean mt-2 mb-3 tracking-tightest">{title}</h2>
+      <p class="text-base text-cetacean-70 leading-relaxed mb-7">{subtitle}</p>
+      <form id="guide-form-el" novalidate>
+        <!-- honeypot -->
+        <div style="position:absolute;left:-9999px;top:-9999px;" aria-hidden="true">
+          <input type="text" name="company" tabindex="-1" autocomplete="off" />
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <label class="block">
+            <span class="text-[11px] tracking-eyebrow font-semibold mb-1.5 block text-cetacean">YOUR NAME</span>
+            <input
+              required
+              name="parentName"
+              type="text"
+              class="w-full px-3 py-2.5 rounded-xl border border-cetacean/20 bg-white text-sm text-cetacean focus:outline-none focus:ring-2 focus:ring-pearly"
+            />
+          </label>
+          <label class="block">
+            <span class="text-[11px] tracking-eyebrow font-semibold mb-1.5 block text-cetacean">EMAIL</span>
+            <input
+              required
+              name="email"
+              type="email"
+              class="w-full px-3 py-2.5 rounded-xl border border-cetacean/20 bg-white text-sm text-cetacean focus:outline-none focus:ring-2 focus:ring-pearly"
+            />
+          </label>
+          <label class="block">
+            <span class="text-[11px] tracking-eyebrow font-semibold mb-1.5 block text-cetacean">YOUR ZIP CODE (OPTIONAL)</span>
+            <input
+              name="zip"
+              type="text"
+              inputmode="numeric"
+              maxlength="10"
+              class="w-full px-3 py-2.5 rounded-xl border border-cetacean/20 bg-white text-sm text-cetacean focus:outline-none focus:ring-2 focus:ring-pearly"
+            />
+          </label>
+          <label class="block sm:col-span-2 flex items-start gap-2.5 cursor-pointer">
+            <input
+              name="relocating"
+              type="checkbox"
+              value="yes"
+              class="mt-0.5 h-4 w-4 rounded border-cetacean/30 text-cetacean focus:ring-pearly flex-shrink-0"
+            />
+            <span class="text-sm text-cetacean leading-snug">We're relocating to D.C.</span>
+          </label>
+        </div>
+        <div class="mt-5">
+          <button
+            id="guide-submit-btn"
+            type="submit"
+            class="btn btn-pearly w-full text-sm font-medium"
+          >Send me the guide</button>
+        </div>
+        <p class="text-xs text-cetacean-70 mt-3 leading-relaxed">One email with the PDF. No spam, no follow-up sales calls — we'll only reach out if you ask us to.</p>
+        <p id="guide-form-error" class="text-sm mt-3 hidden text-[#8B5C7E]"></p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<script>
+  const wrap = document.getElementById("guide-form-wrap");
+  const form = document.getElementById("guide-form-el") as HTMLFormElement | null;
+  const submitBtn = document.getElementById("guide-submit-btn") as HTMLButtonElement | null;
+  const errorEl = document.getElementById("guide-form-error") as HTMLElement | null;
+
+  if (form && wrap && submitBtn && errorEl) {
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      // clear previous error
+      errorEl.classList.add("hidden");
+      errorEl.textContent = "";
+
+      // disable button while in-flight
+      submitBtn.disabled = true;
+      const originalLabel = submitBtn.textContent ?? "Send me the guide";
+      submitBtn.textContent = "Sending…";
+
+      const formData = new FormData(form);
+      const data: Record<string, string> = {};
+      formData.forEach((value, key) => {
+        data[key] = value as string;
+      });
+
+      // checkbox: if unchecked it won't appear in FormData — ensure empty string
+      if (!("relocating" in data)) {
+        data.relocating = "";
+      }
+
+      // capture email before resetting
+      const submittedEmail = data.email ?? "";
+
+      try {
+        const res = await fetch("/api/guide-request", {
+          method: "POST",
+          headers: { "content-type": "application/json" },
+          body: JSON.stringify(data),
+        });
+
+        if (!res.ok) throw new Error(`status ${res.status}`);
+
+        // success — replace with confirmation card
+        wrap.innerHTML = `
+          <div class="bg-white rounded-3xl p-7 shadow-sm text-cetacean">
+            <div class="eyebrow mb-1">CHECK YOUR INBOX</div>
+            <h2 class="text-3xl lg:text-4xl font-light mt-2 mb-4 tracking-tightest">The guide is on its way.</h2>
+            <p class="text-base text-cetacean-70 leading-relaxed">We sent it to <strong>${submittedEmail}</strong>. Give it a minute — sometimes our messages get filtered. Reach out at <a href="mailto:info@starlingmontessorischool.com" class="underline">info@starlingmontessorischool.com</a> if it doesn't arrive.</p>
+          </div>
+        `;
+      } catch {
+        // restore button
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalLabel;
+
+        errorEl.textContent =
+          "Something went wrong. Please email us at info@starlingmontessorischool.com and we'll send it directly.";
+        errorEl.classList.remove("hidden");
+      }
+    });
+  }
+</script>
