@@ -1,0 +1,43 @@
+---
+import { getEntry } from "astro:content";
+import "../styles/print-guide.css";
+
+const page = await getEntry("pages", "guide-pdf-source");
+if (!page) throw new Error("guide-pdf-source content missing");
+const d = page.data;
+
+// Find the richBody block
+const richBodyBlock = d.blocks.find((b: { type: string }) => b.type === "richBody") as
+  | { type: "richBody"; body: string }
+  | undefined;
+const bodyHtml = richBodyBlock?.body ?? "";
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="robots" content="noindex" />
+    <title>{d.title}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <!-- Cover page -->
+    <section class="page">
+      <div class="cover">
+        {d.hero?.eyebrow && <p class="eyebrow">{d.hero.eyebrow}</p>}
+        <h1>{d.hero?.headline ?? d.title}</h1>
+        {d.hero?.subhead && <p class="subhead">{d.hero.subhead}</p>}
+        <p class="location">Capitol Hill &middot; Washington, D.C.</p>
+      </div>
+    </section>
+
+    <!-- Guide body — CSS break-before:page on h2 handles pagination -->
+    <div class="guide-body" set:html={bodyHtml} />
+  </body>
+</html>

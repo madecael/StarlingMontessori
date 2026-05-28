@@ -1,0 +1,163 @@
+@page {
+  size: Letter portrait;
+  margin: 0.75in;
+}
+
+html {
+  background: #FFF7EB; /* seashell */
+}
+
+body {
+  font-family: "Greycliff CF", "Nunito Sans", "Inter", system-ui, sans-serif;
+  font-size: 11pt;
+  line-height: 1.5;
+  color: #0C163D; /* cetacean */
+  background: #FFF7EB; /* seashell */
+}
+
+.page {
+  break-before: page;
+  padding: 0;
+}
+
+.page:first-of-type {
+  break-before: auto;
+}
+
+h1, h2, h3 {
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-weight: 400;
+  color: #0C163D; /* cetacean */
+  letter-spacing: -0.02em;
+}
+
+h1 {
+  font-size: 32pt;
+  font-style: italic;
+  line-height: 1.1;
+  margin: 0 0 0.5in 0;
+}
+
+h2 {
+  font-size: 20pt;
+  font-style: italic;
+  margin: 0 0 0.25in 0;
+  break-before: page;
+}
+
+h3 {
+  font-size: 14pt;
+  margin: 0.25in 0 0.1in 0;
+}
+
+p {
+  margin: 0 0 0.15in 0;
+}
+
+ul, ol {
+  margin: 0 0 0.15in 0;
+  padding-left: 0.3in;
+}
+
+li {
+  margin-bottom: 0.08in;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0.15in 0;
+  font-size: 9.5pt;
+}
+
+th, td {
+  text-align: left;
+  padding: 0.08in;
+  border-bottom: 1px solid rgba(12, 22, 61, 0.1);
+}
+
+th {
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-style: italic;
+  font-weight: 400;
+  color: #4A557A; /* cetacean-70 */
+}
+
+.eyebrow {
+  font-size: 9pt;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: #8B5C7E; /* pearly-deep */
+  margin-bottom: 0.15in;
+}
+
+.cover {
+  text-align: center;
+  padding-top: 2in;
+}
+
+.cover h1 {
+  font-size: 40pt;
+  margin: 0.25in 0;
+}
+
+.cover .subhead {
+  font-size: 13pt;
+  color: #4A557A; /* cetacean-70 */
+  max-width: 4.5in;
+  margin: 0.25in auto;
+  line-height: 1.4;
+}
+
+.cover .location {
+  font-size: 9pt;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #8B5C7E; /* pearly-deep */
+  margin-top: 0.5in;
+}
+
+dl {
+  margin: 0 0 0.15in 0;
+}
+
+dt {
+  font-weight: 600;
+  margin-top: 0.12in;
+}
+
+dd {
+  margin-left: 0;
+  margin-bottom: 0.08in;
+  color: #4A557A; /* cetacean-70 */
+}
+
+blockquote {
+  border-left: 2px solid #A9729B; /* pearly */
+  margin: 0.2in 0;
+  padding: 0.05in 0 0.05in 0.25in;
+  font-style: italic;
+  color: #4A557A; /* cetacean-70 */
+}
+
+a {
+  color: #8B5C7E; /* pearly-deep */
+  text-decoration: none;
+}
+
+hr {
+  display: none;
+}
+
+.note-line {
+  font-size: 9pt;
+  color: #4A557A;
+  margin: 0.05in 0 0 0;
+}
+
+.note-space {
+  border-bottom: 1px solid rgba(12, 22, 61, 0.15);
+  margin: 0.05in 0 0.12in 0;
+  height: 0.2in;
+}
