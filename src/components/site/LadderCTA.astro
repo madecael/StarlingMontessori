@@ -1,0 +1,59 @@
+---
+interface Props {
+  eyebrow?: string;
+  title?: string;
+}
+const { eyebrow, title } = Astro.props;
+---
+<section class="px-6 lg:px-8 py-16 max-w-[1240px] mx-auto">
+  {(eyebrow || title) && (
+    <div class="mb-10 text-center">
+      {eyebrow && <div class="text-[11px] uppercase tracking-eyebrow font-semibold text-cetacean-70 mb-3">{eyebrow}</div>}
+      {title && <h2 class="text-3xl lg:text-[38px] font-light leading-tight tracking-tightest text-cetacean max-w-2xl mx-auto">{title}</h2>}
+    </div>
+  )}
+  <div class="grid gap-5 md:grid-cols-3">
+    <!-- Card 1: Still Exploring -->
+    <a
+      href="/guide"
+      data-event="ladder_cta_guide"
+      class="bg-white rounded-3xl p-7 lg:p-8 flex flex-col border border-cetacean/10 hover:border-pearly transition-colors text-cetacean no-underline group"
+    >
+      <div class="text-[10px] uppercase tracking-eyebrow font-semibold text-cetacean-70 mb-3">STILL EXPLORING</div>
+      <h3 class="text-xl font-light tracking-tightest leading-snug mb-3">Get the Decision Guide</h3>
+      <p class="text-sm text-cetacean-70 leading-relaxed flex-1">
+        A 12-page walkthrough of how Capitol Hill families choose preschools. Free, in your inbox in under a minute.
+      </p>
+      <div class="mt-6 text-right text-pearly-deep font-light text-lg">→</div>
+    </a>
+
+    <!-- Card 2: Ready to Plan -->
+    <a
+      href="/roadmap"
+      data-event="ladder_cta_roadmap"
+      class="bg-white rounded-3xl p-7 lg:p-8 flex flex-col border border-cetacean/10 hover:border-pearly transition-colors text-cetacean no-underline group"
+    >
+      <div class="text-[10px] uppercase tracking-eyebrow font-semibold text-cetacean-70 mb-3">READY TO PLAN</div>
+      <h3 class="text-xl font-light tracking-tightest leading-snug mb-3">Build your personal roadmap</h3>
+      <p class="text-sm text-cetacean-70 leading-relaxed flex-1">
+        Answer 8 short questions. We'll email a personalized timeline and a few schools to consider near you.
+      </p>
+      <div class="mt-6 text-right text-pearly-deep font-light text-lg">→</div>
+    </a>
+
+    <!-- Card 3: Ready to Visit (tour) — pearly accent -->
+    <a
+      href="/open-house"
+      data-booking-trigger
+      data-event="ladder_cta_tour"
+      class="bg-pearly/5 rounded-3xl p-7 lg:p-8 flex flex-col border border-pearly/30 hover:border-pearly transition-colors text-cetacean no-underline group"
+    >
+      <div class="text-[10px] uppercase tracking-eyebrow font-semibold text-pearly-deep mb-3">READY TO VISIT</div>
+      <h3 class="text-xl font-light tracking-tightest leading-snug mb-3">Schedule a tour</h3>
+      <p class="text-sm text-cetacean-70 leading-relaxed flex-1">
+        Meet Fabienne, see the classroom, decide if Starling is the right fit for your family.
+      </p>
+      <div class="mt-6 text-right text-pearly-deep font-light text-lg">→</div>
+    </a>
+  </div>
+</section>

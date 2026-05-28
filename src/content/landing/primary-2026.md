@@ -68,6 +68,9 @@ blocks:
     attribution: "— Fabienne Deaton, Founder. AMI Diploma in Primary (2.5–6) and AMI Diploma in Elementary (6–12). M.Ed. in Montessori Education. Master's in International Education. The Primary classroom is led by an AMI-trained guide on our team."
     photo: "/images/photos/founder-portrait.webp"
   - type: tuitionFraming
+  - type: ladderCTA
+    eyebrow: "FIND YOUR PATH"
+    title: "Wherever you are in your search."
   - type: tourForm
     eyebrow: "RESERVE A TOUR"
     title: "Visit Saint Mark.\nMeet Fabienne."

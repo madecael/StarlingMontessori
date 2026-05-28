@@ -145,6 +145,11 @@ const landing = defineCollection({
             attribution: z.string(),
           })).optional(),
         }),
+        z.object({
+          type: z.literal("ladderCTA"),
+          eyebrow: z.string().optional(),
+          title: z.string().optional(),
+        }),
       ]),
     ),
   }),
@@ -336,6 +341,11 @@ const pages = defineCollection({
         }),
         z.object({
           type: z.literal("roadmapQuiz"),
+        }),
+        z.object({
+          type: z.literal("ladderCTA"),
+          eyebrow: z.string().optional(),
+          title: z.string().optional(),
         }),
       ]),
     ),

@@ -44,6 +44,9 @@ blocks:
       - "/images/photos/stained-glass-arches.webp"
       - "/images/photos/playground-yard.webp"
   - type: tuitionFraming
+  - type: ladderCTA
+    eyebrow: "FIND YOUR PATH"
+    title: "Wherever you are in your search."
   - type: tourForm
     eyebrow: "SCHEDULE YOUR VISIT"
     title: "Come see the classroom.\n30 minutes, in person."

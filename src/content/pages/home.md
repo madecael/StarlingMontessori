@@ -39,6 +39,9 @@ blocks:
         cta: { label: "Learn more →", href: "/programs/primary", variant: "ghost" }
         badge: "NEW · AUG 2026"
         dark: true
+  - type: ladderCTA
+    eyebrow: "FIND YOUR PATH"
+    title: "Wherever you are in your search, we can help."
   - type: googleReviews
     eyebrow: "FAMILIES"
     title: "What Starling parents say."
