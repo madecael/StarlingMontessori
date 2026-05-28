@@ -1,16 +1,23 @@
 ---
 export const prerender = false;
 import AdminLayout from "../../../layouts/AdminLayout.astro";
-import { listLeads, STATUSES, type Status, type Lead } from "../../../lib/leads";
+import { listLeads, STATUSES, type Status, type Source, type Lead } from "../../../lib/leads";
+
+const SOURCES: Source[] = ["calendly", "tour_form", "contact_form", "guide_download", "roadmap_quiz", "chat"];
 
 const params = Astro.url.searchParams;
 const statusParam = (params.get("status") ?? "all") as Status | "all";
+const sourceParam = (params.get("source") ?? "all") as Source | "all";
 const q = (params.get("q") ?? "").trim();
 const sort = params.get("sort") ?? "lastActivityAt";
 const dir = params.get("dir") === "asc" ? "asc" : "desc";
 
 const validStatus: Status | "all" = ([...STATUSES, "all"] as (Status | "all")[]).includes(statusParam)
   ? statusParam
+  : "all";
+
+const validSource: Source | "all" = ([...SOURCES, "all"] as (Source | "all")[]).includes(sourceParam)
+  ? sourceParam
   : "all";
 
 let leads: Lead[] = [];
@@ -20,6 +27,9 @@ try {
     status: validStatus,
     search: q || undefined,
   });
+  if (validSource !== "all") {
+    leads = leads.filter((l) => l.source === validSource);
+  }
 } catch (e) {
   error = e instanceof Error ? e.message : "Unknown error";
 }
@@ -50,6 +60,9 @@ const sourceLabels: Record<string, string> = {
   calendly: "Calendly",
   tour_form: "Tour form",
   contact_form: "Contact form",
+  guide_download: "Guide download",
+  roadmap_quiz: "Roadmap quiz",
+  chat: "Chat",
 };
 
 const statusPillClass: Record<Status, string> = {
@@ -69,9 +82,31 @@ const chips: { key: Status | "all"; label: string }[] = [
   { key: "lost", label: "Lost" },
 ];
 
+const sourceChips: { key: Source | "all"; label: string }[] = [
+  { key: "all", label: "All sources" },
+  { key: "calendly", label: "Calendly" },
+  { key: "tour_form", label: "Tour form" },
+  { key: "contact_form", label: "Contact form" },
+  { key: "guide_download", label: "Guide download" },
+  { key: "roadmap_quiz", label: "Roadmap quiz" },
+  { key: "chat", label: "Chat" },
+];
+
 function chipHref(s: Status | "all"): string {
   const u = new URLSearchParams();
   if (s !== "all") u.set("status", s);
+  if (validSource !== "all") u.set("source", validSource);
+  if (q) u.set("q", q);
+  if (sortKey !== "lastActivityAt") u.set("sort", sortKey);
+  if (dir !== "desc") u.set("dir", dir);
+  const qs = u.toString();
+  return qs ? `?${qs}` : "/admin/leads";
+}
+
+function sourceChipHref(src: Source | "all"): string {
+  const u = new URLSearchParams();
+  if (validStatus !== "all") u.set("status", validStatus);
+  if (src !== "all") u.set("source", src);
   if (q) u.set("q", q);
   if (sortKey !== "lastActivityAt") u.set("sort", sortKey);
   if (dir !== "desc") u.set("dir", dir);
@@ -82,6 +117,7 @@ function chipHref(s: Status | "all"): string {
 function sortHref(col: SortKey): string {
   const u = new URLSearchParams();
   if (validStatus !== "all") u.set("status", validStatus);
+  if (validSource !== "all") u.set("source", validSource);
   if (q) u.set("q", q);
   u.set("sort", col);
   const nextDir = sortKey === col && dir === "desc" ? "asc" : "desc";
@@ -145,7 +181,7 @@ const columns: { key: SortKey; label: string }[] = [
       </a>
     </div>
 
-    <div class="flex flex-wrap gap-2 mb-4">
+    <div class="flex flex-wrap gap-2 mb-3">
       {chips.map((c) => (
         <a
           href={chipHref(c.key)}
@@ -161,8 +197,25 @@ const columns: { key: SortKey; label: string }[] = [
       ))}
     </div>
 
+    <div class="flex flex-wrap gap-2 mb-4">
+      {sourceChips.map((c) => (
+        <a
+          href={sourceChipHref(c.key)}
+          class:list={[
+            "px-3 py-1.5 rounded-pill text-xs border",
+            validSource === c.key
+              ? "bg-pearly text-seashell border-pearly"
+              : "bg-white text-cetacean border-cetacean/20 hover:border-cetacean/50",
+          ]}
+        >
+          {c.label}
+        </a>
+      ))}
+    </div>
+
     <form method="get" class="mb-6">
       {validStatus !== "all" && <input type="hidden" name="status" value={validStatus} />}
+      {validSource !== "all" && <input type="hidden" name="source" value={validSource} />}
       {sortKey !== "lastActivityAt" && <input type="hidden" name="sort" value={sortKey} />}
       {dir !== "desc" && <input type="hidden" name="dir" value={dir} />}
       <input
