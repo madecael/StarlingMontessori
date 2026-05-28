@@ -2,7 +2,13 @@ import { randomUUID } from "node:crypto";
 import Client from "@replit/database";
 
 export type Program = "toddler" | "primary";
-export type Source = "calendly" | "tour_form" | "contact_form";
+export type Source =
+  | "calendly"
+  | "tour_form"
+  | "contact_form"
+  | "guide_download"
+  | "roadmap_quiz"
+  | "chat";
 export type Status = "inquired" | "toured" | "applied" | "enrolled" | "lost";
 export type Author = "fabienne" | "carlos" | "mau";
 
@@ -37,7 +43,12 @@ export type EventType =
   | "form_submit"
   | "contact"
   | "status_change"
-  | "note_added";
+  | "note_added"
+  | "guide_downloaded"
+  | "roadmap_completed"
+  | "nurture_email_sent"
+  | "nurture_email_opened"
+  | "chat_message";
 
 export interface LeadEvent {
   id: string;
