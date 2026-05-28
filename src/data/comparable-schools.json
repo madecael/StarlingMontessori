@@ -1,0 +1,17 @@
+{
+  "20003": [
+    { "name": "Capitol Hill Day School", "philosophy": "Progressive (PreK–8)", "neighborhood": "Capitol Hill", "url": "https://www.chds.org/" },
+    { "name": "Two Rivers Public Charter", "philosophy": "EL Education (PreK–8)", "neighborhood": "Capitol Hill", "url": "https://www.tworiverspcs.org/" },
+    { "name": "AppleTree Early Learning", "philosophy": "Early childhood (PreK 3–4)", "neighborhood": "Capitol Hill", "url": "https://appletreeinstitute.org/" }
+  ],
+  "20002": [
+    { "name": "Lee Montessori PCS", "philosophy": "Montessori (PCS, lottery)", "neighborhood": "H Street NE", "url": "https://www.leemontessori.org/" },
+    { "name": "Mundo Verde PCS", "philosophy": "Spanish immersion, EL Education", "neighborhood": "H Street NE", "url": "https://mundoverdepcs.org/" }
+  ],
+  "20020": [
+    { "name": "St. Coletta of Greater Washington", "philosophy": "Special education-focused early childhood", "neighborhood": "Anacostia", "url": "https://www.stcolettadc.org/" }
+  ],
+  "20017": [
+    { "name": "Sun Garden Montessori", "philosophy": "Montessori (AMI-affiliated)", "neighborhood": "Brookland", "url": "https://www.sungardenmontessori.org/" }
+  ]
+}
