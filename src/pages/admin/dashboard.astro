@@ -78,6 +78,32 @@ const nextMonthStart = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth()
 const inThisMonth = (iso: string) => iso >= monthStart && iso < nextMonthStart;
 
 const newLeadsThisMonth = allLeadsForSummary.filter((l) => inThisMonth(l.firstContactAt)).length;
+
+// Ladder funnel — driven by the same range selector as the ads chart
+const rangeDays: Record<string, number> = { "7d": 7, "30d": 30, "90d": 90 };
+const funnelDays = rangeDays[rangeParam] ?? 30;
+const funnelCutoff = new Date(now.getTime() - funnelDays * 24 * 60 * 60 * 1000).toISOString();
+const inFunnelPeriod = (iso: string) => iso >= funnelCutoff;
+
+const guideDownloads = allLeadsForSummary.filter(
+  (l) => l.source === "guide_download" && inFunnelPeriod(l.firstContactAt),
+).length;
+
+const roadmapsCompleted = allLeadsForSummary.filter(
+  (l) => l.source === "roadmap_quiz" && inFunnelPeriod(l.firstContactAt),
+).length;
+
+const toursBooked = allLeadsForSummary.filter(
+  (l) => (l.source === "calendly" || l.source === "tour_form") && inFunnelPeriod(l.firstContactAt),
+).length;
+
+// Tours completed: any lead that reached "toured" status, using lastActivityAt as proxy for timing
+const toursCompleted = allLeadsForSummary.filter(
+  (l) => l.status === "toured" && inFunnelPeriod(l.lastActivityAt),
+).length;
+
+const funnelPct = (num: number, denom: number) =>
+  denom > 0 ? `${Math.round((num / denom) * 100)}%` : null;
 const toursScheduledThisMonth = allEventsForSummary.filter(
   (e) => e.type === "tour_booked" && inThisMonth(e.timestamp),
 ).length;
@@ -201,6 +227,56 @@ function fmtEventTime(iso: string): string {
           <div class="text-3xl font-light text-cetacean mt-1.5">{fmt.int(enrolledThisMonth)}</div>
         </div>
       </div>
+    </div>
+
+    {/* Ladder funnel */}
+    <div class="bg-white rounded-3xl p-6 lg:p-8 mb-8">
+      <div class="eyebrow">LEAD MAGNET · {range.label.toUpperCase()}</div>
+      <h2 class="text-xl font-light text-cetacean tracking-tightest mt-1 mb-5">Ladder funnel</h2>
+      <div class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div class="bg-seashell rounded-2xl p-5">
+          <div class="text-[11px] uppercase tracking-eyebrow font-semibold text-cetacean-70">Guide downloads</div>
+          <div class="text-3xl font-light text-cetacean mt-1.5">{fmt.int(guideDownloads)}</div>
+          <div class="text-xs text-cetacean-70 mt-1">source: guide_download</div>
+        </div>
+        <div class="bg-seashell rounded-2xl p-5">
+          <div class="text-[11px] uppercase tracking-eyebrow font-semibold text-cetacean-70">Roadmaps completed</div>
+          <div class="text-3xl font-light text-cetacean mt-1.5">{fmt.int(roadmapsCompleted)}</div>
+          <div class="text-xs text-cetacean-70 mt-1">source: roadmap_quiz</div>
+        </div>
+        <div class="bg-seashell rounded-2xl p-5">
+          <div class="text-[11px] uppercase tracking-eyebrow font-semibold text-cetacean-70">Tours booked</div>
+          <div class="text-3xl font-light text-cetacean mt-1.5">{fmt.int(toursBooked)}</div>
+          <div class="text-xs text-cetacean-70 mt-1">calendly + tour form</div>
+        </div>
+        <div class="bg-seashell rounded-2xl p-5 border border-pearly/30">
+          <div class="text-[11px] uppercase tracking-eyebrow font-semibold text-cetacean-70">Tours completed</div>
+          <div class="text-3xl font-light text-cetacean mt-1.5">{fmt.int(toursCompleted)}</div>
+          <div class="text-xs text-cetacean-70 mt-1">status: toured</div>
+        </div>
+      </div>
+      {(guideDownloads > 0 || roadmapsCompleted > 0 || toursBooked > 0) && (
+        <div class="mt-5 text-sm text-cetacean-70 flex flex-wrap gap-x-6 gap-y-1">
+          {funnelPct(roadmapsCompleted, guideDownloads) && (
+            <span>
+              <span class="font-medium text-cetacean">{funnelPct(roadmapsCompleted, guideDownloads)}</span>{" "}
+              of guide readers built a roadmap
+            </span>
+          )}
+          {funnelPct(toursBooked, roadmapsCompleted) && (
+            <span>
+              <span class="font-medium text-cetacean">{funnelPct(toursBooked, roadmapsCompleted)}</span>{" "}
+              of roadmaps booked a tour
+            </span>
+          )}
+          {funnelPct(toursCompleted, toursBooked) && (
+            <span>
+              <span class="font-medium text-cetacean">{funnelPct(toursCompleted, toursBooked)}</span>{" "}
+              of booked tours completed
+            </span>
+          )}
+        </div>
+      )}
     </div>
 
     {summary && (
