@@ -117,13 +117,16 @@ const {
         if (!res.ok) throw new Error(`status ${res.status}`);
 
         // success — replace with confirmation card
+        // Use textContent for the email value to avoid XSS from raw interpolation
         wrap.innerHTML = `
           <div class="bg-white rounded-3xl p-7 shadow-sm text-cetacean">
             <div class="eyebrow mb-1">CHECK YOUR INBOX</div>
             <h2 class="text-3xl lg:text-4xl font-light mt-2 mb-4 tracking-tightest">The guide is on its way.</h2>
-            <p class="text-base text-cetacean-70 leading-relaxed">We sent it to <strong>${submittedEmail}</strong>. Give it a minute — sometimes our messages get filtered. Reach out at <a href="mailto:info@starlingmontessorischool.com" class="underline">info@starlingmontessorischool.com</a> if it doesn't arrive.</p>
+            <p class="text-base text-cetacean-70 leading-relaxed">We sent it to <strong id="guide-confirm-email"></strong>. Give it a minute — sometimes our messages get filtered. Reach out at <a href="mailto:info@starlingmontessorischool.com" class="underline">info@starlingmontessorischool.com</a> if it doesn't arrive.</p>
           </div>
         `;
+        const emailSpan = document.getElementById("guide-confirm-email");
+        if (emailSpan) emailSpan.textContent = submittedEmail;
       } catch {
         // restore button
         submitBtn.disabled = false;
