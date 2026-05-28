@@ -333,6 +333,9 @@ const pages = defineCollection({
           title: z.string().optional(),
           subtitle: z.string().optional(),
         }),
+        z.object({
+          type: z.literal("roadmapQuiz"),
+        }),
       ]),
     ),
   }),

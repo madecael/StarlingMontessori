@@ -1,0 +1,552 @@
+---
+// RoadmapQuiz.astro — multi-step quiz for the /roadmap page
+// No props — quiz is fully self-contained
+---
+
+<section id="roadmap-quiz-section" class="px-6 lg:px-8 py-12 max-w-[760px] mx-auto">
+  <div id="roadmap-quiz-wrap">
+    <div class="bg-white rounded-3xl shadow-sm overflow-hidden">
+      <!-- Progress bar -->
+      <div class="h-1 bg-cetacean/10">
+        <div id="rq-progress-bar" class="h-full bg-pearly transition-[width] duration-300" style="width: 0%"></div>
+      </div>
+
+      <div class="p-7 lg:p-10">
+        <!-- Step counter -->
+        <p id="rq-step-counter" class="text-[11px] tracking-eyebrow font-semibold text-cetacean/50 mb-4">Step 1 of 8</p>
+
+        <!-- Steps container -->
+        <form id="rq-form" novalidate>
+
+          <!-- Step 1: startDate -->
+          <fieldset id="rq-step-1" class="border-0 p-0 m-0">
+            <legend class="sr-only">When does your child need to start?</legend>
+            <h2 class="font-display italic text-2xl lg:text-3xl text-cetacean tracking-tightest mb-6">
+              When does your child need to start?
+            </h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3" role="radiogroup" aria-labelledby="rq-q1-label">
+              <span id="rq-q1-label" class="sr-only">When does your child need to start?</span>
+              <div class="rq-card" data-field="startDate" data-value="summer_2026" role="radio" aria-checked="false" tabindex="0">
+                <span class="text-sm font-medium text-cetacean">This summer or sooner</span>
+              </div>
+              <div class="rq-card" data-field="startDate" data-value="fall_2026" role="radio" aria-checked="false" tabindex="0">
+                <span class="text-sm font-medium text-cetacean">Fall 2026 (next school year)</span>
+              </div>
+              <div class="rq-card" data-field="startDate" data-value="fall_2027" role="radio" aria-checked="false" tabindex="0">
+                <span class="text-sm font-medium text-cetacean">Fall 2027 or later</span>
+              </div>
+              <div class="rq-card" data-field="startDate" data-value="exploring" role="radio" aria-checked="false" tabindex="0">
+                <span class="text-sm font-medium text-cetacean">Just exploring for now</span>
+              </div>
+            </div>
+          </fieldset>
+
+          <!-- Step 2: childAge -->
+          <fieldset id="rq-step-2" class="border-0 p-0 m-0" hidden>
+            <legend class="sr-only">How old will your child be when they start?</legend>
+            <h2 class="font-display italic text-2xl lg:text-3xl text-cetacean tracking-tightest mb-6">
+              How old will your child be when they start?
+            </h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3" role="radiogroup" aria-labelledby="rq-q2-label">
+              <span id="rq-q2-label" class="sr-only">How old will your child be when they start?</span>
+              <div class="rq-card" data-field="childAge" data-value="18_24m" role="radio" aria-checked="false" tabindex="0">
+                <span class="text-sm font-medium text-cetacean">18–24 months</span>
+              </div>
+              <div class="rq-card" data-field="childAge" data-value="2_3" role="radio" aria-checked="false" tabindex="0">
+                <span class="text-sm font-medium text-cetacean">2–3 years</span>
+              </div>
+              <div class="rq-card" data-field="childAge" data-value="3_4" role="radio" aria-checked="false" tabindex="0">
+                <span class="text-sm font-medium text-cetacean">3–4 years</span>
+              </div>
+              <div class="rq-card" data-field="childAge" data-value="4_5" role="radio" aria-checked="false" tabindex="0">
+                <span class="text-sm font-medium text-cetacean">4–5 years</span>
+              </div>
+              <div class="rq-card sm:col-span-2" data-field="childAge" data-value="5_plus" role="radio" aria-checked="false" tabindex="0">
+                <span class="text-sm font-medium text-cetacean">5 years or older</span>
+              </div>
+            </div>
+          </fieldset>
+
+          <!-- Step 3: schedule -->
+          <fieldset id="rq-step-3" class="border-0 p-0 m-0" hidden>
+            <legend class="sr-only">What kind of schedule are you looking for?</legend>
+            <h2 class="font-display italic text-2xl lg:text-3xl text-cetacean tracking-tightest mb-6">
+              What kind of schedule are you looking for?
+            </h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3" role="radiogroup" aria-labelledby="rq-q3-label">
+              <span id="rq-q3-label" class="sr-only">What kind of schedule are you looking for?</span>
+              <div class="rq-card" data-field="schedule" data-value="half_day" role="radio" aria-checked="false" tabindex="0">
+                <span class="text-sm font-medium text-cetacean">Half-day (mornings)</span>
+              </div>
+              <div class="rq-card" data-field="schedule" data-value="full_day" role="radio" aria-checked="false" tabindex="0">
+                <span class="text-sm font-medium text-cetacean">Full-day</span>
+              </div>
+              <div class="rq-card" data-field="schedule" data-value="flexible" role="radio" aria-checked="false" tabindex="0">
+                <span class="text-sm font-medium text-cetacean">Open to either</span>
+              </div>
+              <div class="rq-card" data-field="schedule" data-value="not_sure" role="radio" aria-checked="false" tabindex="0">
+                <span class="text-sm font-medium text-cetacean">Not sure yet</span>
+              </div>
+            </div>
+          </fieldset>
+
+          <!-- Step 4: visitsSoFar -->
+          <fieldset id="rq-step-4" class="border-0 p-0 m-0" hidden>
+            <legend class="sr-only">Have you visited any schools yet?</legend>
+            <h2 class="font-display italic text-2xl lg:text-3xl text-cetacean tracking-tightest mb-6">
+              Have you visited any schools yet?
+            </h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3" role="radiogroup" aria-labelledby="rq-q4-label">
+              <span id="rq-q4-label" class="sr-only">Have you visited any schools yet?</span>
+              <div class="rq-card" data-field="visitsSoFar" data-value="none" role="radio" aria-checked="false" tabindex="0">
+                <span class="text-sm font-medium text-cetacean">Not yet</span>
+              </div>
+              <div class="rq-card" data-field="visitsSoFar" data-value="1_2" role="radio" aria-checked="false" tabindex="0">
+                <span class="text-sm font-medium text-cetacean">Visited 1–2</span>
+              </div>
+              <div class="rq-card" data-field="visitsSoFar" data-value="three_plus" role="radio" aria-checked="false" tabindex="0">
+                <span class="text-sm font-medium text-cetacean">Visited 3 or more</span>
+              </div>
+              <div class="rq-card" data-field="visitsSoFar" data-value="online_only" role="radio" aria-checked="false" tabindex="0">
+                <span class="text-sm font-medium text-cetacean">Just looking online</span>
+              </div>
+            </div>
+          </fieldset>
+
+          <!-- Step 5: montessoriInterest -->
+          <fieldset id="rq-step-5" class="border-0 p-0 m-0" hidden>
+            <legend class="sr-only">How do you feel about Montessori?</legend>
+            <h2 class="font-display italic text-2xl lg:text-3xl text-cetacean tracking-tightest mb-6">
+              How do you feel about Montessori?
+            </h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3" role="radiogroup" aria-labelledby="rq-q5-label">
+              <span id="rq-q5-label" class="sr-only">How do you feel about Montessori?</span>
+              <div class="rq-card" data-field="montessoriInterest" data-value="sold" role="radio" aria-checked="false" tabindex="0">
+                <span class="text-sm font-medium text-cetacean">I want a Montessori school</span>
+              </div>
+              <div class="rq-card" data-field="montessoriInterest" data-value="curious_comparing" role="radio" aria-checked="false" tabindex="0">
+                <span class="text-sm font-medium text-cetacean">Curious, but comparing approaches</span>
+              </div>
+              <div class="rq-card" data-field="montessoriInterest" data-value="open_multiple" role="radio" aria-checked="false" tabindex="0">
+                <span class="text-sm font-medium text-cetacean">Open to several philosophies</span>
+              </div>
+              <div class="rq-card" data-field="montessoriInterest" data-value="prefer_other" role="radio" aria-checked="false" tabindex="0">
+                <span class="text-sm font-medium text-cetacean">I think I prefer something else</span>
+              </div>
+            </div>
+          </fieldset>
+
+          <!-- Step 6: topConcern -->
+          <fieldset id="rq-step-6" class="border-0 p-0 m-0" hidden>
+            <legend class="sr-only">What's on your mind most about this decision?</legend>
+            <h2 class="font-display italic text-2xl lg:text-3xl text-cetacean tracking-tightest mb-6">
+              What's on your mind most about this decision?
+            </h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3" role="radiogroup" aria-labelledby="rq-q6-label">
+              <span id="rq-q6-label" class="sr-only">What's on your mind most about this decision?</span>
+              <div class="rq-card" data-field="topConcern" data-value="right_fit" role="radio" aria-checked="false" tabindex="0">
+                <span class="text-sm font-medium text-cetacean">Finding the right fit</span>
+              </div>
+              <div class="rq-card" data-field="topConcern" data-value="timing" role="radio" aria-checked="false" tabindex="0">
+                <span class="text-sm font-medium text-cetacean">Getting timing right</span>
+              </div>
+              <div class="rq-card" data-field="topConcern" data-value="cost" role="radio" aria-checked="false" tabindex="0">
+                <span class="text-sm font-medium text-cetacean">Tuition and cost</span>
+              </div>
+              <div class="rq-card" data-field="topConcern" data-value="separation" role="radio" aria-checked="false" tabindex="0">
+                <span class="text-sm font-medium text-cetacean">Separation from my child</span>
+              </div>
+              <div class="rq-card sm:col-span-2" data-field="topConcern" data-value="all" role="radio" aria-checked="false" tabindex="0">
+                <span class="text-sm font-medium text-cetacean">A bit of everything</span>
+              </div>
+            </div>
+          </fieldset>
+
+          <!-- Step 7: zip -->
+          <fieldset id="rq-step-7" class="border-0 p-0 m-0" hidden>
+            <legend class="sr-only">Where do you live?</legend>
+            <h2 class="font-display italic text-2xl lg:text-3xl text-cetacean tracking-tightest mb-2">
+              Where do you live?
+            </h2>
+            <p class="text-sm text-cetacean/60 mb-6 leading-relaxed">
+              Your ZIP code helps us point you toward schools near you.
+            </p>
+            <div class="max-w-[200px]">
+              <label class="block">
+                <span class="text-[11px] tracking-eyebrow font-semibold mb-1.5 block text-cetacean">ZIP CODE</span>
+                <input
+                  id="rq-zip"
+                  name="zip"
+                  type="text"
+                  inputmode="numeric"
+                  placeholder="20003"
+                  maxlength="10"
+                  autocomplete="postal-code"
+                  class="w-full px-3 py-2.5 rounded-xl border border-cetacean/20 bg-white text-sm text-cetacean focus:outline-none focus:ring-2 focus:ring-pearly"
+                />
+              </label>
+            </div>
+          </fieldset>
+
+          <!-- Step 8: name + email + honeypot -->
+          <fieldset id="rq-step-8" class="border-0 p-0 m-0" hidden>
+            <legend class="sr-only">Where should we send your roadmap?</legend>
+            <h2 class="font-display italic text-2xl lg:text-3xl text-cetacean tracking-tightest mb-2">
+              Where should we send your roadmap?
+            </h2>
+            <p class="text-sm text-cetacean/60 mb-6 leading-relaxed">
+              We'll email it to you in under a minute. You can unsubscribe at any time.
+            </p>
+            <!-- Honeypot -->
+            <div style="position:absolute;left:-9999px;top:-9999px;" aria-hidden="true">
+              <input type="text" name="company" id="rq-company" tabindex="-1" autocomplete="off" />
+            </div>
+            <div class="grid grid-cols-1 gap-3 max-w-[400px]">
+              <label class="block">
+                <span class="text-[11px] tracking-eyebrow font-semibold mb-1.5 block text-cetacean">YOUR NAME</span>
+                <input
+                  id="rq-name"
+                  name="name"
+                  type="text"
+                  required
+                  autocomplete="name"
+                  class="w-full px-3 py-2.5 rounded-xl border border-cetacean/20 bg-white text-sm text-cetacean focus:outline-none focus:ring-2 focus:ring-pearly"
+                />
+              </label>
+              <label class="block">
+                <span class="text-[11px] tracking-eyebrow font-semibold mb-1.5 block text-cetacean">EMAIL</span>
+                <input
+                  id="rq-email"
+                  name="email"
+                  type="email"
+                  required
+                  autocomplete="email"
+                  class="w-full px-3 py-2.5 rounded-xl border border-cetacean/20 bg-white text-sm text-cetacean focus:outline-none focus:ring-2 focus:ring-pearly"
+                />
+              </label>
+            </div>
+          </fieldset>
+
+        </form>
+
+        <!-- Navigation -->
+        <div class="flex items-center justify-between mt-8">
+          <button
+            id="rq-back-btn"
+            type="button"
+            class="text-sm text-cetacean/50 hover:text-cetacean transition-colors"
+            hidden
+          >
+            ← Back
+          </button>
+          <span class="flex-1"></span>
+          <button
+            id="rq-next-btn"
+            type="button"
+            class="btn btn-pearly text-sm font-medium disabled:opacity-40 disabled:cursor-not-allowed"
+            disabled
+          >
+            Continue
+          </button>
+        </div>
+
+        <!-- Error message -->
+        <p id="rq-error" class="text-sm mt-4 hidden text-[#8B5C7E]"></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .rq-card {
+    border: 1.5px solid rgba(12, 22, 61, 0.15);
+    border-radius: 1rem;
+    padding: 0.875rem 1rem;
+    cursor: pointer;
+    transition: border-color 0.15s, background-color 0.15s;
+    user-select: none;
+  }
+  .rq-card:hover {
+    border-color: #A9729B;
+  }
+  .rq-card.selected,
+  .rq-card[aria-checked="true"] {
+    border-color: #A9729B;
+    background-color: rgba(169, 114, 155, 0.05);
+  }
+  .rq-card:focus-visible {
+    outline: 2px solid #A9729B;
+    outline-offset: 2px;
+  }
+</style>
+
+<script is:inline>
+(function () {
+  const TOTAL_STEPS = 8;
+
+  // State
+  const answers = {
+    startDate: "",
+    childAge: "",
+    schedule: "",
+    visitsSoFar: "",
+    montessoriInterest: "",
+    topConcern: "",
+    zip: "",
+    name: "",
+    email: "",
+  };
+
+  // Map step number to the field(s) it covers
+  const stepFields = {
+    1: ["startDate"],
+    2: ["childAge"],
+    3: ["schedule"],
+    4: ["visitsSoFar"],
+    5: ["montessoriInterest"],
+    6: ["topConcern"],
+    7: ["zip"],
+    8: ["name", "email"],
+  };
+
+  let currentStep = 1;
+
+  // DOM refs
+  const wrap = document.getElementById("roadmap-quiz-wrap");
+  const progressBar = document.getElementById("rq-progress-bar");
+  const stepCounter = document.getElementById("rq-step-counter");
+  const backBtn = document.getElementById("rq-back-btn");
+  const nextBtn = document.getElementById("rq-next-btn");
+  const errorEl = document.getElementById("rq-error");
+
+  function getStepEl(n) {
+    return document.getElementById("rq-step-" + n);
+  }
+
+  function updateProgress() {
+    const pct = ((currentStep - 1) / TOTAL_STEPS) * 100;
+    progressBar.style.width = pct + "%";
+    stepCounter.textContent = "Step " + currentStep + " of " + TOTAL_STEPS;
+  }
+
+  function isStepComplete(step) {
+    const fields = stepFields[step];
+    if (!fields) return false;
+    return fields.every(function (f) {
+      return answers[f] && answers[f].trim().length > 0;
+    });
+  }
+
+  // Extra validation for zip (min 3 chars) and email format
+  function isStepValid(step) {
+    if (!isStepComplete(step)) return false;
+    if (step === 7) {
+      return answers.zip.trim().length >= 3;
+    }
+    if (step === 8) {
+      var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return emailRegex.test(answers.email.trim()) && answers.name.trim().length >= 1;
+    }
+    return true;
+  }
+
+  function refreshNextBtn() {
+    var valid = isStepValid(currentStep);
+    nextBtn.disabled = !valid;
+
+    if (currentStep === TOTAL_STEPS) {
+      nextBtn.textContent = "Send my roadmap";
+    } else {
+      nextBtn.textContent = "Continue";
+    }
+  }
+
+  function showStep(n) {
+    for (var i = 1; i <= TOTAL_STEPS; i++) {
+      var el = getStepEl(i);
+      if (el) {
+        if (i === n) {
+          el.removeAttribute("hidden");
+        } else {
+          el.setAttribute("hidden", "");
+        }
+      }
+    }
+
+    // Back button: only show from step 2
+    if (n > 1) {
+      backBtn.removeAttribute("hidden");
+    } else {
+      backBtn.setAttribute("hidden", "");
+    }
+
+    currentStep = n;
+    updateProgress();
+    refreshNextBtn();
+
+    // Re-apply selected state to cards in this step
+    var cards = getStepEl(n).querySelectorAll(".rq-card");
+    cards.forEach(function (card) {
+      var field = card.getAttribute("data-field");
+      var value = card.getAttribute("data-value");
+      if (answers[field] === value) {
+        card.classList.add("selected");
+        card.setAttribute("aria-checked", "true");
+      } else {
+        card.classList.remove("selected");
+        card.setAttribute("aria-checked", "false");
+      }
+    });
+  }
+
+  // Card selection
+  function handleCardSelect(card) {
+    var field = card.getAttribute("data-field");
+    var value = card.getAttribute("data-value");
+    if (!field || !value) return;
+
+    answers[field] = value;
+
+    // Update all sibling cards in the same step
+    var stepEl = getStepEl(currentStep);
+    stepEl.querySelectorAll(".rq-card[data-field='" + field + "']").forEach(function (c) {
+      c.classList.remove("selected");
+      c.setAttribute("aria-checked", "false");
+    });
+    card.classList.add("selected");
+    card.setAttribute("aria-checked", "true");
+
+    refreshNextBtn();
+  }
+
+  // Wire up card clicks and keyboard
+  for (var s = 1; s <= 6; s++) {
+    (function (stepNum) {
+      var stepEl = getStepEl(stepNum);
+      if (!stepEl) return;
+      stepEl.querySelectorAll(".rq-card").forEach(function (card) {
+        card.addEventListener("click", function () {
+          handleCardSelect(card);
+        });
+        card.addEventListener("keydown", function (e) {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            handleCardSelect(card);
+          }
+        });
+      });
+    })(s);
+  }
+
+  // Zip input
+  var zipInput = document.getElementById("rq-zip");
+  if (zipInput) {
+    zipInput.addEventListener("input", function () {
+      answers.zip = zipInput.value;
+      refreshNextBtn();
+    });
+    zipInput.addEventListener("keydown", function (e) {
+      if (e.key === "Enter") {
+        e.preventDefault();
+        if (isStepValid(currentStep)) nextBtn.click();
+      }
+    });
+  }
+
+  // Name + email inputs
+  var nameInput = document.getElementById("rq-name");
+  var emailInput = document.getElementById("rq-email");
+  function syncContactFields() {
+    answers.name = nameInput ? nameInput.value : "";
+    answers.email = emailInput ? emailInput.value : "";
+    refreshNextBtn();
+  }
+  if (nameInput) {
+    nameInput.addEventListener("input", syncContactFields);
+    nameInput.addEventListener("keydown", function (e) {
+      if (e.key === "Enter") { e.preventDefault(); emailInput && emailInput.focus(); }
+    });
+  }
+  if (emailInput) {
+    emailInput.addEventListener("input", syncContactFields);
+    emailInput.addEventListener("keydown", function (e) {
+      if (e.key === "Enter") { e.preventDefault(); if (isStepValid(currentStep)) nextBtn.click(); }
+    });
+  }
+
+  // Back button
+  backBtn.addEventListener("click", function () {
+    if (currentStep > 1) showStep(currentStep - 1);
+  });
+
+  // Next / Submit
+  nextBtn.addEventListener("click", function () {
+    if (!isStepValid(currentStep)) return;
+
+    if (currentStep < TOTAL_STEPS) {
+      showStep(currentStep + 1);
+      // Smooth scroll to top of quiz on mobile
+      var section = document.getElementById("roadmap-quiz-section");
+      if (section) {
+        section.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+      return;
+    }
+
+    // Final step — submit
+    submitQuiz();
+  });
+
+  async function submitQuiz() {
+    errorEl.classList.add("hidden");
+    errorEl.textContent = "";
+
+    nextBtn.disabled = true;
+    nextBtn.textContent = "Sending…";
+
+    var companyInput = document.getElementById("rq-company");
+    var payload = {
+      name: answers.name.trim(),
+      email: answers.email.trim(),
+      startDate: answers.startDate,
+      childAge: answers.childAge,
+      schedule: answers.schedule,
+      visitsSoFar: answers.visitsSoFar,
+      montessoriInterest: answers.montessoriInterest,
+      topConcern: answers.topConcern,
+      zip: answers.zip.trim(),
+      company: companyInput ? companyInput.value : "",
+    };
+
+    try {
+      var res = await fetch("/api/roadmap-request", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+
+      if (!res.ok) throw new Error("status " + res.status);
+
+      // Confirmation card — use textContent for email to avoid XSS
+      wrap.innerHTML =
+        '<div class="bg-white rounded-3xl p-7 lg:p-10 shadow-sm text-cetacean">' +
+        '<div class="eyebrow mb-1">ON ITS WAY</div>' +
+        '<h2 class="font-display italic text-3xl lg:text-4xl text-cetacean tracking-tightest mt-2 mb-4">Your roadmap is on its way.</h2>' +
+        '<p class="text-base text-cetacean/70 leading-relaxed">We sent it to <strong id="rq-confirm-email"></strong>. It usually arrives within a minute. If anything sparks a question — even about other schools — just reply.</p>' +
+        "</div>";
+
+      var emailSpan = document.getElementById("rq-confirm-email");
+      if (emailSpan) emailSpan.textContent = answers.email.trim();
+    } catch (err) {
+      nextBtn.disabled = false;
+      nextBtn.textContent = "Send my roadmap";
+      errorEl.textContent =
+        "Something went wrong. Please email us at info@starlingmontessorischool.com.";
+      errorEl.classList.remove("hidden");
+    }
+  }
+
+  // Initialise
+  showStep(1);
+})();
+</script>

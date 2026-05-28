@@ -21,6 +21,7 @@ import Testimonials from "./Testimonials.astro";
 import GoogleReviews from "./GoogleReviews.astro";
 import Openings from "./Openings.astro";
 import GuideForm from "./GuideForm.astro";
+import RoadmapQuiz from "./RoadmapQuiz.astro";
 
 interface Props { block: any; }
 const { block } = Astro.props;
@@ -47,3 +48,4 @@ const { block } = Astro.props;
 {block.type === "googleReviews" && <GoogleReviews eyebrow={block.eyebrow} title={block.title} limit={block.limit} minRating={block.minRating} fallbackQuotes={block.fallbackQuotes} />}
 {block.type === "openings" && <Openings eyebrow={block.eyebrow} title={block.title} intro={block.intro} fallbackTitle={block.fallbackTitle} fallbackBody={block.fallbackBody} positions={block.positions} />}
 {block.type === "guideForm" && <GuideForm eyebrow={block.eyebrow} title={block.title} subtitle={block.subtitle} />}
+{block.type === "roadmapQuiz" && <RoadmapQuiz />}
