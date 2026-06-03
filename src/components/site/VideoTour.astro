@@ -19,6 +19,8 @@ const variantClass = (v: CTA["variant"]) => v === "primary" ? "btn-primary" : v 
           <video
             class="w-full h-full object-cover"
             controls
+            controlsList="nodownload noplaybackrate"
+            muted
             preload="none"
             playsinline
             poster={v.poster}
@@ -41,9 +43,21 @@ const variantClass = (v: CTA["variant"]) => v === "primary" ? "btn-primary" : v 
   )}
 </section>
 
+<style is:global>
+  /* Tour clips have no audio track — hide the volume/mute controls (WebKit/Blink). */
+  [data-video-tour] video::-webkit-media-controls-volume-control-container,
+  [data-video-tour] video::-webkit-media-controls-volume-slider,
+  [data-video-tour] video::-webkit-media-controls-mute-button {
+    display: none !important;
+  }
+</style>
+
 <script>
-  // Light analytics: fire a gtag event the first time each tour video plays.
   document.querySelectorAll<HTMLVideoElement>("[data-video-tour] video").forEach((video) => {
+    // Keep muted regardless of UI; the files carry no audio either.
+    video.muted = true;
+    video.volume = 0;
+    // Light analytics: fire a gtag event the first time each tour video plays.
     video.addEventListener("play", () => {
       const label = video.getAttribute("aria-label") ?? "video_tour";
       if (typeof (window as any).gtag === "function") {
