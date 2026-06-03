@@ -4,6 +4,7 @@ import ProgramSplit from "./ProgramSplit.astro";
 import Quote from "./Quote.astro";
 import FounderApproach from "./FounderApproach.astro";
 import PhotoStrip from "../lp/PhotoStrip.astro";
+import VideoTour from "./VideoTour.astro";
 import EnrollCTA from "./EnrollCTA.astro";
 import DailyRhythm from "./DailyRhythm.astro";
 import MaterialsGrid from "./MaterialsGrid.astro";
@@ -29,6 +30,7 @@ const { block } = Astro.props;
 {block.type === "quote" && <Quote quote={block.quote} attribution={block.attribution} />}
 {block.type === "founderApproach" && <FounderApproach eyebrow={block.eyebrow} title={block.title} paragraphs={block.paragraphs} photo={block.photo} photoAlt={block.photoAlt} cta={block.cta} />}
 {block.type === "photoStrip" && <PhotoStrip photos={block.photos} />}
+{block.type === "videoTour" && <VideoTour eyebrow={block.eyebrow} title={block.title} body={block.body} videos={block.videos} cta={block.cta} />}
 {block.type === "enrollCTA" && <EnrollCTA eyebrow={block.eyebrow} title={block.title} body={block.body} primary={block.primary} secondary={block.secondary} />}
 {block.type === "dailyRhythm" && <DailyRhythm eyebrow={block.eyebrow} title={block.title} steps={block.steps} />}
 {block.type === "materialsGrid" && <MaterialsGrid eyebrow={block.eyebrow} title={block.title} categories={block.categories} />}

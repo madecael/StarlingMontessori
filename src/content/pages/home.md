@@ -53,6 +53,20 @@ blocks:
       - "Starling was founded by Fabienne Deaton — a guide with two AMI diplomas and 10+ years of experience walking alongside D.C. families. We are intentionally small, by design."
       - "When you tour Starling, you meet Fabienne directly. There is no admissions office, no marketing department. There is the classroom, the children, and the conversation."
     cta: { label: "Read our story →", href: "/about", variant: "outline" }
+  - type: videoTour
+    eyebrow: "STEP INSIDE"
+    title: "Take a peek inside our home on Capitol Hill."
+    body: "A short walk through the spaces your child would grow in — our light-filled, prepared classroom and the garden just outside. We'd love to show you the rest in person."
+    videos:
+      - src: "/videos/tour-indoor.mp4"
+        poster: "/videos/tour-indoor.jpg"
+        label: "Inside our school"
+        alt: "A walk through Starling Montessori's entryway and light-filled classroom on Capitol Hill"
+      - src: "/videos/tour-outdoor.mp4"
+        poster: "/videos/tour-outdoor.jpg"
+        label: "Our outdoor space"
+        alt: "Starling Montessori's shaded garden and outdoor play space"
+    cta: { label: "Schedule a tour →", href: "/open-house", variant: "outline" }
   - type: photoStrip
     photos:
       - "/images/photos/toddlers-on-bench.webp"

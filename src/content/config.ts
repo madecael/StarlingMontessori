@@ -210,6 +210,19 @@ const pages = defineCollection({
           photos: z.array(imagePath).min(2).max(6),
         }),
         z.object({
+          type: z.literal("videoTour"),
+          eyebrow: z.string().optional(),
+          title: z.string(),
+          body: z.string().optional(),
+          videos: z.array(z.object({
+            src: z.string(),
+            poster: z.string(),
+            label: z.string(),
+            alt: z.string().optional(),
+          })).min(1).max(2),
+          cta: cta.optional(),
+        }),
+        z.object({
           type: z.literal("enrollCTA"),
           eyebrow: z.string(),
           title: z.string(),

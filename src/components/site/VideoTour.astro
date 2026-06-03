@@ -1,0 +1,54 @@
+---
+interface CTA { label: string; href: string; variant: "primary" | "pearly" | "outline" | "ghost"; }
+interface Video { src: string; poster: string; label: string; alt?: string; }
+interface Props { eyebrow?: string; title: string; body?: string; videos: Video[]; cta?: CTA; }
+const { eyebrow, title, body, videos, cta } = Astro.props;
+const variantClass = (v: CTA["variant"]) => v === "primary" ? "btn-primary" : v === "pearly" ? "btn-pearly" : v === "outline" ? "btn-outline" : "btn-ghost";
+---
+<section class="px-6 lg:px-8 py-16 max-w-[1240px] mx-auto" data-video-tour>
+  <div class="max-w-2xl">
+    {eyebrow && <div class="eyebrow">{eyebrow}</div>}
+    <h2 class="text-3xl lg:text-[34px] font-light text-cetacean mt-2 mb-4 tracking-tightest leading-tight">{title}</h2>
+    {body && <p class="text-base text-cetacean-70 leading-relaxed">{body}</p>}
+  </div>
+
+  <div class="mt-10 flex flex-col sm:flex-row justify-center gap-6 lg:gap-8">
+    {videos.map((v) => (
+      <figure class="w-full max-w-[340px] mx-auto">
+        <div class="aspect-[9/16] rounded-3xl overflow-hidden bg-cetacean-10 shadow-md">
+          <video
+            class="w-full h-full object-cover"
+            controls
+            preload="none"
+            playsinline
+            poster={v.poster}
+            aria-label={v.alt ?? v.label}
+          >
+            <source src={v.src} type="video/mp4" />
+            <p class="p-4 text-sm text-cetacean-70">
+              Your browser can't play this video.
+              <a href={v.src} class="underline">Download it here</a>.
+            </p>
+          </video>
+        </div>
+        <figcaption class="text-center text-[13px] text-cetacean-70 mt-3 uppercase tracking-eyebrow font-semibold">{v.label}</figcaption>
+      </figure>
+    ))}
+  </div>
+
+  {cta && (
+    <div class="mt-10 text-center"><a href={cta.href} class={`btn ${variantClass(cta.variant)}`}>{cta.label}</a></div>
+  )}
+</section>
+
+<script>
+  // Light analytics: fire a gtag event the first time each tour video plays.
+  document.querySelectorAll<HTMLVideoElement>("[data-video-tour] video").forEach((video) => {
+    video.addEventListener("play", () => {
+      const label = video.getAttribute("aria-label") ?? "video_tour";
+      if (typeof (window as any).gtag === "function") {
+        (window as any).gtag("event", "video_tour_play", { video_label: label });
+      }
+    }, { once: true });
+  });
+</script>
