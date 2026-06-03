@@ -30,6 +30,7 @@ const settings = defineCollection({
     bookingUrlPrimary: z.string().url().optional(),
     applyUrl: z.string().url().optional(),
     ga4Id: z.string().optional(),
+    gtmId: z.string().optional(),
     clarityProjectId: z.string().optional(),
     googlePlaceId: z.string().optional(),
     resendFromAddress: z.string().email(),

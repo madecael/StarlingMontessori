@@ -4,6 +4,7 @@ import MiniNav from "../components/MiniNav.astro";
 import MiniFooter from "../components/MiniFooter.astro";
 import BookingModal from "../components/BookingModal.astro";
 import CookieConsent from "../components/CookieConsent.astro";
+import GtmNoscript from "../components/GtmNoscript.astro";
 
 interface Props {
   title: string;
@@ -17,6 +18,7 @@ const { title, description, ctaLabel, noindex, locationLine } = Astro.props;
 <html lang="en">
   <BaseHead title={title} description={description} noindex={noindex} />
   <body class="bg-seashell text-cetacean">
+    <GtmNoscript />
     <MiniNav ctaLabel={ctaLabel} />
     <main><slot /></main>
     <MiniFooter locationLine={locationLine} />

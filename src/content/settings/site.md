@@ -16,6 +16,7 @@ bookingUrlToddler: https://calendly.com/admin-starlingmontessorischool/schedule-
 bookingUrlPrimary: https://calendly.com/admin-starlingmontessorischool/schedule-a-primary-tour
 applyUrl: https://schools.mybrightwheel.com/sign-in?redirect_path=forms/722a839c-5f06-4fbd-87f3-afdd364c4be4/self-service
 ga4Id: G-5GEB1HNJYJ
+gtmId: GTM-WF5LFQLD
 clarityProjectId: wxvmkfrhvy
 googlePlaceId: ChIJlwE5cOa5t4kReof0aIJInPM
 ---

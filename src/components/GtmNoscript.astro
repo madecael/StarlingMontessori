@@ -1,0 +1,10 @@
+---
+import { getEntry } from "astro:content";
+const settings = await getEntry("settings", "site");
+const gtm = settings?.data.gtmId;
+---
+{gtm && (
+  <noscript>
+    <iframe src={`https://www.googletagmanager.com/ns.html?id=${gtm}`} height="0" width="0" style="display:none;visibility:hidden" title="Google Tag Manager"></iframe>
+  </noscript>
+)}
