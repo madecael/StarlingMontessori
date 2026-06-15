@@ -106,6 +106,8 @@ function fmtDateTime(iso?: string): string {
 
 const st = post ? statusStyles[post.status] : statusStyles.draft;
 const isCarousel = post && post.images.length > 1;
+const videos = post?.videos ?? [];
+const hasVideo = videos.length > 0;
 ---
 <AdminLayout title={post?.title ?? "Post"} showLogout>
   <section class="max-w-[1240px] mx-auto px-6 lg:px-8 py-10">
@@ -167,8 +169,46 @@ const isCarousel = post && post.images.length > 1;
         )}
 
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          {/* ── LEFT: image(s) + meta ─────────────────────────────── */}
+          {/* ── LEFT: video(s) + image(s) + meta ──────────────────── */}
           <div class="space-y-6">
+            {hasVideo && (
+              <div class="space-y-4">
+                {videos.map((v, i) => (
+                  <figure class="bg-white rounded-3xl overflow-hidden border border-cetacean/10 p-3">
+                    <video
+                      controls
+                      playsinline
+                      preload="metadata"
+                      class="w-full rounded-2xl bg-cetacean/5 max-h-[70vh]"
+                      src={v.src}
+                    ></video>
+                    <figcaption class="px-1 pt-3 flex flex-wrap items-center justify-between gap-3">
+                      <span class="text-xs text-cetacean-70">
+                        {videos.length > 1 && (
+                          <span class="uppercase tracking-eyebrow font-semibold text-cetacean mr-2">
+                            Video {i + 1}
+                          </span>
+                        )}
+                        {v.label ?? "Reel video"}
+                      </span>
+                      <a
+                        href={v.src}
+                        download
+                        class="px-3 py-1.5 rounded-pill text-xs border border-cetacean/20 text-cetacean hover:border-cetacean/50"
+                      >
+                        Download video
+                      </a>
+                    </figcaption>
+                  </figure>
+                ))}
+              </div>
+            )}
+
+            {hasVideo && (
+              <div class="text-[11px] uppercase tracking-eyebrow font-semibold text-cetacean-70">
+                Cover frame
+              </div>
+            )}
             <div class="space-y-4">
               {post.images.map((image, i) => (
                 <figure class="bg-white rounded-3xl overflow-hidden border border-cetacean/10">

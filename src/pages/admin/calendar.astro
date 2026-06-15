@@ -260,6 +260,15 @@ const STATUS_ORDER: PostStatus[] = ["draft", "approved", "published"];
                             ×{p.images.length}
                           </span>
                         )}
+                        {p.videos && p.videos.length > 0 && (
+                          <span
+                            class="absolute -top-1 -left-1 inline-flex h-4 w-4 items-center justify-center rounded-full bg-cetacean text-seashell text-[8px] leading-none shadow-sm"
+                            aria-label="Has video"
+                            title="Has video"
+                          >
+                            ▶
+                          </span>
+                        )}
                       </div>
                       <div class="min-w-0 flex-1">
                         <div class="text-[11px] font-medium text-cetacean truncate">{p.title}</div>
@@ -327,6 +336,15 @@ const STATUS_ORDER: PostStatus[] = ["draft", "approved", "published"];
                   class="absolute -bottom-1 -right-1 rounded-pill bg-cetacean text-seashell text-[9px] leading-none px-1 py-0.5 font-medium"
                 >
                   ×{p.images.length}
+                </span>
+              )}
+              {p.videos && p.videos.length > 0 && (
+                <span
+                  class="absolute -top-1 -left-1 inline-flex h-4 w-4 items-center justify-center rounded-full bg-cetacean text-seashell text-[8px] leading-none shadow-sm"
+                  aria-label="Has video"
+                  title="Has video"
+                >
+                  ▶
                 </span>
               )}
             </div>

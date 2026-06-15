@@ -15,6 +15,11 @@ export interface PostImage {
   alt?: string;
 }
 
+export interface PostVideo {
+  src: string;
+  label?: string;
+}
+
 export interface SocialPost {
   id: string;
   date: string | null;
@@ -24,6 +29,7 @@ export interface SocialPost {
   pillar: string;
   channel: string;
   images: PostImage[];
+  videos?: PostVideo[];
   caption: string;
   hashtags: string;
   cta: string;
@@ -699,6 +705,21 @@ function sortPosts(posts: SocialPost[]): SocialPost[] {
   });
 }
 
+// Final reel videos, attached at READ time only. Keeping these in code (rather
+// than persisting them into the DB rows) means already-seeded posts on the live
+// deployment pick them up with no migration — and the DB never stores a `videos`
+// field. Served from public/social/videos/<id>.mp4.
+const POST_VIDEOS: Record<string, PostVideo[]> = {
+  "reel-toddler-room": [{ src: "/social/videos/reel-toddler-room.mp4", label: "Promo Video A — 15s cut (9×16)" }],
+  "reel-windows": [{ src: "/social/videos/reel-windows.mp4", label: "Video C — 16s cut (9×16)" }],
+};
+
+// Decorate a post with its videos for RETURN only. Never call this on an object
+// before writing it to the DB — the persisted row must not contain `videos`.
+function withVideos(post: SocialPost): SocialPost {
+  return { ...post, videos: POST_VIDEOS[post.id] ?? [] };
+}
+
 export async function listPosts(): Promise<SocialPost[]> {
   const posts = await dbGetArray<SocialPost>(POSTS_KEY);
   if (posts.length === 0) {
@@ -709,9 +730,9 @@ export async function listPosts(): Promise<SocialPost[]> {
         await dbSetArray(POSTS_KEY, SEED_POSTS);
       }
     });
-    return sortPosts(SEED_POSTS);
+    return sortPosts(SEED_POSTS).map(withVideos);
   }
-  return sortPosts(posts);
+  return sortPosts(posts).map(withVideos);
 }
 
 export async function getPost(id: string): Promise<SocialPost | undefined> {
@@ -748,7 +769,7 @@ export async function updatePostContent(
     };
     posts[idx] = updated;
     await dbSetArray(POSTS_KEY, posts);
-    return updated;
+    return withVideos(updated);
   });
 }
 
@@ -778,7 +799,7 @@ export async function setPostStatus(
     }
     posts[idx] = updated;
     await dbSetArray(POSTS_KEY, posts);
-    return updated;
+    return withVideos(updated);
   });
 }
 
@@ -790,6 +811,6 @@ export async function reschedulePost(id: string, date: string | null): Promise<S
     const now = new Date().toISOString();
     posts[idx] = { ...posts[idx], date, updatedAt: now };
     await dbSetArray(POSTS_KEY, posts);
-    return posts[idx];
+    return withVideos(posts[idx]);
   });
 }
