@@ -22,6 +22,11 @@ const { title, showLogout = false } = Astro.props;
           <img src="/images/starling-logo.png" alt="Starling" class="h-9 w-auto" />
           <span class="text-sm uppercase tracking-eyebrow font-semibold text-cetacean-70">Admin</span>
         </a>
+        <nav class="flex items-center gap-5 flex-wrap">
+          <a href="/admin/dashboard" class="text-sm text-cetacean-70 hover:text-pearly-deep">Dashboard</a>
+          <a href="/admin/leads" class="text-sm text-cetacean-70 hover:text-pearly-deep">Leads</a>
+          <a href="/admin/calendar" class="text-sm text-cetacean-70 hover:text-pearly-deep">Calendar</a>
+        </nav>
         {showLogout && (
           <form action="/api/admin/logout" method="POST" class="inline">
             <button type="submit" class="text-sm text-cetacean-70 hover:text-pearly-deep">Sign out</button>

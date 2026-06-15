@@ -8,3 +8,6 @@ test-results
 .DS_Store
 *.log
 .data/
+
+# local-dev file-backed DB (no Replit DB off-host)
+.dev-db.json

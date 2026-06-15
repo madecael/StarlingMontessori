@@ -1,0 +1,516 @@
+---
+export const prerender = false;
+import AdminLayout from "../../../layouts/AdminLayout.astro";
+import {
+  getPost,
+  POST_STATUSES,
+  SOCIAL_AUTHORS,
+  type PostStatus,
+  type SocialAuthor,
+  type SocialPost,
+} from "../../../lib/social";
+
+const id = Astro.params.id ?? "";
+
+let post: SocialPost | undefined;
+let error: string | null = null;
+try {
+  post = await getPost(id);
+} catch (e) {
+  error = e instanceof Error ? e.message : "Unknown error";
+}
+
+if (!post && !error) {
+  Astro.response.status = 404;
+}
+
+const statusLabels: Record<PostStatus, string> = {
+  draft: "Draft",
+  approved: "Approved",
+  published: "Published",
+};
+const workflowLabels: Record<PostStatus, string> = {
+  draft: "Mark draft",
+  approved: "Approve",
+  published: "Publish",
+};
+const authorLabels: Record<SocialAuthor, string> = {
+  fabienne: "Fabienne",
+  carlos: "Carlos",
+  mau: "Mau",
+};
+const formatLabels: Record<string, string> = {
+  feed: "Feed",
+  carousel: "Carousel",
+  story: "Story",
+  reel: "Reel",
+  ad: "Ad",
+};
+
+// Status colors keyed by status.
+const statusStyles: Record<
+  PostStatus,
+  { border: string; dot: string; text: string; tint: string }
+> = {
+  draft: {
+    border: "border-cetacean/20",
+    dot: "bg-cetacean/30",
+    text: "text-cetacean-70",
+    tint: "bg-white",
+  },
+  approved: {
+    border: "border-sky-deep/50",
+    dot: "bg-sky-deep",
+    text: "text-sky-deep",
+    tint: "bg-sky/10",
+  },
+  published: {
+    border: "border-emerald-500/50",
+    dot: "bg-emerald-500",
+    text: "text-emerald-700",
+    tint: "bg-emerald-50",
+  },
+};
+
+function fmtDate(value?: string | null): string {
+  if (!value) return "—";
+  // Date-only strings (YYYY-MM-DD) should not shift across timezones.
+  const isDateOnly = /^\d{4}-\d{2}-\d{2}$/.test(value);
+  try {
+    const d = isDateOnly ? new Date(`${value}T12:00:00`) : new Date(value);
+    return d.toLocaleDateString("en-US", {
+      weekday: "short",
+      month: "short",
+      day: "numeric",
+      year: "numeric",
+    });
+  } catch {
+    return value;
+  }
+}
+
+function fmtDateTime(iso?: string): string {
+  if (!iso) return "—";
+  try {
+    return new Date(iso).toLocaleString("en-US", {
+      month: "short",
+      day: "numeric",
+      year: "numeric",
+      hour: "numeric",
+      minute: "2-digit",
+    });
+  } catch {
+    return iso;
+  }
+}
+
+const st = post ? statusStyles[post.status] : statusStyles.draft;
+const isCarousel = post && post.images.length > 1;
+---
+<AdminLayout title={post?.title ?? "Post"} showLogout>
+  <section class="max-w-[1240px] mx-auto px-6 lg:px-8 py-10">
+    <a href="/admin/calendar" class="text-sm text-cetacean-70 hover:text-cetacean">← Back to calendar</a>
+
+    {error && (
+      <div class="bg-pearly/10 border border-pearly/30 rounded-2xl p-5 mt-6">
+        <div class="text-sm font-semibold text-pearly-deep mb-1">Couldn't load post</div>
+        <div class="text-sm text-cetacean-70">{error}</div>
+      </div>
+    )}
+
+    {!post && !error && (
+      <div class="bg-white rounded-2xl p-8 mt-6 text-center">
+        <h1 class="text-2xl font-light text-cetacean tracking-tightest mb-2">Post not found</h1>
+        <p class="text-sm text-cetacean-70 mb-4">
+          No post with id <code class="bg-seashell px-1.5 py-0.5 rounded">{id}</code> exists.
+        </p>
+        <a href="/admin/calendar" class="text-sm text-pearly-deep hover:text-pearly">Back to calendar</a>
+      </div>
+    )}
+
+    {post && (
+      <>
+        <div class="flex flex-wrap items-start justify-between gap-4 mt-4 mb-8">
+          <div>
+            <div class="eyebrow">
+              {formatLabels[post.format] ?? post.format} · {post.pillar}
+            </div>
+            <h1 class="text-3xl lg:text-4xl font-light text-cetacean tracking-tightest mt-1">
+              {post.title}
+            </h1>
+          </div>
+          <span
+            id="status-pill"
+            class:list={[
+              "inline-flex items-center gap-2 rounded-pill border px-4 py-2 text-sm font-medium",
+              st.border,
+              st.tint,
+              st.text,
+            ]}
+          >
+            <span class:list={["w-2 h-2 rounded-full", st.dot]}></span>
+            <span id="status-pill-label">{statusLabels[post.status]}</span>
+          </span>
+        </div>
+
+        {post.locked && (
+          <div class="bg-amber-50 border border-amber-400/60 rounded-2xl p-4 mb-8 flex gap-3">
+            <span class="text-amber-600 text-lg leading-none mt-0.5" aria-hidden="true">⚠</span>
+            <div>
+              <div class="text-sm font-semibold text-amber-800">Contains verbatim copy</div>
+              <div class="text-sm text-amber-800/80 mt-0.5">
+                This post contains verbatim copy (parent reviews, Montessori quotes, or paid ad
+                text). You may edit surrounding copy, but do not alter quoted text.
+              </div>
+            </div>
+          </div>
+        )}
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          {/* ── LEFT: image(s) + meta ─────────────────────────────── */}
+          <div class="space-y-6">
+            <div class="space-y-4">
+              {post.images.map((image, i) => (
+                <figure class="bg-white rounded-3xl overflow-hidden border border-cetacean/10">
+                  <img
+                    src={image.full}
+                    alt={image.alt ?? post.title}
+                    class="w-full h-auto block"
+                    loading="lazy"
+                  />
+                  {(isCarousel || image.alt) && (
+                    <figcaption class="px-4 py-3 text-xs text-cetacean-70">
+                      {isCarousel && (
+                        <span class="uppercase tracking-eyebrow font-semibold text-cetacean mr-2">
+                          Slide {i + 1}
+                        </span>
+                      )}
+                      {image.alt}
+                    </figcaption>
+                  )}
+                </figure>
+              ))}
+            </div>
+
+            <div class="bg-white rounded-2xl p-5">
+              <div class="eyebrow mb-4">Details</div>
+              <div class="grid grid-cols-1 gap-4 text-sm">
+                <div>
+                  <div class="text-[11px] uppercase tracking-eyebrow font-semibold text-cetacean-70">Channel</div>
+                  <div class="text-cetacean mt-0.5">{post.channel}</div>
+                </div>
+                <div>
+                  <div class="text-[11px] uppercase tracking-eyebrow font-semibold text-cetacean-70">Scheduled</div>
+                  <div class="text-cetacean mt-0.5">
+                    {post.date ? fmtDate(post.date) : "Backlog — unscheduled"}
+                  </div>
+                </div>
+                <div>
+                  <div class="text-[11px] uppercase tracking-eyebrow font-semibold text-cetacean-70">Bio link</div>
+                  <div class="text-cetacean mt-0.5 break-words">
+                    {post.bioLink ? (
+                      <code class="text-pearly-deep">{post.bioLink}</code>
+                    ) : (
+                      "—"
+                    )}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* ── RIGHT: edit form + workflow ───────────────────────── */}
+          <div class="space-y-6">
+            <div class="bg-white rounded-2xl p-5">
+              <div class="flex items-center justify-between mb-4">
+                <div class="eyebrow">Content</div>
+                <button
+                  type="button"
+                  id="copy-ig"
+                  class="px-3 py-1.5 rounded-pill text-xs border border-cetacean/20 text-cetacean hover:border-cetacean/50"
+                >
+                  Copy for Instagram
+                </button>
+              </div>
+
+              <form id="content-form" class="space-y-4">
+                <label class="block">
+                  <span class="text-[11px] uppercase tracking-eyebrow font-semibold text-cetacean-70 mb-1.5 block">Title</span>
+                  <input
+                    type="text"
+                    id="f-title"
+                    value={post.title}
+                    class="w-full px-3 py-2.5 rounded-xl border border-cetacean/20 bg-white text-sm text-cetacean"
+                  />
+                </label>
+
+                <label class="block">
+                  <span class="text-[11px] uppercase tracking-eyebrow font-semibold text-cetacean-70 mb-1.5 block">Caption</span>
+                  <textarea
+                    id="f-caption"
+                    rows="10"
+                    class="w-full px-3 py-2.5 rounded-xl border border-cetacean/20 bg-white text-sm text-cetacean leading-relaxed"
+                  >{post.caption}</textarea>
+                </label>
+
+                <label class="block">
+                  <span class="text-[11px] uppercase tracking-eyebrow font-semibold text-cetacean-70 mb-1.5 block">Hashtags</span>
+                  <textarea
+                    id="f-hashtags"
+                    rows="2"
+                    class="w-full px-3 py-2.5 rounded-xl border border-cetacean/20 bg-white text-sm text-cetacean"
+                  >{post.hashtags}</textarea>
+                </label>
+
+                <label class="block">
+                  <span class="text-[11px] uppercase tracking-eyebrow font-semibold text-cetacean-70 mb-1.5 block">CTA</span>
+                  <input
+                    type="text"
+                    id="f-cta"
+                    value={post.cta}
+                    class="w-full px-3 py-2.5 rounded-xl border border-cetacean/20 bg-white text-sm text-cetacean"
+                  />
+                </label>
+
+                <div>
+                  <span class="text-[11px] uppercase tracking-eyebrow font-semibold text-cetacean-70 mb-1.5 block">Bio link</span>
+                  <input
+                    type="text"
+                    id="f-bioLink"
+                    value={post.bioLink}
+                    class="w-full px-3 py-2.5 rounded-xl border border-cetacean/20 bg-white text-sm text-cetacean"
+                  />
+                  <div class="flex flex-wrap gap-2 mt-2">
+                    <button
+                      type="button"
+                      class="bio-quick px-3 py-1.5 rounded-pill text-xs border border-cetacean/20 text-cetacean-70 hover:border-cetacean/50"
+                      data-bio="/open-house"
+                    >
+                      /open-house
+                    </button>
+                    <button
+                      type="button"
+                      class="bio-quick px-3 py-1.5 rounded-pill text-xs border border-cetacean/20 text-cetacean-70 hover:border-cetacean/50"
+                      data-bio="/lp/primary-2026"
+                    >
+                      /lp/primary-2026
+                    </button>
+                  </div>
+                </div>
+
+                <label class="block">
+                  <span class="text-[11px] uppercase tracking-eyebrow font-semibold text-cetacean-70 mb-1.5 block">Notes</span>
+                  <textarea
+                    id="f-notes"
+                    rows="4"
+                    class="w-full px-3 py-2.5 rounded-xl border border-cetacean/20 bg-white text-sm text-cetacean"
+                  >{post.notes ?? ""}</textarea>
+                </label>
+
+                <div class="flex items-center gap-3">
+                  <button type="submit" id="save-btn" class="btn btn-pearly text-sm">Save changes</button>
+                </div>
+              </form>
+            </div>
+
+            <div class="bg-white rounded-2xl p-5">
+              <div class="flex items-center justify-between gap-3 mb-4">
+                <div class="eyebrow">Workflow</div>
+                <label class="flex items-center gap-2 text-sm text-cetacean-70">
+                  Acting as
+                  <select
+                    id="social-author"
+                    class="px-3 py-2 rounded-xl border border-cetacean/20 bg-white text-sm text-cetacean"
+                  >
+                    {SOCIAL_AUTHORS.map((a) => <option value={a}>{authorLabels[a]}</option>)}
+                  </select>
+                </label>
+              </div>
+
+              {post.status === "published" && (
+                <div
+                  id="published-stamp"
+                  class="mb-4 text-sm rounded-xl bg-emerald-50 border border-emerald-500/40 text-emerald-700 px-4 py-3"
+                >
+                  Published by <strong>{post.publishedBy ? authorLabels[post.publishedBy] : "—"}</strong>
+                  {" "}on <strong>{fmtDateTime(post.publishedAt)}</strong>
+                </div>
+              )}
+
+              <div class="flex flex-wrap gap-2">
+                {POST_STATUSES.map((s) => {
+                  const isActive = s === post!.status;
+                  const ss = statusStyles[s];
+                  const cls = isActive
+                    ? [ss.border, ss.tint, ss.text, "font-medium"]
+                    : ["border-cetacean/20", "bg-white", "text-cetacean", "hover:border-cetacean/50"];
+                  return (
+                    <button
+                      type="button"
+                      class:list={["status-btn inline-flex items-center gap-2 px-4 py-2 rounded-pill text-sm border", ...cls]}
+                      data-status={s}
+                      disabled={isActive}
+                      aria-current={isActive ? "true" : undefined}
+                    >
+                      <span class:list={["w-2 h-2 rounded-full", ss.dot]}></span>
+                      {workflowLabels[s]}
+                    </button>
+                  );
+                })}
+              </div>
+              <div id="workflow-error" class="text-sm text-pearly-deep mt-3 hidden"></div>
+            </div>
+          </div>
+        </div>
+
+        {/* Transient toast */}
+        <div
+          id="toast"
+          class="hidden fixed bottom-6 left-1/2 -translate-x-1/2 z-50 rounded-pill px-5 py-3 text-sm font-medium shadow-lg"
+        ></div>
+
+        <script is:inline define:vars={{ postId: post.id }}>
+          (function () {
+            const AUTHOR_KEY = "starling_social_author";
+            const DEFAULT_AUTHOR = "fabienne";
+
+            const authorSel = document.getElementById("social-author");
+            const toast = document.getElementById("toast");
+
+            // ── Acting-as persistence ──────────────────────────────
+            if (authorSel) {
+              const saved = localStorage.getItem(AUTHOR_KEY);
+              if (saved && [...authorSel.options].some((o) => o.value === saved)) {
+                authorSel.value = saved;
+              } else {
+                authorSel.value = DEFAULT_AUTHOR;
+              }
+              authorSel.addEventListener("change", () => {
+                localStorage.setItem(AUTHOR_KEY, authorSel.value);
+              });
+            }
+
+            // ── Toast ──────────────────────────────────────────────
+            function showToast(msg, ok) {
+              if (!toast) return;
+              toast.textContent = msg;
+              toast.className =
+                "fixed bottom-6 left-1/2 -translate-x-1/2 z-50 rounded-pill px-5 py-3 text-sm font-medium shadow-lg " +
+                (ok
+                  ? "bg-emerald-500 text-white"
+                  : "bg-pearly-deep text-seashell");
+              clearTimeout(showToast._t);
+              showToast._t = setTimeout(() => toast.classList.add("hidden"), 3200);
+            }
+
+            // ── Field refs ─────────────────────────────────────────
+            const fields = {
+              title: document.getElementById("f-title"),
+              caption: document.getElementById("f-caption"),
+              hashtags: document.getElementById("f-hashtags"),
+              cta: document.getElementById("f-cta"),
+              bioLink: document.getElementById("f-bioLink"),
+              notes: document.getElementById("f-notes"),
+            };
+
+            // ── Bio-link quick-set ─────────────────────────────────
+            document.querySelectorAll(".bio-quick").forEach((btn) => {
+              btn.addEventListener("click", () => {
+                if (fields.bioLink) fields.bioLink.value = btn.getAttribute("data-bio") || "";
+              });
+            });
+
+            // ── Save content ───────────────────────────────────────
+            const form = document.getElementById("content-form");
+            const saveBtn = document.getElementById("save-btn");
+            if (form) {
+              form.addEventListener("submit", async (ev) => {
+                ev.preventDefault();
+                saveBtn.setAttribute("disabled", "");
+                const payload = {
+                  action: "content",
+                  id: postId,
+                  title: fields.title.value,
+                  caption: fields.caption.value,
+                  hashtags: fields.hashtags.value,
+                  cta: fields.cta.value,
+                  bioLink: fields.bioLink.value,
+                  notes: fields.notes.value,
+                };
+                try {
+                  const res = await fetch("/api/admin/post-update", {
+                    method: "POST",
+                    headers: { "content-type": "application/json" },
+                    body: JSON.stringify(payload),
+                  });
+                  if (!res.ok) {
+                    const body = await res.json().catch(() => ({}));
+                    throw new Error(body.error || "Request failed (" + res.status + ")");
+                  }
+                  showToast("Saved", true);
+                } catch (e) {
+                  showToast(e && e.message ? e.message : "Save failed", false);
+                } finally {
+                  saveBtn.removeAttribute("disabled");
+                }
+              });
+            }
+
+            // ── Copy for Instagram ─────────────────────────────────
+            const copyBtn = document.getElementById("copy-ig");
+            if (copyBtn) {
+              copyBtn.addEventListener("click", async () => {
+                const caption = fields.caption.value;
+                const hashtags = fields.hashtags.value;
+                const cta = fields.cta.value;
+                let text = caption + "\n\n" + hashtags;
+                if (cta) text += "\n\n" + cta;
+                try {
+                  await navigator.clipboard.writeText(text);
+                  showToast("Copied", true);
+                } catch (e) {
+                  showToast("Copy failed — clipboard blocked", false);
+                }
+              });
+            }
+
+            // ── Status / workflow ──────────────────────────────────
+            const wfError = document.getElementById("workflow-error");
+            let inFlight = false;
+            document.querySelectorAll(".status-btn").forEach((btn) => {
+              btn.addEventListener("click", async () => {
+                if (inFlight) return;
+                if (btn.hasAttribute("disabled")) return;
+                const value = btn.getAttribute("data-status");
+                const author = (authorSel && authorSel.value) || DEFAULT_AUTHOR;
+                inFlight = true;
+                btn.setAttribute("disabled", "");
+                if (wfError) wfError.classList.add("hidden");
+                try {
+                  const res = await fetch("/api/admin/post-update", {
+                    method: "POST",
+                    headers: { "content-type": "application/json" },
+                    body: JSON.stringify({ action: "status", id: postId, value, author }),
+                  });
+                  if (!res.ok) {
+                    const body = await res.json().catch(() => ({}));
+                    throw new Error(body.error || "Request failed (" + res.status + ")");
+                  }
+                  // Reload so publishedAt/publishedBy + pill colors re-render.
+                  window.location.reload();
+                } catch (e) {
+                  if (wfError) {
+                    wfError.textContent = e && e.message ? e.message : "Update failed";
+                    wfError.classList.remove("hidden");
+                  }
+                  btn.removeAttribute("disabled");
+                  inFlight = false;
+                }
+              });
+            });
+          })();
+        </script>
+      </>
+    )}
+  </section>
+</AdminLayout>

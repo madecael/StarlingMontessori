@@ -1,0 +1,496 @@
+---
+export const prerender = false;
+import AdminLayout from "../../layouts/AdminLayout.astro";
+import { listPosts, type SocialPost, type PostStatus, type PostFormat } from "../../lib/social";
+
+let posts: SocialPost[] = [];
+let error: string | null = null;
+try {
+  posts = await listPosts();
+} catch (e) {
+  error = e instanceof Error ? e.message : "Unknown error";
+}
+
+// ── Date helpers (UTC-anchored so weekdays never shift by timezone) ──────────
+// Always append "T00:00:00Z" to a YYYY-MM-DD string and read UTC accessors.
+function utcDate(ymd: string): Date {
+  return new Date(`${ymd}T00:00:00Z`);
+}
+function toYMD(d: Date): string {
+  return d.toISOString().slice(0, 10);
+}
+function addUTCDays(d: Date, n: number): Date {
+  const out = new Date(d.getTime());
+  out.setUTCDate(out.getUTCDate() + n);
+  return out;
+}
+// Monday on/before the given date. getUTCDay(): 0=Sun..6=Sat.
+function mondayOnOrBefore(d: Date): Date {
+  const day = d.getUTCDay();
+  const back = day === 0 ? 6 : day - 1; // Sun → 6 back, else day-1
+  return addUTCDays(d, -back);
+}
+
+const DEFAULT_ANCHOR = "2026-06-15";
+
+// Determine window start: ?start= overrides; else Monday on/before earliest
+// dated post; else the default anchor's Monday.
+const startParam = Astro.url.searchParams.get("start");
+const datedYMDs = posts
+  .map((p) => p.date)
+  .filter((d): d is string => typeof d === "string" && /^\d{4}-\d{2}-\d{2}$/.test(d))
+  .sort();
+const earliest = datedYMDs.length > 0 ? datedYMDs[0] : DEFAULT_ANCHOR;
+
+let windowStart: Date;
+if (startParam && /^\d{4}-\d{2}-\d{2}$/.test(startParam)) {
+  windowStart = mondayOnOrBefore(utcDate(startParam));
+} else {
+  windowStart = mondayOnOrBefore(utcDate(earliest));
+}
+const windowStartYMD = toYMD(windowStart);
+const prevStartYMD = toYMD(addUTCDays(windowStart, -7));
+const nextStartYMD = toYMD(addUTCDays(windowStart, 7));
+const thisFortnightYMD = toYMD(mondayOnOrBefore(utcDate(DEFAULT_ANCHOR)));
+
+// 14-day window, grouped by YMD.
+const postsByDate = new Map<string, SocialPost[]>();
+for (const p of posts) {
+  if (!p.date) continue;
+  const arr = postsByDate.get(p.date);
+  if (arr) arr.push(p);
+  else postsByDate.set(p.date, [p]);
+}
+
+interface Cell {
+  ymd: string;
+  dom: number; // day of month (UTC)
+  weekday: string; // Mon..Sun
+  posts: SocialPost[];
+}
+const WEEKDAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+const cells: Cell[] = [];
+for (let i = 0; i < 14; i++) {
+  const d = addUTCDays(windowStart, i);
+  const ymd = toYMD(d);
+  cells.push({
+    ymd,
+    dom: d.getUTCDate(),
+    weekday: WEEKDAYS[i % 7],
+    posts: postsByDate.get(ymd) ?? [],
+  });
+}
+const week1 = cells.slice(0, 7);
+const week2 = cells.slice(7, 14);
+
+// Pretty window label, e.g. "Jun 15 – Jun 28".
+function prettyDay(ymd: string): string {
+  return utcDate(ymd).toLocaleDateString("en-US", {
+    month: "short",
+    day: "numeric",
+    timeZone: "UTC",
+  });
+}
+const windowEndYMD = toYMD(addUTCDays(windowStart, 13));
+const windowLabel = `${prettyDay(windowStartYMD)} – ${prettyDay(windowEndYMD)}`;
+
+// Backlog = unscheduled posts.
+const backlog = posts.filter((p) => p.date === null);
+
+// Stats.
+const counts: Record<PostStatus, number> = { draft: 0, approved: 0, published: 0 };
+for (const p of posts) counts[p.status]++;
+
+// ── Status + format styling ─────────────────────────────────────────────────
+const statusAccent: Record<PostStatus, string> = {
+  draft: "bg-cetacean/30",
+  approved: "bg-sky-deep",
+  published: "bg-emerald-500",
+};
+const statusChipClass: Record<PostStatus, string> = {
+  draft: "border-cetacean/20 text-cetacean-70",
+  approved: "border-sky-deep/50 bg-sky/10 text-sky-deep",
+  published: "border-emerald-500/50 bg-emerald-50 text-emerald-700",
+};
+const statusDot: Record<PostStatus, string> = {
+  draft: "bg-cetacean/30",
+  approved: "bg-sky-deep",
+  published: "bg-emerald-500",
+};
+const statusLabel: Record<PostStatus, string> = {
+  draft: "Draft",
+  approved: "Approved",
+  published: "Published",
+};
+const formatLabel: Record<PostFormat, string> = {
+  feed: "Feed",
+  carousel: "Carousel",
+  story: "Story",
+  reel: "Reel",
+  ad: "Ad",
+};
+const STATUS_ORDER: PostStatus[] = ["draft", "approved", "published"];
+---
+
+<AdminLayout title="Content calendar" showLogout>
+  <section class="max-w-[1400px] mx-auto px-6 lg:px-8 py-10">
+    <div class="flex flex-wrap items-end justify-between gap-4 mb-8">
+      <div>
+        <div class="eyebrow">STARLING · SOCIAL</div>
+        <h1 class="text-3xl lg:text-4xl font-light text-cetacean tracking-tightest mt-1">
+          Content calendar
+        </h1>
+      </div>
+      <div class="flex flex-wrap items-center gap-2">
+        <a
+          href={`?start=${prevStartYMD}`}
+          class="px-4 py-2 rounded-pill text-sm border bg-white text-cetacean border-cetacean/20 hover:border-cetacean/50"
+        >
+          ← Prev
+        </a>
+        <span class="text-sm text-cetacean-70 px-1 min-w-[8rem] text-center">{windowLabel}</span>
+        <a
+          href={`?start=${nextStartYMD}`}
+          class="px-4 py-2 rounded-pill text-sm border bg-white text-cetacean border-cetacean/20 hover:border-cetacean/50"
+        >
+          Next →
+        </a>
+        <a
+          href={`?start=${thisFortnightYMD}`}
+          class="px-4 py-2 rounded-pill text-sm border bg-cetacean text-seashell border-cetacean hover:bg-cetacean-90"
+        >
+          This fortnight
+        </a>
+      </div>
+    </div>
+
+    {error && (
+      <div class="bg-pearly/10 border border-pearly/30 rounded-2xl p-5 mb-6">
+        <div class="text-sm font-semibold text-pearly-deep mb-1">Couldn't load posts</div>
+        <div class="text-sm text-cetacean-70">{error}</div>
+      </div>
+    )}
+
+    <div
+      id="calendar-error"
+      class="hidden bg-pearly/10 border border-pearly/30 rounded-2xl p-3 mb-4 text-sm text-pearly-deep"
+    ></div>
+
+    {/* Stats + legend row */}
+    <div class="flex flex-wrap items-center justify-between gap-3 mb-6">
+      <div class="flex flex-wrap items-center gap-2">
+        {STATUS_ORDER.map((s) => (
+          <span
+            class:list={[
+              "inline-flex items-center gap-2 rounded-pill px-3 py-1 text-sm border",
+              statusChipClass[s],
+            ]}
+          >
+            <span class:list={["inline-block h-2 w-2 rounded-full", statusDot[s]]}></span>
+            <span class="font-medium">{counts[s]}</span>
+            <span>{statusLabel[s]}</span>
+          </span>
+        ))}
+      </div>
+      <div class="flex flex-wrap items-center gap-4 text-xs text-cetacean-70">
+        {STATUS_ORDER.map((s) => (
+          <span class="inline-flex items-center gap-1.5">
+            <span class:list={["inline-block h-2 w-2 rounded-full", statusDot[s]]}></span>
+            {statusLabel[s]}
+          </span>
+        ))}
+      </div>
+    </div>
+
+    {/* 2-week grid */}
+    <div class="bg-white rounded-3xl p-4 lg:p-6 mb-8 overflow-x-auto">
+      <div class="min-w-[900px]" id="calendar-grid">
+        {/* Weekday header */}
+        <div class="grid grid-cols-7 gap-3 mb-3">
+          {WEEKDAYS.map((wd) => (
+            <div class="text-[11px] uppercase tracking-eyebrow font-semibold text-cetacean-70 px-1">
+              {wd}
+            </div>
+          ))}
+        </div>
+
+        {[week1, week2].map((week) => (
+          <div class="grid grid-cols-7 gap-3 mb-3 last:mb-0">
+            {week.map((cell) => (
+              <div
+                class="day-cell rounded-2xl border border-cetacean/10 bg-seashell-shade/30 p-2 min-h-[150px] flex flex-col transition-colors"
+                data-date={cell.ymd}
+              >
+                <div class="flex items-center justify-between px-1 mb-2">
+                  <span class="text-sm font-medium text-cetacean">{cell.dom}</span>
+                  <span
+                    class="day-count rounded-pill px-2 py-0.5 text-[11px] font-medium bg-white text-cetacean-70 border border-cetacean/10"
+                  >
+                    {cell.posts.length}
+                  </span>
+                </div>
+                <div class="day-body space-y-2 flex-1" data-date={cell.ymd}>
+                  {cell.posts.map((p) => (
+                    <article
+                      class="post-chip group cursor-grab active:cursor-grabbing relative flex gap-2 bg-white rounded-xl p-2 pl-3 shadow-sm border border-cetacean/10 hover:border-cetacean/30 overflow-hidden"
+                      draggable="true"
+                      data-id={p.id}
+                      data-status={p.status}
+                      data-date={p.date}
+                    >
+                      <span
+                        class:list={[
+                          "absolute left-0 top-0 bottom-0 w-1 rounded-l-xl",
+                          statusAccent[p.status],
+                        ]}
+                      ></span>
+                      <div class="relative shrink-0">
+                        <img
+                          src={p.images[0]?.thumb}
+                          alt=""
+                          loading="lazy"
+                          width="40"
+                          height="40"
+                          class="h-10 w-10 rounded-lg object-cover bg-seashell-shade"
+                        />
+                        {p.images.length > 1 && (
+                          <span
+                            class="absolute -bottom-1 -right-1 rounded-pill bg-cetacean text-seashell text-[9px] leading-none px-1 py-0.5 font-medium"
+                          >
+                            ×{p.images.length}
+                          </span>
+                        )}
+                      </div>
+                      <div class="min-w-0 flex-1">
+                        <div class="text-[11px] font-medium text-cetacean truncate">{p.title}</div>
+                        <div class="mt-1">
+                          <span
+                            class="inline-block rounded-pill bg-cetacean/5 text-cetacean-70 text-[9px] uppercase tracking-eyebrow font-semibold px-1.5 py-0.5"
+                          >
+                            {formatLabel[p.format]}
+                          </span>
+                        </div>
+                      </div>
+                    </article>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        ))}
+      </div>
+    </div>
+
+    {/* Backlog */}
+    <div class="bg-white rounded-3xl p-4 lg:p-6 mb-8">
+      <div class="flex items-baseline justify-between mb-1">
+        <div class="text-[11px] uppercase tracking-eyebrow font-semibold text-cetacean">
+          Backlog — not scheduled
+        </div>
+        <span
+          class="backlog-count rounded-pill px-2 py-0.5 text-[11px] font-medium bg-seashell-shade/60 text-cetacean-70 border border-cetacean/10"
+        >
+          {backlog.length}
+        </span>
+      </div>
+      <p class="text-xs text-cetacean-70 mb-4">Drag onto a day to schedule, or open to edit.</p>
+      <div
+        id="backlog-body"
+        class="backlog-body grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 min-h-[80px] rounded-2xl p-1 transition-colors"
+        data-date=""
+      >
+        {backlog.map((p) => (
+          <article
+            class="post-chip group cursor-grab active:cursor-grabbing relative flex gap-2 bg-white rounded-xl p-2 pl-3 shadow-sm border border-cetacean/10 hover:border-cetacean/30 overflow-hidden"
+            draggable="true"
+            data-id={p.id}
+            data-status={p.status}
+            data-date=""
+          >
+            <span
+              class:list={[
+                "absolute left-0 top-0 bottom-0 w-1 rounded-l-xl",
+                statusAccent[p.status],
+              ]}
+            ></span>
+            <div class="relative shrink-0">
+              <img
+                src={p.images[0]?.thumb}
+                alt=""
+                loading="lazy"
+                width="40"
+                height="40"
+                class="h-10 w-10 rounded-lg object-cover bg-seashell-shade"
+              />
+              {p.images.length > 1 && (
+                <span
+                  class="absolute -bottom-1 -right-1 rounded-pill bg-cetacean text-seashell text-[9px] leading-none px-1 py-0.5 font-medium"
+                >
+                  ×{p.images.length}
+                </span>
+              )}
+            </div>
+            <div class="min-w-0 flex-1">
+              <div class="text-[11px] font-medium text-cetacean truncate">{p.title}</div>
+              <div class="mt-1">
+                <span
+                  class="inline-block rounded-pill bg-cetacean/5 text-cetacean-70 text-[9px] uppercase tracking-eyebrow font-semibold px-1.5 py-0.5"
+                >
+                  {formatLabel[p.format]}
+                </span>
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+
+    <p class="text-xs text-cetacean-70 mt-8 text-center">
+      Drag posts between days to reschedule · Click a post to edit copy, approve, and publish.
+    </p>
+  </section>
+
+  <script is:inline>
+    (function () {
+      const errEl = document.getElementById("calendar-error");
+
+      function showError(msg) {
+        if (!errEl) return;
+        errEl.textContent = msg;
+        errEl.classList.remove("hidden");
+        clearTimeout(showError._t);
+        showError._t = setTimeout(() => errEl.classList.add("hidden"), 4000);
+      }
+
+      // Highlight tints for drop targets.
+      const DAY_HL = "bg-pearly/10";
+      const BACKLOG_HL = "bg-pearly/10";
+
+      function updateCounts() {
+        document.querySelectorAll(".day-cell").forEach((cell) => {
+          const body = cell.querySelector(".day-body");
+          const badge = cell.querySelector(".day-count");
+          if (body && badge) {
+            badge.textContent = String(body.querySelectorAll(".post-chip").length);
+          }
+        });
+        const backlogBody = document.getElementById("backlog-body");
+        const backlogBadge = document.querySelector(".backlog-count");
+        if (backlogBody && backlogBadge) {
+          backlogBadge.textContent = String(backlogBody.querySelectorAll(".post-chip").length);
+        }
+      }
+
+      let draggedEl = null;
+      let originParent = null;
+      let originNext = null; // sibling to restore original position on revert
+      let inFlight = false;
+
+      function wireChip(chip) {
+        chip.addEventListener("click", () => {
+          if (chip.classList.contains("is-dragging")) return;
+          const id = chip.getAttribute("data-id");
+          if (id) window.location.href = "/admin/calendar/" + encodeURIComponent(id);
+        });
+
+        chip.addEventListener("dragstart", (e) => {
+          draggedEl = chip;
+          originParent = chip.parentElement;
+          originNext = chip.nextElementSibling;
+          chip.classList.add("is-dragging", "opacity-50");
+          if (e.dataTransfer) {
+            e.dataTransfer.setData("text/plain", chip.getAttribute("data-id") || "");
+            e.dataTransfer.effectAllowed = "move";
+          }
+        });
+
+        chip.addEventListener("dragend", () => {
+          chip.classList.remove("is-dragging", "opacity-50");
+          setTimeout(() => {
+            draggedEl = null;
+            originParent = null;
+            originNext = null;
+          }, 0);
+        });
+      }
+
+      document.querySelectorAll(".post-chip").forEach(wireChip);
+
+      // Drop targets: each day body, plus the backlog body.
+      // dateAttr === "" means backlog (null date).
+      function wireDropTarget(targetEl, bodyEl, dateAttr, hlClass) {
+        targetEl.addEventListener("dragover", (e) => {
+          e.preventDefault();
+          if (e.dataTransfer) e.dataTransfer.dropEffect = "move";
+          targetEl.classList.add(hlClass);
+        });
+        targetEl.addEventListener("dragleave", (e) => {
+          if (e.target === targetEl) targetEl.classList.remove(hlClass);
+        });
+        targetEl.addEventListener("drop", async (e) => {
+          e.preventDefault();
+          targetEl.classList.remove(hlClass);
+
+          const chip = draggedEl;
+          const fromParent = originParent;
+          const fromNext = originNext;
+          if (!chip) return;
+
+          const newDate = dateAttr || ""; // "" => backlog/null
+          const oldDate = chip.getAttribute("data-date") || "";
+          if (newDate === oldDate) return;
+          if (inFlight) return;
+          inFlight = true;
+
+          const id = chip.getAttribute("data-id") || "";
+
+          // Optimistic move.
+          bodyEl.appendChild(chip);
+          chip.setAttribute("data-date", newDate);
+          updateCounts();
+
+          try {
+            const res = await fetch("/api/admin/post-update", {
+              method: "POST",
+              headers: { "content-type": "application/json" },
+              body: JSON.stringify({
+                action: "reschedule",
+                id: id,
+                date: newDate === "" ? null : newDate,
+              }),
+            });
+            if (!res.ok) {
+              const j = await res.json().catch(() => ({}));
+              throw new Error(j.error || "Request failed (" + res.status + ")");
+            }
+          } catch (err) {
+            // Revert to original parent + position.
+            if (fromParent) {
+              if (fromNext && fromNext.parentElement === fromParent) {
+                fromParent.insertBefore(chip, fromNext);
+              } else {
+                fromParent.appendChild(chip);
+              }
+            }
+            chip.setAttribute("data-date", oldDate);
+            updateCounts();
+            showError(err && err.message ? err.message : "Reschedule failed — reverted.");
+          } finally {
+            inFlight = false;
+          }
+        });
+      }
+
+      document.querySelectorAll(".day-cell").forEach((cell) => {
+        const body = cell.querySelector(".day-body");
+        const date = cell.getAttribute("data-date");
+        if (body && date) wireDropTarget(cell, body, date, DAY_HL);
+      });
+
+      const backlogBody = document.getElementById("backlog-body");
+      if (backlogBody) wireDropTarget(backlogBody, backlogBody, "", BACKLOG_HL);
+
+      updateCounts();
+    })();
+  </script>
+</AdminLayout>
