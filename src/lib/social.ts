@@ -691,6 +691,117 @@ export const SEED_POSTS: SocialPost[] = [
     createdAt: SEED_TS,
     updatedAt: SEED_TS,
   },
+
+  // ── VISIT · OPEN HOUSE (July 2026) ────────────────────────────────────────
+  {
+    id: "openhouse-announce",
+    date: "2026-06-30",
+    dayLabel: "Tue",
+    title: "Open House — July announcement (all 3 dates)",
+    format: "feed",
+    pillar: "Visit · Open House",
+    channel: "Instagram + Facebook",
+    images: [
+      {
+        full: "/social/openhouse-announce.png",
+        thumb: "/social/thumbs/openhouse-announce.jpg",
+        alt: "Starling Montessori open-house invitation card with three July dates: Sunday July 12 1–5pm, Saturday July 18 9am–1pm, Sunday July 19 1–5pm, at 201 4th St SE, Capitol Hill, Washington DC.",
+      },
+    ],
+    caption:
+      "Our doors are open this July.\n\nWe're hosting three open houses at our Capitol Hill classroom — a chance to walk the prepared environment, meet Fabienne and other families, and see what an unhurried Montessori morning really looks like.\n\nCome to whichever fits your family:\n• Sunday, July 12 · 1–5 pm\n• Saturday, July 18 · 9 am–1 pm\n• Sunday, July 19 · 1–5 pm\n\n201 4th St SE, Washington, DC. No appointment needed — just come by. Whether your little one is toddler-age or you're looking ahead to our Primary classroom opening this August, we'd love to meet you.\n\nQuestions? Send us a message or tap the link in our bio.",
+    hashtags:
+      "#StarlingMontessori #CapitolHillDC #WashingtonDC #MontessoriEducation #OpenHouse #DCParents #CapitolHillFamilies",
+    cta: "No appointment needed — just come by. Details in bio.",
+    bioLink: "/open-house",
+    notes: "Publish now (announcement). Anchor post for all three July open houses.",
+    locked: false,
+    status: "draft",
+    createdAt: "2026-06-30T12:00:00.000Z",
+    updatedAt: "2026-06-30T12:00:00.000Z",
+  },
+  {
+    id: "openhouse-jul12",
+    date: "2026-07-11",
+    dayLabel: "Sat",
+    title: "Open House reminder — Sun Jul 12 (publish Jul 11)",
+    format: "feed",
+    pillar: "Visit · Open House",
+    channel: "Instagram + Facebook",
+    images: [
+      {
+        full: "/social/openhouse-jul12.png",
+        thumb: "/social/thumbs/openhouse-jul12.jpg",
+        alt: "Open-house reminder card: Sunday July 12, 1–5pm, Starling Montessori, 201 4th St SE, Capitol Hill, Washington DC.",
+      },
+    ],
+    caption:
+      "Tomorrow: our first open house.\n\nSunday, July 12, 1–5 pm at our Capitol Hill classroom. Come by anytime in the window — walk the room, meet Fabienne, and let your little one explore the materials at their own pace.\n\n201 4th St SE, Washington, DC. No appointment needed. We'd love to see you.",
+    hashtags:
+      "#StarlingMontessori #CapitolHillDC #OpenHouse #WashingtonDC #MontessoriToddler #DCParents",
+    cta: "Drop in anytime — no appointment needed.",
+    bioLink: "/open-house",
+    notes: "Publish Sat Jul 11 (day before the Sun Jul 12 open house).",
+    locked: false,
+    status: "draft",
+    createdAt: "2026-06-30T12:00:00.000Z",
+    updatedAt: "2026-06-30T12:00:00.000Z",
+  },
+  {
+    id: "openhouse-jul18",
+    date: "2026-07-17",
+    dayLabel: "Fri",
+    title: "Open House reminder — Sat Jul 18 (publish Jul 17)",
+    format: "feed",
+    pillar: "Visit · Open House",
+    channel: "Instagram + Facebook",
+    images: [
+      {
+        full: "/social/openhouse-jul18.png",
+        thumb: "/social/thumbs/openhouse-jul18.jpg",
+        alt: "Open-house reminder card: Saturday July 18, 9am–1pm, Starling Montessori, Capitol Hill, Washington DC.",
+      },
+    ],
+    caption:
+      "This Saturday morning, the door is open.\n\nOpen house Saturday, July 18, 9 am–1 pm at our Capitol Hill classroom. A relaxed, unhurried visit — see the prepared environment, ask Fabienne anything, and picture your child here.\n\n201 4th St SE, Washington, DC. Drop in anytime, and bring your little one along.",
+    hashtags:
+      "#StarlingMontessori #CapitolHillDC #OpenHouse #WashingtonDC #MontessoriEducation #DCParents",
+    cta: "Drop in anytime — no appointment needed.",
+    bioLink: "/open-house",
+    notes: "Publish Fri Jul 17 (day before the Sat Jul 18 open house).",
+    locked: false,
+    status: "draft",
+    createdAt: "2026-06-30T12:00:00.000Z",
+    updatedAt: "2026-06-30T12:00:00.000Z",
+  },
+  {
+    id: "openhouse-jul19",
+    date: "2026-07-18",
+    dayLabel: "Sat",
+    title: "Open House reminder — Sun Jul 19 (publish Jul 18)",
+    format: "feed",
+    pillar: "Visit · Open House",
+    channel: "Instagram + Facebook",
+    images: [
+      {
+        full: "/social/openhouse-jul19.png",
+        thumb: "/social/thumbs/openhouse-jul19.jpg",
+        alt: "Open-house reminder card: Sunday July 19, 1–5pm, Starling Montessori, Capitol Hill, Washington DC.",
+      },
+    ],
+    caption:
+      "One more chance to visit — tomorrow.\n\nOur last July open house is Sunday, July 19, 1–5 pm at our Capitol Hill classroom. If you've been meaning to come see Starling, this is the one. Walk the room, meet other families, and see what calm, child-led learning looks like.\n\n201 4th St SE, Washington, DC. No appointment needed. We'd love to meet you.",
+    hashtags:
+      "#StarlingMontessori #CapitolHillDC #OpenHouse #WashingtonDC #MontessoriEducation #CapitolHillFamilies",
+    cta: "Drop in anytime — no appointment needed.",
+    bioLink: "/open-house",
+    notes:
+      "Publish Sat Jul 18 (day before the Sun Jul 19 open house). Last July open house.",
+    locked: false,
+    status: "draft",
+    createdAt: "2026-06-30T12:00:00.000Z",
+    updatedAt: "2026-06-30T12:00:00.000Z",
+  },
 ];
 
 // Sort: dated posts ascending by date, backlog (date null) last. Ties broken by
@@ -731,6 +842,27 @@ export async function listPosts(): Promise<SocialPost[]> {
       }
     });
     return sortPosts(SEED_POSTS).map(withVideos);
+  }
+  // Backfill-on-read: the DB was seeded with an earlier SEED_POSTS set, so any
+  // seed entries added to the code since then are missing from the stored array.
+  // Append ONLY the missing seeds (diff by id) — never touch existing rows, so
+  // user edits/status/reschedules are preserved. Generic: works for any future
+  // additions to SEED_POSTS, not just a hardcoded id list.
+  const existingIds = new Set(posts.map((p) => p.id));
+  const missingSeeds = SEED_POSTS.filter((seed) => !existingIds.has(seed.id));
+  if (missingSeeds.length > 0) {
+    const merged = await withLock(POSTS_KEY, async () => {
+      // Re-read inside the lock and re-diff to avoid races/duplicates with a
+      // concurrent writer that may have already appended some of these seeds.
+      const current = await dbGetArray<SocialPost>(POSTS_KEY);
+      const currentIds = new Set(current.map((p) => p.id));
+      const stillMissing = SEED_POSTS.filter((seed) => !currentIds.has(seed.id));
+      if (stillMissing.length === 0) return current;
+      const next = [...current, ...stillMissing];
+      await dbSetArray(POSTS_KEY, next);
+      return next;
+    });
+    return sortPosts(merged).map(withVideos);
   }
   return sortPosts(posts).map(withVideos);
 }

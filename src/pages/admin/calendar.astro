@@ -31,27 +31,22 @@ function mondayOnOrBefore(d: Date): Date {
   return addUTCDays(d, -back);
 }
 
-const DEFAULT_ANCHOR = "2026-06-15";
-
-// Determine window start: ?start= overrides; else Monday on/before earliest
-// dated post; else the default anchor's Monday.
+// Default view = the fortnight containing *today*, so the calendar opens on
+// current + upcoming posts (not whenever the oldest post happened to be).
+// ?start= overrides to page through fortnights via Prev/Next.
+const todayYMD = toYMD(new Date());
 const startParam = Astro.url.searchParams.get("start");
-const datedYMDs = posts
-  .map((p) => p.date)
-  .filter((d): d is string => typeof d === "string" && /^\d{4}-\d{2}-\d{2}$/.test(d))
-  .sort();
-const earliest = datedYMDs.length > 0 ? datedYMDs[0] : DEFAULT_ANCHOR;
 
 let windowStart: Date;
 if (startParam && /^\d{4}-\d{2}-\d{2}$/.test(startParam)) {
   windowStart = mondayOnOrBefore(utcDate(startParam));
 } else {
-  windowStart = mondayOnOrBefore(utcDate(earliest));
+  windowStart = mondayOnOrBefore(utcDate(todayYMD));
 }
 const windowStartYMD = toYMD(windowStart);
 const prevStartYMD = toYMD(addUTCDays(windowStart, -7));
 const nextStartYMD = toYMD(addUTCDays(windowStart, 7));
-const thisFortnightYMD = toYMD(mondayOnOrBefore(utcDate(DEFAULT_ANCHOR)));
+const thisFortnightYMD = toYMD(mondayOnOrBefore(utcDate(todayYMD)));
 
 // 14-day window, grouped by YMD.
 const postsByDate = new Map<string, SocialPost[]>();
