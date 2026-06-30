@@ -15,9 +15,18 @@ blocks:
     fallbackBody: "We're configuring our scheduling system. In the meantime, please use the form below or email info@starlingmontessorischool.com to request a tour."
   - type: openHouseList
     eyebrow: "GROUP OPEN HOUSES"
-    title: "Or join a group session."
-    intro: "Open houses are a chance to walk the classroom, meet other families, and ask questions in a relaxed setting. Each session is about 45 minutes."
-    sessions: []
+    title: "Or join a July open house."
+    intro: "Three open houses this July. Drop in anytime during the window to walk the classroom, meet Fabienne and other families, and see the prepared environment in person — no appointment needed."
+    sessions:
+      - date: "Sunday, July 12"
+        time: "1:00–5:00 p.m."
+        location: "201 4th St SE · Capitol Hill"
+      - date: "Saturday, July 18"
+        time: "9:00 a.m.–1:00 p.m."
+        location: "201 4th St SE · Capitol Hill"
+      - date: "Sunday, July 19"
+        time: "1:00–5:00 p.m."
+        location: "201 4th St SE · Capitol Hill"
   - type: processTimeline
     eyebrow: "WHAT TO EXPECT"
     title: "From request to first day."
