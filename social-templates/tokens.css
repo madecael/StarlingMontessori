@@ -1,0 +1,264 @@
+/* ============================================================
+   STARLING MONTESSORI SCHOOL — Design Tokens
+   Source: Starling Montessori School Brandbook 2024 (April 23)
+   ============================================================ */
+
+/* Webfonts ------------------------------------------------------ */
+/* The brandbook calls for "Greycliff CF" (primary) and "Jaguar Regular" (logotype/display).
+   Both are commercial fonts — we substitute the closest free Google Fonts matches:
+   - Greycliff CF  →  Nunito Sans  (humanist geometric sans, very similar proportions)
+   - Jaguar         →  Cormorant Garamond  (high-contrast serif w/ generous swash-y "g/y/k", closest free analog to Jaguar's elegant transitional serif)
+   Replace these @import lines with the licensed font files when available. */
+
+@import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap");
+
+:root {
+  /* ---------- BRAND COLORS --------------------------------- */
+  --cetacean-blue:  #0C163D;   /* primary dark, "deep sky" */
+  --seashell:       #FFF7EB;   /* warm cream, primary background */
+  --sky-blue:       #66CEE7;   /* accent */
+  --pearly-purple:  #A9729B;   /* accent / signature highlight */
+
+  /* Tints & shades (derived for UI states) */
+  --cetacean-blue-90: #1F2950;
+  --cetacean-blue-70: #4A557A;
+  --cetacean-blue-30: #B5BAC8;
+  --cetacean-blue-10: #E2E4EC;
+
+  --seashell-shade:   #F5ECDB;   /* hover on seashell */
+  --seashell-deeper:  #EBDFC7;   /* press / divider on seashell */
+
+  --sky-blue-light:   #B4E5F2;
+  --sky-blue-deep:    #3FB3D0;
+
+  --pearly-light:     #D2A8C7;
+  --pearly-deep:      #8B5C7E;
+
+  /* ---------- SEMANTIC FOREGROUND -------------------------- */
+  --fg-1:  var(--cetacean-blue);          /* primary text */
+  --fg-2:  var(--cetacean-blue-70);       /* secondary text, captions */
+  --fg-3:  var(--cetacean-blue-30);       /* disabled / hint */
+  --fg-on-dark: var(--seashell);
+  --fg-accent: var(--pearly-purple);
+  --fg-link:   var(--cetacean-blue);
+  --fg-link-hover: var(--pearly-deep);
+
+  /* ---------- SEMANTIC BACKGROUND -------------------------- */
+  --bg-page:    var(--seashell);
+  --bg-card:    #FFFFFF;
+  --bg-soft:    var(--seashell-shade);
+  --bg-dark:    var(--cetacean-blue);
+  --bg-accent-purple: var(--pearly-purple);
+  --bg-accent-sky:    var(--sky-blue);
+
+  /* Highlight marker (e.g. "every child's story is cherished" w/ purple bar behind it) */
+  --bg-highlight: var(--pearly-light);
+
+  /* ---------- BORDERS / DIVIDERS --------------------------- */
+  --border-subtle:  rgba(12, 22, 61, 0.10);
+  --border-default: rgba(12, 22, 61, 0.18);
+  --border-strong:  var(--cetacean-blue);
+  --border-on-dark: rgba(255, 247, 235, 0.18);
+
+  /* ---------- TYPOGRAPHY ----------------------------------- */
+  /* Display serif — used for "Starling" wordmark & marketing headlines */
+  --font-display: "Cormorant Garamond", "Jaguar", "Playfair Display", Georgia, serif;
+  /* Workhorse sans — body, UI, all communications */
+  --font-sans: "Nunito Sans", "Greycliff CF", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+
+  /* Type scale (1.25 modular, anchored at 16px body) */
+  --fs-12: 0.75rem;
+  --fs-14: 0.875rem;
+  --fs-16: 1rem;
+  --fs-18: 1.125rem;
+  --fs-20: 1.25rem;
+  --fs-24: 1.5rem;
+  --fs-28: 1.75rem;
+  --fs-32: 2rem;
+  --fs-40: 2.5rem;
+  --fs-48: 3rem;
+  --fs-64: 4rem;
+  --fs-80: 5rem;
+
+  /* Line heights */
+  --lh-tight: 1.05;  /* @kind other */
+  --lh-snug:  1.2;   /* @kind other */
+  --lh-base:  1.5;   /* @kind other */
+  --lh-loose: 1.7;   /* @kind other */
+
+  /* Tracking */
+  --tracking-tight:  -0.02em;
+  --tracking-normal: 0;
+  --tracking-wide:   0.04em;
+  --tracking-eyebrow: 0.12em;
+
+  /* Weights — Greycliff CF is used Light/Regular per spec, so we keep weights restrained */
+  --weight-light: 300;
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-bold: 700;
+
+  /* ---------- SPACING (8pt base) --------------------------- */
+  --space-2: 2px;
+  --space-4: 4px;
+  --space-8: 8px;
+  --space-12: 12px;
+  --space-16: 16px;
+  --space-20: 20px;
+  --space-24: 24px;
+  --space-32: 32px;
+  --space-40: 40px;
+  --space-48: 48px;
+  --space-64: 64px;
+  --space-80: 80px;
+  --space-96: 96px;
+  --space-128: 128px;
+
+  /* ---------- RADII --------------------------------------- */
+  /* The brand favors organic/rounded shapes (inspired by Montessori block toys).
+     Pills and softly-rounded cards are preferred over sharp corners. */
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
+  --radius-2xl: 40px;
+  --radius-pill: 999px;
+  --radius-arch-top: 999px 999px 0 0;   /* doorway-style top rounding */
+
+  /* ---------- ELEVATION / SHADOWS ------------------------- */
+  /* Soft, low-contrast shadows. The brand is print-y and avoids Material-style elevation. */
+  --shadow-xs: 0 1px 2px rgba(12, 22, 61, 0.06);
+  --shadow-sm: 0 2px 6px rgba(12, 22, 61, 0.08);
+  --shadow-md: 0 8px 20px rgba(12, 22, 61, 0.10);
+  --shadow-lg: 0 18px 40px rgba(12, 22, 61, 0.14);
+  --shadow-inset-soft: inset 0 0 0 1px rgba(12, 22, 61, 0.08);
+
+  /* ---------- TRANSITIONS --------------------------------- */
+  --ease-soft: cubic-bezier(.22,.61,.36,1);  /* @kind other */
+  --ease-out:  cubic-bezier(0, 0, 0.2, 1);   /* @kind other */
+  --t-fast: 140ms;  /* @kind other */
+  --t-base: 220ms;  /* @kind other */
+  --t-slow: 420ms;  /* @kind other */
+}
+
+/* ============================================================
+   SEMANTIC TYPE STYLES
+   ============================================================ */
+
+html { color: var(--fg-1); background: var(--bg-page); }
+body {
+  font-family: var(--font-sans);
+  font-weight: var(--weight-regular);
+  font-size: var(--fs-16);
+  line-height: var(--lh-base);
+  color: var(--fg-1);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+.display-xl, h1.display {
+  font-family: var(--font-display);
+  font-weight: var(--weight-medium);
+  font-size: clamp(3rem, 7vw, var(--fs-80));
+  line-height: var(--lh-tight);
+  letter-spacing: var(--tracking-tight);
+  color: var(--fg-1);
+}
+
+.display-lg {
+  font-family: var(--font-display);
+  font-weight: var(--weight-medium);
+  font-size: clamp(2.25rem, 5vw, var(--fs-64));
+  line-height: var(--lh-tight);
+  letter-spacing: var(--tracking-tight);
+}
+
+h1, .h1 {
+  font-family: var(--font-sans);
+  font-weight: var(--weight-light);
+  font-size: var(--fs-48);
+  line-height: var(--lh-snug);
+  letter-spacing: var(--tracking-tight);
+  color: var(--fg-1);
+}
+
+h2, .h2 {
+  font-family: var(--font-sans);
+  font-weight: var(--weight-light);
+  font-size: var(--fs-32);
+  line-height: var(--lh-snug);
+  letter-spacing: var(--tracking-tight);
+}
+
+h3, .h3 {
+  font-family: var(--font-sans);
+  font-weight: var(--weight-regular);
+  font-size: var(--fs-24);
+  line-height: var(--lh-snug);
+}
+
+h4, .h4 {
+  font-family: var(--font-sans);
+  font-weight: var(--weight-semibold);
+  font-size: var(--fs-18);
+  line-height: var(--lh-snug);
+}
+
+.eyebrow {
+  font-family: var(--font-sans);
+  font-weight: var(--weight-semibold);
+  font-size: var(--fs-12);
+  letter-spacing: var(--tracking-eyebrow);
+  text-transform: uppercase;
+  color: var(--fg-2);
+}
+
+p, .body {
+  font-size: var(--fs-16);
+  line-height: var(--lh-base);
+  color: var(--fg-1);
+  text-wrap: pretty;
+}
+
+.body-lg { font-size: var(--fs-18); line-height: var(--lh-base); }
+.body-sm { font-size: var(--fs-14); line-height: var(--lh-base); color: var(--fg-2); }
+.caption { font-size: var(--fs-12); line-height: var(--lh-base); color: var(--fg-2); }
+
+a {
+  color: var(--fg-link);
+  text-decoration-color: rgba(12,22,61,0.3);
+  text-underline-offset: 3px;
+  transition: color var(--t-fast) var(--ease-soft);
+}
+a:hover { color: var(--fg-link-hover); }
+
+/* Brand wordmark -------------------------------------------- */
+.brand-wordmark {
+  font-family: var(--font-display);
+  font-weight: var(--weight-medium);
+  font-style: italic;
+  letter-spacing: -0.01em;
+  color: var(--cetacean-blue);
+  line-height: 1;
+}
+.brand-wordmark .sub {
+  display: block;
+  font-family: var(--font-sans);
+  font-style: normal;
+  font-weight: var(--weight-regular);
+  letter-spacing: var(--tracking-wide);
+  font-size: 0.28em;
+  margin-top: 0.4em;
+  color: var(--cetacean-blue);
+}
+
+/* Highlight marker ------------------------------------------ */
+mark, .marker {
+  background: var(--bg-highlight);
+  color: var(--cetacean-blue);
+  padding: 0 .2em;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
