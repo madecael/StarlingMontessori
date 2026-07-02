@@ -1,11 +1,24 @@
 ---
+import { getImageMeta } from "../../lib/image-meta";
+
 interface Props { photos: string[]; }
 const { photos } = Astro.props;
+const photoMeta = await Promise.all(photos.map((p) => getImageMeta(p)));
+const sizes = `(min-width: 768px) ${Math.round(100 / photos.length)}vw, 50vw`;
 ---
 <div class={`grid gap-2`} style={`grid-template-columns: repeat(${photos.length}, 1fr);`}>
-  {photos.map((p) => (
+  {photos.map((p, i) => (
     <div class="aspect-[3/4] overflow-hidden">
-      <img src={p} alt="" class="w-full h-full object-cover" />
+      <img
+        src={p}
+        srcset={photoMeta[i].srcset}
+        sizes={sizes}
+        width={photoMeta[i].width}
+        height={photoMeta[i].height}
+        alt=""
+        loading="lazy"
+        class="w-full h-full object-cover"
+      />
     </div>
   ))}
 </div>

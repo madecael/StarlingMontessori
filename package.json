@@ -9,12 +9,13 @@
     "dev": "astro dev",
     "build": "astro build",
     "prestart": "test -f ./dist/server/entry.mjs || npm run build",
-    "start": "node ./dist/server/entry.mjs",
+    "start": "node ./server.mjs",
     "preview": "astro preview",
     "test": "vitest run",
     "test:watch": "vitest",
     "test:e2e": "playwright test",
-    "render:social": "node scripts/render-social.mjs"
+    "render:social": "node scripts/render-social.mjs",
+    "generate:images": "node scripts/generate-responsive-images.mjs"
   },
   "dependencies": {
     "@replit/database": "^3.0.1",

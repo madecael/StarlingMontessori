@@ -9,6 +9,7 @@ import SpaceShowcase from "./SpaceShowcase.astro";
 import FounderCard from "./FounderCard.astro";
 import PhotoStrip from "./PhotoStrip.astro";
 import TuitionFraming from "./TuitionFraming.astro";
+import CalendlyBooking from "./CalendlyBooking.astro";
 import TourForm from "./TourForm.astro";
 import FAQAccordion from "./FAQAccordion.astro";
 import Testimonials from "../site/Testimonials.astro";
@@ -27,6 +28,7 @@ const { block } = Astro.props;
 {block.type === "founderCard" && <FounderCard eyebrow={block.eyebrow} quote={block.quote} attribution={block.attribution} photo={block.photo} />}
 {block.type === "photoStrip" && <PhotoStrip photos={block.photos} />}
 {block.type === "tuitionFraming" && <TuitionFraming />}
+{block.type === "calendlyBooking" && <CalendlyBooking eyebrow={block.eyebrow} title={block.title} subtitle={block.subtitle} fallbackTitle={block.fallbackTitle} fallbackBody={block.fallbackBody} />}
 {block.type === "tourForm" && <TourForm eyebrow={block.eyebrow} title={block.title} subtitle={block.subtitle} extraFields={block.extraFields} submitLabel={block.submitLabel} />}
 {block.type === "faqAccordion" && <FAQAccordion eyebrow={block.eyebrow} title={block.title} questions={block.questions} />}
 {block.type === "testimonials" && <Testimonials eyebrow={block.eyebrow} title={block.title} quotes={block.quotes} />}

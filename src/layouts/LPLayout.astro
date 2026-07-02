@@ -10,16 +10,18 @@ interface Props {
   title: string;
   description: string;
   ctaLabel: string;
+  ctaHref?: string;
+  ctaTrigger?: "modal" | "link";
   noindex?: boolean;
   locationLine?: string;
 }
-const { title, description, ctaLabel, noindex, locationLine } = Astro.props;
+const { title, description, ctaLabel, ctaHref, ctaTrigger, noindex, locationLine } = Astro.props;
 ---
 <html lang="en">
   <BaseHead title={title} description={description} noindex={noindex} />
   <body class="bg-seashell text-cetacean">
     <GtmNoscript />
-    <MiniNav ctaLabel={ctaLabel} />
+    <MiniNav ctaLabel={ctaLabel} ctaHref={ctaHref} ctaTrigger={ctaTrigger} />
     <main><slot /></main>
     <MiniFooter locationLine={locationLine} />
     <BookingModal />

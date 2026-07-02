@@ -1,6 +1,11 @@
 ---
+import { getImageMeta } from "../../lib/image-meta";
+
 interface Props { eyebrow: string; title: string; body: string; imageSlots: string[]; disclosure: string; }
 const { eyebrow, title, body, imageSlots, disclosure } = Astro.props;
+const slotMeta = await Promise.all(
+  imageSlots.map((slot) => (slot.startsWith("[") ? Promise.resolve(null) : getImageMeta(slot))),
+);
 ---
 <section class="bg-cetacean text-seashell px-8 lg:px-12 py-16 mx-4 rounded-t-3xl">
   <div class="max-w-[1240px] mx-auto">
@@ -8,9 +13,22 @@ const { eyebrow, title, body, imageSlots, disclosure } = Astro.props;
     <h2 class="text-3xl lg:text-4xl font-light mt-2 mb-1.5 tracking-tightest leading-tight">{title}</h2>
     <p class="text-base opacity-80 mb-6 leading-relaxed max-w-2xl">{body}</p>
     <div class="grid md:grid-cols-3 gap-2">
-      {imageSlots.map((slot) => (
+      {imageSlots.map((slot, i) => (
         <div class="aspect-[4/3] bg-seashell/10 rounded-2xl flex items-center justify-center text-seashell/50 text-xs">
-          {slot.startsWith("[") ? slot : <img src={slot} alt="" class="w-full h-full object-cover rounded-2xl" />}
+          {slot.startsWith("[") || !slotMeta[i] ? (
+            slot
+          ) : (
+            <img
+              src={slot}
+              srcset={slotMeta[i]!.srcset}
+              sizes="(min-width: 768px) 33vw, 100vw"
+              width={slotMeta[i]!.width}
+              height={slotMeta[i]!.height}
+              alt=""
+              loading="lazy"
+              class="w-full h-full object-cover rounded-2xl"
+            />
+          )}
         </div>
       ))}
     </div>
