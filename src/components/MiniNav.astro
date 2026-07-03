@@ -4,8 +4,10 @@ import { getEntry } from "astro:content";
 interface Props {
   ctaLabel: string;
   ctaHref?: string;
+  /** "modal" (default) opens the shared tour-booking dialog; "link" just follows ctaHref (e.g. to an in-page #anchor). */
+  ctaTrigger?: "modal" | "link";
 }
-const { ctaLabel, ctaHref = "#tour" } = Astro.props;
+const { ctaLabel, ctaHref = "#tour", ctaTrigger = "modal" } = Astro.props;
 const settings = await getEntry("settings", "site");
 const phone = settings?.data.phone;
 ---
@@ -15,6 +17,10 @@ const phone = settings?.data.phone;
   </div>
   <div class="flex items-center gap-3.5 text-sm text-cetacean">
     <a href={`tel:${phone?.replace(/[^0-9+]/g, "")}`} class="hidden sm:inline" data-event="phone_click">📞 {phone}</a>
-    <a href={ctaHref} class="btn btn-primary text-[13px] px-4 py-2" data-booking-trigger>{ctaLabel}</a>
+    {ctaTrigger === "modal" ? (
+      <a href={ctaHref} class="btn btn-primary text-[13px] px-4 py-2" data-booking-trigger>{ctaLabel}</a>
+    ) : (
+      <a href={ctaHref} class="btn btn-primary text-[13px] px-4 py-2">{ctaLabel}</a>
+    )}
   </div>
 </header>

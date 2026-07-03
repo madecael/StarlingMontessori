@@ -3,9 +3,9 @@ title: "Primary Montessori opening Aug 2026 on Capitol Hill — Reserve your tou
 description: "A new Primary classroom (ages 3–6) led by an AMI-trained guide opens August 2026 at Saint Mark Episcopal. Twelve seats. Reserve your tour."
 persona: davidmaya
 eyebrow: "PRIMARY CLASSROOM · AGES 3–6"
-heroHeadline: "A new Primary classroom on Capitol Hill, led by an AMI-trained guide. Opening August 2026."
-heroHeadlineHighlight: "AMI-trained guide"
-heroSubhead: "Twelve seats in our inaugural class. Designed for families who want their child to grow inside an authentic, three-year Primary cycle without switching schools."
+heroHeadline: "Starling Montessori School — a new Primary classroom on Capitol Hill, Washington DC."
+heroHeadlineHighlight: "Capitol Hill"
+heroSubhead: "Ages 3 to 6, twelve seats in our inaugural class, led by an AMI-trained guide — designed for families who want their child to grow inside an authentic, three-year Primary cycle without switching schools."
 heroPhoto: "/images/photos/pink-tower-build.webp"
 heroAlt: "A Starling child carefully placing the top cube of the Pink Tower — a foundational Montessori sensorial material"
 heroLocation: "Saint Mark Episcopal Church · 301 A St SE · Capitol Hill · Ages 2.5–6"

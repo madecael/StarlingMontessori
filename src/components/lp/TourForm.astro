@@ -67,7 +67,7 @@ const booking = isPrimary ? settings?.data.bookingUrlPrimary : settings?.data.bo
       </div>
       <div class="mt-4 flex justify-between items-center flex-wrap gap-3">
         <button type="submit" class="btn btn-pearly text-sm font-medium">{submitLabel}</button>
-        {booking && <a href={booking} class="text-xs text-cetacean-70 underline" data-event="booking_click" target="_blank" rel="noopener">Open in new tab</a>}
+        {booking && <a href={booking} class="text-xs text-cetacean-70 underline" data-event="booking_click" data-booking-trigger>Or book directly →</a>}
       </div>
       <p data-form-status class="text-sm mt-3 hidden"></p>
     </form>

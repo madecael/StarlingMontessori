@@ -28,6 +28,7 @@ const settings = defineCollection({
     }).optional(),
     bookingUrlToddler: z.string().url().optional(),
     bookingUrlPrimary: z.string().url().optional(),
+    bookingUrlOpenHouse: z.string().url().optional(),
     applyUrl: z.string().url().optional(),
     ga4Id: z.string().optional(),
     gtmId: z.string().optional(),
@@ -52,6 +53,8 @@ const landing = defineCollection({
     heroAlt: z.string().optional(),
     heroLocation: z.string(),
     heroCTAs: z.array(cta).min(1).max(2),
+    sessions: z.array(z.object({ date: z.string(), time: z.string() })).optional(),
+    sessionsLocation: z.string().optional(),
     blocks: z.array(
       z.discriminatedUnion("type", [
         z.object({ type: z.literal("trustStrip"), items: z.array(z.string()) }),
@@ -110,6 +113,14 @@ const landing = defineCollection({
         }),
         z.object({
           type: z.literal("tuitionFraming"),
+        }),
+        z.object({
+          type: z.literal("calendlyBooking"),
+          eyebrow: z.string(),
+          title: z.string(),
+          subtitle: z.string().optional(),
+          fallbackTitle: z.string().optional(),
+          fallbackBody: z.string().optional(),
         }),
         z.object({
           type: z.literal("tourForm"),
