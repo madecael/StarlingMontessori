@@ -705,13 +705,13 @@ export const SEED_POSTS: SocialPost[] = [
       {
         full: "/social/openhouse-announce.png",
         thumb: "/social/thumbs/openhouse-announce.jpg",
-        alt: "Starling Montessori open-house invitation card with three July dates: Sunday July 12 1–5pm, Saturday July 18 9am–1pm, Sunday July 19 1–5pm, at 201 4th St SE, Capitol Hill, Washington DC.",
+        alt: "Starling Montessori Primary open house invitation card, ages 3 to 6, with three July dates: Sunday July 12 1–5pm, Saturday July 18 9am–1pm, Sunday July 19 1–5pm, at 301 A St SE, Capitol Hill, Washington DC.",
       },
     ],
     caption:
-      "Our doors are open this July.\n\nWe're hosting three open houses at our Capitol Hill classroom — a chance to walk the prepared environment, meet Fabienne and other families, and see what an unhurried Montessori morning really looks like.\n\nCome to whichever fits your family:\n• Sunday, July 12 · 1–5 pm\n• Saturday, July 18 · 9 am–1 pm\n• Sunday, July 19 · 1–5 pm\n\n201 4th St SE, Washington, DC. No appointment needed — just come by. Whether your little one is toddler-age or you're looking ahead to our Primary classroom opening this August, we'd love to meet you.\n\nQuestions? Send us a message or tap the link in our bio.",
+      "Our doors are open this July — for our new Primary classroom.\n\nWe're hosting three open houses to introduce the Primary classroom (ages 3 to 6), opening this August on Capitol Hill. Come walk the prepared environment, meet Fabienne, and see what an unhurried Montessori morning really looks like.\n\nCome to whichever fits your family:\n• Sunday, July 12 · 1–5 pm\n• Saturday, July 18 · 9 am–1 pm\n• Sunday, July 19 · 1–5 pm\n\n301 A St SE, Washington, DC. No appointment needed — just come by, with your child.\n\nQuestions? Send us a message or tap the link in our bio.",
     hashtags:
-      "#StarlingMontessori #CapitolHillDC #WashingtonDC #MontessoriEducation #OpenHouse #DCParents #CapitolHillFamilies",
+      "#StarlingMontessori #CapitolHillDC #WashingtonDC #MontessoriPrimary #OpenHouse #DCParents #CapitolHillFamilies",
     cta: "No appointment needed — just come by. Details in bio.",
     bioLink: "/open-house",
     notes: "Publish now (announcement). Anchor post for all three July open houses.",
@@ -732,13 +732,13 @@ export const SEED_POSTS: SocialPost[] = [
       {
         full: "/social/openhouse-jul12.png",
         thumb: "/social/thumbs/openhouse-jul12.jpg",
-        alt: "Open-house reminder card: Sunday July 12, 1–5pm, Starling Montessori, 201 4th St SE, Capitol Hill, Washington DC.",
+        alt: "Primary open house reminder card, ages 3 to 6: Sunday July 12, 1–5pm, Starling Montessori, 301 A St SE, Capitol Hill, Washington DC.",
       },
     ],
     caption:
-      "Tomorrow: our first open house.\n\nSunday, July 12, 1–5 pm at our Capitol Hill classroom. Come by anytime in the window — walk the room, meet Fabienne, and let your little one explore the materials at their own pace.\n\n201 4th St SE, Washington, DC. No appointment needed. We'd love to see you.",
+      "Tomorrow: our first Primary open house.\n\nSunday, July 12, 1–5 pm — come see the new Primary classroom (ages 3 to 6), opening this August on Capitol Hill. Walk the room, meet Fabienne, and let your child explore the materials at their own pace.\n\n301 A St SE, Washington, DC. No appointment needed. We'd love to see you and your child.",
     hashtags:
-      "#StarlingMontessori #CapitolHillDC #OpenHouse #WashingtonDC #MontessoriToddler #DCParents",
+      "#StarlingMontessori #CapitolHillDC #OpenHouse #WashingtonDC #MontessoriPrimary #DCParents",
     cta: "Drop in anytime — no appointment needed.",
     bioLink: "/open-house",
     notes: "Publish Sat Jul 11 (day before the Sun Jul 12 open house).",
@@ -759,11 +759,11 @@ export const SEED_POSTS: SocialPost[] = [
       {
         full: "/social/openhouse-jul18.png",
         thumb: "/social/thumbs/openhouse-jul18.jpg",
-        alt: "Open-house reminder card: Saturday July 18, 9am–1pm, Starling Montessori, Capitol Hill, Washington DC.",
+        alt: "Primary open house reminder card, ages 3 to 6: Saturday July 18, 9am–1pm, Starling Montessori, Capitol Hill, Washington DC.",
       },
     ],
     caption:
-      "This Saturday morning, the door is open.\n\nOpen house Saturday, July 18, 9 am–1 pm at our Capitol Hill classroom. A relaxed, unhurried visit — see the prepared environment, ask Fabienne anything, and picture your child here.\n\n201 4th St SE, Washington, DC. Drop in anytime, and bring your little one along.",
+      "This Saturday morning, the door is open — to our new Primary classroom.\n\nOpen house Saturday, July 18, 9 am–1 pm: see the prepared environment for ages 3 to 6, opening this August on Capitol Hill. A relaxed, unhurried visit — ask Fabienne anything, and picture your child here.\n\n301 A St SE, Washington, DC. Drop in anytime with your child.",
     hashtags:
       "#StarlingMontessori #CapitolHillDC #OpenHouse #WashingtonDC #MontessoriEducation #DCParents",
     cta: "Drop in anytime — no appointment needed.",
@@ -786,11 +786,11 @@ export const SEED_POSTS: SocialPost[] = [
       {
         full: "/social/openhouse-jul19.png",
         thumb: "/social/thumbs/openhouse-jul19.jpg",
-        alt: "Open-house reminder card: Sunday July 19, 1–5pm, Starling Montessori, Capitol Hill, Washington DC.",
+        alt: "Primary open house reminder card, ages 3 to 6, last date: Sunday July 19, 1–5pm, Starling Montessori, Capitol Hill, Washington DC.",
       },
     ],
     caption:
-      "One more chance to visit — tomorrow.\n\nOur last July open house is Sunday, July 19, 1–5 pm at our Capitol Hill classroom. If you've been meaning to come see Starling, this is the one. Walk the room, meet other families, and see what calm, child-led learning looks like.\n\n201 4th St SE, Washington, DC. No appointment needed. We'd love to meet you.",
+      "One more chance to visit — tomorrow.\n\nOur last July open house for the new Primary classroom (ages 3 to 6) is Sunday, July 19, 1–5 pm. If you've been meaning to come see Starling, this is the one. Walk the room, meet other families, and see what calm, child-led learning looks like.\n\n301 A St SE, Washington, DC. No appointment needed. We'd love to meet you and your child.",
     hashtags:
       "#StarlingMontessori #CapitolHillDC #OpenHouse #WashingtonDC #MontessoriEducation #CapitolHillFamilies",
     cta: "Drop in anytime — no appointment needed.",
@@ -801,6 +801,34 @@ export const SEED_POSTS: SocialPost[] = [
     status: "draft",
     createdAt: "2026-06-30T12:00:00.000Z",
     updatedAt: "2026-06-30T12:00:00.000Z",
+  },
+
+  // ── HOLIDAY · FOURTH OF JULY ──────────────────────────────────────────────
+  {
+    id: "fourth-of-july-2026",
+    date: "2026-07-04",
+    dayLabel: "Sat",
+    title: "Fourth of July greeting",
+    format: "feed",
+    pillar: "Community · Holiday",
+    channel: "Instagram + Facebook",
+    images: [
+      {
+        full: "/social/fourth-of-july.png",
+        thumb: "/social/thumbs/fourth-of-july.jpg",
+        alt: "A child smiling and holding a red, white, and blue popsicle, with the text: Happy Fourth of July, wishing your family a joyful Fourth.",
+      },
+    ],
+    caption:
+      "Happy Fourth of July from all of us at Starling!\n\nWe hope you and your family have a wonderful day together, filled with sunshine, good company, and maybe a few fireworks.\n\nTag us in your Fourth of July moments — we'd love to see them. With so much gratitude for this community.",
+    hashtags: "#StarlingMontessori #CapitolHillDC #WashingtonDC #FourthOfJuly #DCFamilies",
+    cta: "Happy Fourth, from our family to yours.",
+    bioLink: "/",
+    notes: "Publish morning of Jul 4.",
+    locked: false,
+    status: "draft",
+    createdAt: "2026-07-03T12:00:00.000Z",
+    updatedAt: "2026-07-03T12:00:00.000Z",
   },
 ];
 
