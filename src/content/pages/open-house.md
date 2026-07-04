@@ -20,13 +20,13 @@ blocks:
     sessions:
       - date: "Sunday, July 12"
         time: "1:00–5:00 p.m."
-        location: "201 4th St SE · Capitol Hill"
+        location: "Saint Mark Episcopal Church · 301 A St SE · Capitol Hill"
       - date: "Saturday, July 18"
         time: "9:00 a.m.–1:00 p.m."
-        location: "201 4th St SE · Capitol Hill"
+        location: "Saint Mark Episcopal Church · 301 A St SE · Capitol Hill"
       - date: "Sunday, July 19"
         time: "1:00–5:00 p.m."
-        location: "201 4th St SE · Capitol Hill"
+        location: "Saint Mark Episcopal Church · 301 A St SE · Capitol Hill"
   - type: processTimeline
     eyebrow: "WHAT TO EXPECT"
     title: "From request to first day."
