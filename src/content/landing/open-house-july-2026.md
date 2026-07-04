@@ -5,8 +5,8 @@ persona: davidmaya
 eyebrow: "PRIMARY OPEN HOUSE · JULY 2026"
 heroHeadline: "Open House — Starling Montessori School, Capitol Hill"
 heroSubhead: "Come meet our founder, Fabienne, walk through our new Primary classroom, and bring your child along — for children ages 3 to 6. Just a visit, nothing more."
-heroPhoto: "/images/photos/playground-yard.webp"
-heroAlt: "Children playing together in the outdoor yard at Starling Montessori School on Capitol Hill"
+heroPhoto: "/images/photos/primary-indoor-flags.webp"
+heroAlt: "A Montessori Primary classroom geography shelf with world flags and globes at Starling Montessori School on Capitol Hill"
 heroLocation: "Saint Mark Episcopal Church · 301 A St SE · Washington, DC 20003"
 heroCTAs:
   - { label: "RSVP — it's free", href: "#rsvp", variant: "pearly" }
