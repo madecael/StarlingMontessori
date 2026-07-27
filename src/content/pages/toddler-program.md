@@ -45,4 +45,8 @@ blocks:
     eyebrow: "ENROLLING"
     title: "We'd love to meet your toddler."
     primary: { label: "Schedule a tour", href: "/open-house", variant: "pearly" }
+    previewImage: "/social/qr-open-house-page.png"
+    previewAlt: "QR code linking to Starling's open house tour scheduling page"
+    previewLabel: "Scan to reserve"
+    previewCaption: "starlingmontessorischool.com/open-house"
 ---

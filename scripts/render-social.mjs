@@ -35,6 +35,7 @@ const thumbsDir = path.join(outDir, "thumbs");
 const SUBDIRS = {
   square: { viewport: { width: 1120, height: 1120 } },
   story: { viewport: { width: 1120, height: 1960 } },
+  forms: { viewport: { width: 1800, height: 600 } },
 };
 
 const CONTENT_TYPES = {
@@ -63,31 +64,33 @@ function listTemplates(subdir) {
 // Build the list of render tasks based on the optional CLI arg.
 function buildTasks() {
   const arg = process.argv[2];
-  const square = listTemplates("square");
-  const story = listTemplates("story");
+  // Discover templates for every configured subdir (order = Object.keys(SUBDIRS)).
+  const bySubdir = {};
+  for (const subdir of Object.keys(SUBDIRS)) {
+    bySubdir[subdir] = listTemplates(subdir);
+  }
 
   if (arg) {
     // Normalize: strip a trailing ".html" if the user passed the full name.
     const base = arg.replace(/\.html$/i, "");
     const file = `${base}.html`;
 
-    if (square.includes(file)) return [{ subdir: "square", file, base }];
-    if (story.includes(file)) return [{ subdir: "story", file, base }];
+    for (const subdir of Object.keys(SUBDIRS)) {
+      if (bySubdir[subdir].includes(file)) return [{ subdir, file, base }];
+    }
 
-    const available = [
-      ...square.map((f) => `square/${f.replace(/\.html$/i, "")}`),
-      ...story.map((f) => `story/${f.replace(/\.html$/i, "")}`),
-    ];
+    const available = Object.keys(SUBDIRS).flatMap((subdir) =>
+      bySubdir[subdir].map((f) => `${subdir}/${f.replace(/\.html$/i, "")}`)
+    );
     console.error(`Template "${arg}" not found.`);
     console.error("Available templates:");
     for (const name of available) console.error(`  ${name}`);
     process.exit(1);
   }
 
-  return [
-    ...square.map((file) => ({ subdir: "square", file, base: file.replace(/\.html$/i, "") })),
-    ...story.map((file) => ({ subdir: "story", file, base: file.replace(/\.html$/i, "") })),
-  ];
+  return Object.keys(SUBDIRS).flatMap((subdir) =>
+    bySubdir[subdir].map((file) => ({ subdir, file, base: file.replace(/\.html$/i, "") }))
+  );
 }
 
 // Static file server rooted at templatesDir. Guards against path traversal.

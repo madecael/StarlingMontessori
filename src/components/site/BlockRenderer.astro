@@ -31,7 +31,7 @@ const { block } = Astro.props;
 {block.type === "founderApproach" && <FounderApproach eyebrow={block.eyebrow} title={block.title} paragraphs={block.paragraphs} photo={block.photo} photoAlt={block.photoAlt} cta={block.cta} />}
 {block.type === "photoStrip" && <PhotoStrip photos={block.photos} />}
 {block.type === "videoTour" && <VideoTour eyebrow={block.eyebrow} title={block.title} body={block.body} videos={block.videos} cta={block.cta} />}
-{block.type === "enrollCTA" && <EnrollCTA eyebrow={block.eyebrow} title={block.title} body={block.body} primary={block.primary} secondary={block.secondary} />}
+{block.type === "enrollCTA" && <EnrollCTA eyebrow={block.eyebrow} title={block.title} body={block.body} primary={block.primary} secondary={block.secondary} previewImage={block.previewImage} previewAlt={block.previewAlt} previewLabel={block.previewLabel} previewCaption={block.previewCaption} />}
 {block.type === "dailyRhythm" && <DailyRhythm eyebrow={block.eyebrow} title={block.title} steps={block.steps} />}
 {block.type === "materialsGrid" && <MaterialsGrid eyebrow={block.eyebrow} title={block.title} categories={block.categories} />}
 {block.type === "threeYearCycle" && <ThreeYearCycle eyebrow={block.eyebrow} title={block.title} intro={block.intro} years={block.years} />}

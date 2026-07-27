@@ -82,4 +82,8 @@ blocks:
     title: "Best to ask in person."
     primary: { label: "Schedule a tour", href: "/open-house", variant: "pearly" }
     secondary: { label: "Email us", href: "mailto:info@starlingmontessorischool.com", variant: "ghost" }
+    previewImage: "/social/qr-open-house-page.png"
+    previewAlt: "QR code linking to Starling's open house tour scheduling page"
+    previewLabel: "Scan to reserve"
+    previewCaption: "starlingmontessorischool.com/open-house"
 ---

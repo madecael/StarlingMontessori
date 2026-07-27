@@ -41,4 +41,8 @@ blocks:
     title: "The best way to understand Starling is to come see it."
     primary: { label: "Schedule a tour", href: "/open-house", variant: "pearly" }
     secondary: { label: "Read our FAQ", href: "/faq", variant: "ghost" }
+    previewImage: "/social/qr-open-house-page.png"
+    previewAlt: "QR code linking to Starling's open house tour scheduling page"
+    previewLabel: "Scan to reserve"
+    previewCaption: "starlingmontessorischool.com/open-house"
 ---

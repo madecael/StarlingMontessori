@@ -49,10 +49,10 @@ blocks:
     title: "Saint Mark Episcopal Church."
     body: "A new classroom in the heart of Capitol Hill, designed for children ages 3 to 6 — stone walls, soft carpet, bright lighting, and a calm, prepared environment. A kitchenette, a separate nap room, and a children's bathroom. Garden access for picnics, with outdoor play at our Toddler Community's playground or a nearby Capitol Hill park. Decorated with diverse art and plants, the space is made to feel comforting and welcoming."
     imageSlots:
-      - "/images/photos/pink-tower-build.webp"
+      - "/images/photos/reading-group.webp"
       - "/images/photos/kids-working-shapes.webp"
       - "/images/photos/garden-walk.webp"
-    disclosure: "Photos shown are from our existing Toddler classroom — they reflect the kind of work and atmosphere your child will experience. Final Primary classroom photos at Saint Mark coming as the build-out completes — Summer 2026."
+    disclosure: "Photos shown are from our Toddler classroom — they reflect the kind of work and atmosphere your child will experience. New photos of our Primary classroom at Saint Mark are coming soon."
   - type: comparisonTable
     eyebrow: "SO YOU CAN DECIDE"
     title: "Comparing your Primary options on Capitol Hill."
@@ -70,7 +70,7 @@ blocks:
   - type: tuitionFraming
   - type: tourForm
     eyebrow: "RESERVE A TOUR"
-    title: "Visit Saint Mark.\nMeet Fabienne."
+    title: "Visit Saint Mark.\nMeet your guide."
     subtitle: "In-person or virtual. We'll reach out within a day to confirm a time and answer questions about your child's transition."
     extraFields: ["relocating", "currentMontessori"]
     submitLabel: "Reserve a tour"
@@ -78,7 +78,7 @@ blocks:
     eyebrow: "QUESTIONS PRIMARY PARENTS ASK"
     title: "Before you reserve."
     questions:
-      - { q: "When can I see the new classroom?", a: "The Saint Mark space build-out completes Spring 2026. Until then, we offer a virtual tour of the classroom plan and an in-person tour of the existing Toddler classroom, plus a walkthrough of the Saint Mark exterior and grounds." }
+      - { q: "When can I see the new classroom?", a: "Our Saint Mark classroom is open for in-person tours now, led by Fabienne or one of our Primary guides. A virtual option is also available if you're relocating." }
       - { q: "Is AMI accreditation in place from day one?", a: "Our school is not AMI-accredited — that designation requires significant funding and at least five years of operation, and it remains a long-term goal. What we can promise is this: we hire AMI-trained guides, and our Primary classroom is led by one. The curriculum and prepared environment follow the AMI standard from day one." }
       - { q: "My child is already in Montessori — will materials transfer?", a: "Yes. We work with each transferring family to understand the materials and presentations your child has already received, and place them at the right point in our curriculum." }
       - { q: "What happens if our family relocates again?", a: "We provide a transcript-style summary of your child's Montessori work that any AMI school can use to continue placement. Families relocating internationally have used this with schools across Europe and Asia." }

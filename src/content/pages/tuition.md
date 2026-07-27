@@ -13,4 +13,8 @@ blocks:
     title: "Get in touch — we'll share details and answer your questions."
     primary: { label: "Schedule a tour", href: "/open-house", variant: "pearly" }
     secondary: { label: "Email us", href: "mailto:info@starlingmontessorischool.com", variant: "ghost" }
+    previewImage: "/social/qr-open-house-page.png"
+    previewAlt: "QR code linking to Starling's open house tour scheduling page"
+    previewLabel: "Scan to reserve"
+    previewCaption: "starlingmontessorischool.com/open-house"
 ---

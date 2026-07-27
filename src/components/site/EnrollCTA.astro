@@ -1,7 +1,17 @@
 ---
 interface CTA { label: string; href: string; variant: "primary" | "pearly" | "outline" | "ghost"; }
-interface Props { eyebrow: string; title: string; body?: string; primary: CTA; secondary?: CTA; }
-const { eyebrow, title, body, primary, secondary } = Astro.props;
+interface Props {
+  eyebrow: string;
+  title: string;
+  body?: string;
+  primary: CTA;
+  secondary?: CTA;
+  previewImage?: string;
+  previewAlt?: string;
+  previewLabel?: string;
+  previewCaption?: string;
+}
+const { eyebrow, title, body, primary, secondary, previewImage, previewAlt, previewLabel, previewCaption } = Astro.props;
 ---
 <section class="px-6 lg:px-8 my-12 max-w-[1240px] mx-auto">
   <div class="bg-cetacean text-seashell rounded-3xl p-10 lg:p-14 grid lg:grid-cols-[1.4fr_1fr] gap-10 items-center relative overflow-hidden">
@@ -17,9 +27,11 @@ const { eyebrow, title, body, primary, secondary } = Astro.props;
     </div>
     <div class="relative hidden lg:flex justify-end">
       <div class="bg-seashell text-cetacean rounded-3xl p-5 w-52 text-center">
-        <div class="aspect-square rounded-2xl opacity-85" style="background:repeating-conic-gradient(#0C163D 0 25%, transparent 0 50%) 0 0/14px 14px"></div>
-        <div class="text-[11px] uppercase tracking-eyebrow font-semibold mt-3">Learn more</div>
-        <div class="text-[11px] text-cetacean-70 mt-1">starlingmontessorischool.com</div>
+        {previewImage
+          ? <img src={previewImage} alt={previewAlt || ""} class="aspect-square rounded-2xl w-full object-cover" />
+          : <div class="aspect-square rounded-2xl opacity-85" style="background:repeating-conic-gradient(#0C163D 0 25%, transparent 0 50%) 0 0/14px 14px"></div>}
+        <div class="text-[11px] uppercase tracking-eyebrow font-semibold mt-3">{previewLabel || "Learn more"}</div>
+        <div class="text-[11px] text-cetacean-70 mt-1">{previewCaption || "starlingmontessorischool.com"}</div>
       </div>
     </div>
   </div>
