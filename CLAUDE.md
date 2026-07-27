@@ -35,7 +35,10 @@ All copy that a family or the public might read is written in **English**.
 - **Toddler Community** — enrolling now, in a converted church hall on Capitol
   Hill.
 - **Primary Classroom** — opens **August 2026**, ages ~3–6, **12 inaugural
-  seats**, at Saint Mark Episcopal. Virtual tours run until build-out completes.
+  seats**, at Saint Mark Episcopal. The classroom space is open now for
+  in-person tours (led by Fabienne or one of our Primary guides — she no
+  longer gives every Primary tour); virtual tours remain available for
+  relocating families.
 - Instagram: **@starlingmontessori**.
 
 ## Making a graphic
