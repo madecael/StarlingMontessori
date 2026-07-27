@@ -9,11 +9,18 @@
 process.env.ASTRO_NODE_AUTOSTART = "disabled";
 
 import http from "node:http";
+import compression from "compression";
 
 const { handler, options } = await import("./dist/server/entry.mjs");
 
-const CACHE_7_DAYS = "public, max-age=604800";
-const CACHEABLE_PATTERNS = [/^\/images\//, /^\/favicon/, /^\/apple-touch-icon/];
+// 1 year: safe because these public/-sourced filenames are meant to be
+// replaced-in-place rarely; rename the file (e.g. add a -v2 suffix) instead
+// of overwriting a path in place, or repeat visitors could see a stale asset
+// until their cached copy expires.
+const CACHE_1_YEAR = "public, max-age=31536000";
+const CACHEABLE_PATTERNS = [/^\/images\//, /^\/favicon/, /^\/apple-touch-icon/, /^\/icon-\d+\.png$/, /^\/fonts\//];
+
+const compress = compression();
 
 function resolveHost(host) {
   if (typeof host === "boolean") return host ? "0.0.0.0" : "localhost";
@@ -24,9 +31,9 @@ const server = http.createServer((req, res) => {
   const pathname = (req.url ?? "").split("?")[0];
   const isAstroAsset = pathname.startsWith(`/${options.assets}/`);
   if (!isAstroAsset && CACHEABLE_PATTERNS.some((re) => re.test(pathname))) {
-    res.setHeader("Cache-Control", CACHE_7_DAYS);
+    res.setHeader("Cache-Control", CACHE_1_YEAR);
   }
-  handler(req, res);
+  compress(req, res, () => handler(req, res));
 });
 
 const port = process.env.PORT ? Number(process.env.PORT) : options.port ?? 8080;
