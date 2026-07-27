@@ -6,8 +6,8 @@ hero:
   eyebrow: "PRIMARY CLASSROOM · AGES 3–6"
   headline: "Opening August 2026 at Saint Mark Episcopal."
   subhead: "Our new Primary classroom, led by an AMI-trained guide — twelve seats, three-year cycle, designed for families committed to authentic Montessori from age three through kindergarten."
-  photo: "/images/photos/pink-tower-build.webp"
-  photoAlt: "A Starling child carefully placing the top cube of the Pink Tower — a foundational Montessori sensorial material"
+  photo: "/images/photos/primary-indoor-flags.webp"
+  photoAlt: "A Montessori Primary classroom geography shelf with world flags and globes at Starling Montessori School on Capitol Hill"
   ctas:
     - { label: "Reserve a tour →", href: "/open-house", variant: "primary" }
     - { label: "Visit the LP →", href: "/lp/primary-2026", variant: "outline" }
@@ -46,4 +46,8 @@ blocks:
     title: "Twelve seats. Reserve yours."
     primary: { label: "Reserve a tour", href: "/open-house", variant: "pearly" }
     secondary: { label: "Read the LP", href: "/lp/primary-2026", variant: "ghost" }
+    previewImage: "/social/qr-primary-tour.png"
+    previewAlt: "QR code linking to Starling's Calendly page to schedule a Primary tour"
+    previewLabel: "Scan to reserve"
+    previewCaption: "calendly.com"
 ---

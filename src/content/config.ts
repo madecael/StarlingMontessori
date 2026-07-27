@@ -241,6 +241,10 @@ const pages = defineCollection({
           body: z.string().optional(),
           primary: cta,
           secondary: cta.optional(),
+          previewImage: z.string().optional(),
+          previewAlt: z.string().optional(),
+          previewLabel: z.string().optional(),
+          previewCaption: z.string().optional(),
         }),
         z.object({
           type: z.literal("dailyRhythm"),

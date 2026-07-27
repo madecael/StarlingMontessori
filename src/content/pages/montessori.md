@@ -6,8 +6,8 @@ hero:
   eyebrow: "THE MONTESSORI METHOD"
   headline: "An education built around the child."
   subhead: "Montessori is more than a teaching method — it is a deeply researched understanding of how children learn when they are trusted to follow their own curiosity. Here is what that looks like in practice."
-  photo: "/images/photos/pink-tower-build.webp"
-  photoAlt: "A Starling child carefully placing the top cube of the Pink Tower — a foundational Montessori sensorial material"
+  photo: "/images/photos/sound-game.webp"
+  photoAlt: "A Starling guide working closely with two young children on the Montessori sound game — a foundational language lesson"
 blocks:
   - type: valuePillars
     eyebrow: "WHY MONTESSORI"
@@ -63,4 +63,8 @@ blocks:
     body: "Tour the classroom, watch children at work, and ask anything you'd like."
     primary: { label: "Schedule a tour", href: "/open-house", variant: "pearly" }
     secondary: { label: "Read parent FAQs", href: "/faq", variant: "ghost" }
+    previewImage: "/social/qr-open-house-page.png"
+    previewAlt: "QR code linking to Starling's open house tour scheduling page"
+    previewLabel: "Scan to reserve"
+    previewCaption: "starlingmontessorischool.com/open-house"
 ---

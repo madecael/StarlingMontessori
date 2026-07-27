@@ -34,8 +34,8 @@ blocks:
         title: "Ages 3–6."
         ages: "RESERVING NOW"
         body: "A new Primary classroom led by an AMI-trained guide, opening at Saint Mark Episcopal — twelve seats in our inaugural class."
-        photo: "/images/photos/pink-tower-build.webp"
-        photoAlt: "A Starling child carefully placing the top cube of the Pink Tower — a foundational Montessori sensorial material"
+        photo: "/images/photos/kids-working-shapes.webp"
+        photoAlt: "Two Starling children sorting wooden geometric shapes onto a work mat — a sensorial Montessori material"
         cta: { label: "Learn more →", href: "/programs/primary", variant: "ghost" }
         badge: "NEW · AUG 2026"
         dark: true
@@ -51,7 +51,7 @@ blocks:
     title: "Every child's story is cherished."
     paragraphs:
       - "Starling was founded by Fabienne Deaton — a guide with two AMI diplomas and 10+ years of experience walking alongside D.C. families. We are intentionally small, by design."
-      - "When you tour Starling, you meet Fabienne directly. There is no admissions office, no marketing department. There is the classroom, the children, and the conversation."
+      - "When you tour Starling, you meet Fabienne or one of our guides directly. There is no admissions office, no marketing department. There is the classroom, the children, and the conversation."
     cta: { label: "Read our story →", href: "/about", variant: "outline" }
   - type: videoTour
     eyebrow: "STEP INSIDE"
@@ -79,4 +79,8 @@ blocks:
     body: "Sign up for an information session or book a private tour."
     primary: { label: "Schedule a tour", href: "/open-house", variant: "pearly" }
     secondary: { label: "info@starlingmontessorischool.com", href: "mailto:info@starlingmontessorischool.com", variant: "ghost" }
+    previewImage: "/social/qr-open-house-page.png"
+    previewAlt: "QR code linking to Starling's open house tour scheduling page"
+    previewLabel: "Scan to reserve"
+    previewCaption: "starlingmontessorischool.com/open-house"
 ---

@@ -17,6 +17,10 @@ blocks:
   - type: enrollCTA
     eyebrow: "TOURS"
     title: "Schedule a private tour."
-    body: "30 minutes, in person, with Fabienne directly."
+    body: "30 minutes, in person, with Fabienne or one of our guides."
     primary: { label: "Schedule a tour", href: "/open-house", variant: "pearly" }
+    previewImage: "/social/qr-open-house-page.png"
+    previewAlt: "QR code linking to Starling's open house tour scheduling page"
+    previewLabel: "Scan to reserve"
+    previewCaption: "starlingmontessorischool.com/open-house"
 ---
