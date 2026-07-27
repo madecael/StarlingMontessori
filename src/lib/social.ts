@@ -830,6 +830,64 @@ export const SEED_POSTS: SocialPost[] = [
     createdAt: "2026-07-03T12:00:00.000Z",
     updatedAt: "2026-07-03T12:00:00.000Z",
   },
+
+  // ── COMMUNITY · STAFF FAREWELL ────────────────────────────────────────────
+  {
+    id: "goodbye-guides-2026",
+    date: null,
+    title: "Carousel — With gratitude (staff farewell)",
+    format: "carousel",
+    pillar: "Community · Team",
+    channel: "Instagram + Facebook",
+    images: [
+      img(
+        "goodbye-post1.png",
+        "Fabienne with two of Starling's guides and a child, smiling together in the classroom.",
+      ),
+      img(
+        "goodbye-post2.png",
+        "One of Starling's guides warmly hugging a child in the classroom.",
+      ),
+    ],
+    caption:
+      "At Starling, our team is the heart of everything we do — and today we're celebrating two of our own.\n\nTwo of our beloved guides are leaving Starling to continue their Montessori training and take the next step in their journey. Saying goodbye is never easy, but watching an educator grow and follow their dreams is one of the greatest joys of this community.\n\nTheir care has left a lasting mark on our children and families. Once a part of the Starling family, always a part of the Starling family — we're so proud of them, and we can't wait to see all they accomplish.",
+    hashtags: "#StarlingMontessori #CapitolHillDC #MontessoriEducation #StarlingFamily #Gratitude",
+    cta: "With so much gratitude and pride.",
+    bioLink: "/",
+    notes: "No date set yet — schedule once Fabienne confirms timing.",
+    locked: false,
+    status: "draft",
+    createdAt: "2026-07-05T12:00:00.000Z",
+    updatedAt: "2026-07-05T12:00:00.000Z",
+  },
+
+  // ── COMMUNITY · MILITARY FAMILIES ─────────────────────────────────────────
+  {
+    id: "military-subsidies-2026",
+    date: null,
+    title: "Military Child Care subsidies",
+    format: "feed",
+    pillar: "Admissions · Community",
+    channel: "Instagram + Facebook",
+    images: [
+      img(
+        "military-subsidies.png",
+        "Navy card reading: Supporting military families. You have a place here. We proudly accept Military Child Care subsidies through Child Care Aware of America, with additional MCCYN support for our Toddler Community.",
+      ),
+    ],
+    caption:
+      "At Starling, we're honored to support the military families in our community.\n\nWe proudly accept Military Child Care subsidies through Child Care Aware of America, with additional MCCYN support available for our Toddler Community. We're not yet a DC Voucher program, but we're always glad to talk through what's possible for your family.\n\nIf you're a military family curious about enrollment, reach out any time — we'd love to help you learn about your eligibility.",
+    hashtags:
+      "#StarlingMontessori #CapitolHillDC #MilitaryFamilies #MontessoriEducation #WashingtonDC",
+    cta: "Reach out any time — we're happy to help.",
+    bioLink: "/faq",
+    notes:
+      "Evergreen — no date set. Schedule whenever Fabienne wants to run it; consider repeating periodically.",
+    locked: false,
+    status: "draft",
+    createdAt: "2026-07-10T12:00:00.000Z",
+    updatedAt: "2026-07-10T12:00:00.000Z",
+  },
 ];
 
 // Sort: dated posts ascending by date, backlog (date null) last. Ties broken by
