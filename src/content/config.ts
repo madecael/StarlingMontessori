@@ -299,6 +299,7 @@ const pages = defineCollection({
             title: z.string(),
             type: z.string(),
             startDate: z.string().optional(),
+            immediate: z.boolean().optional(),
             summary: z.string(),
             qualifications: z.array(
               z.union([
