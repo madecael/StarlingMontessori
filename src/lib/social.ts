@@ -888,6 +888,83 @@ export const SEED_POSTS: SocialPost[] = [
     createdAt: "2026-07-10T12:00:00.000Z",
     updatedAt: "2026-07-10T12:00:00.000Z",
   },
+
+  // ── HIRING · TODDLER CLASSROOM ASSISTANT ──────────────────────────────────
+  {
+    id: "hiring-toddler-assistant",
+    date: "2026-08-12",
+    title: "Hiring — Toddler Classroom Assistant",
+    format: "feed",
+    pillar: "Our People",
+    channel: "Instagram",
+    images: [
+      img(
+        "hiring-toddler-assistant.png",
+        "A toddler placing pegs into a jar in the Starling Toddler Community, with the headline: Work that moves at a child's pace. Toddler Classroom Assistant — an immediate opening on Capitol Hill.",
+      ),
+    ],
+    caption:
+      "Our Toddler Community is looking for a classroom assistant.\n\nIt is the kind of work that asks you to slow down — to follow a child's pace, to notice what they are reaching for, to keep a room calm and ready for them. If you have spent time in a Montessori classroom, you already know the feeling.\n\nFull-time or part-time, here on Capitol Hill. Montessori experience is welcome; warmth and steadiness are essential.\n\nDetails and how to apply are at the link in our bio.",
+    hashtags:
+      "#StarlingMontessori #CapitolHillDC #MontessoriJobs #DCJobs #MontessoriEducation #WashingtonDC",
+    cta: "See the role and apply — link in bio.",
+    bioLink: "/careers",
+    notes:
+      "Immediate opening. Applications arrive via the /careers form, plus the Indeed and AMS listings linked on that page. Pair with the two stories on the same day.",
+    locked: false,
+    status: "draft",
+    createdAt: "2026-08-10T12:00:00.000Z",
+    updatedAt: "2026-08-10T12:00:00.000Z",
+  },
+  {
+    id: "hiring-toddler-assistant-story-1",
+    date: "2026-08-12",
+    title: "Hiring story — Come be part of their day",
+    format: "story",
+    pillar: "Our People",
+    channel: "Instagram",
+    images: [
+      img(
+        "hiring-toddler-assistant-story-1.png",
+        "A Starling guide holding a toddler in the doorway of the school, with the headline: Come be part of their day. We're looking for a Toddler Classroom Assistant to work alongside our lead guide.",
+      ),
+    ],
+    caption:
+      "An immediate opening in our Toddler Community. Full-time or part-time, on Capitol Hill.",
+    hashtags: "#StarlingMontessori #CapitolHillDC #MontessoriJobs",
+    cta: "Link in bio",
+    bioLink: "/careers",
+    notes: "Story 1 of 2. Add a link sticker to /careers when posting.",
+    locked: false,
+    status: "draft",
+    createdAt: "2026-08-10T12:00:00.000Z",
+    updatedAt: "2026-08-10T12:00:00.000Z",
+  },
+  {
+    id: "hiring-toddler-assistant-story-2",
+    date: "2026-08-14",
+    title: "Hiring story — Who we look for",
+    format: "story",
+    pillar: "Our People",
+    channel: "Instagram",
+    images: [
+      img(
+        "hiring-toddler-assistant-story-2.png",
+        "Navy card reading: Toddler Classroom Assistant. Warmth, calm, and care. More than credentials, we look for people who bring warmth, calm, and attention to detail — and who love this age.",
+      ),
+    ],
+    caption:
+      "More than credentials, we look for warmth, calm, and attention to detail — and a love for this age.",
+    hashtags: "#StarlingMontessori #CapitolHillDC #MontessoriJobs",
+    cta: "Link in bio",
+    bioLink: "/careers",
+    notes:
+      "Story 2 of 2 — the follow-up to the invitation story. Add a link sticker to /careers when posting.",
+    locked: false,
+    status: "draft",
+    createdAt: "2026-08-10T12:00:00.000Z",
+    updatedAt: "2026-08-10T12:00:00.000Z",
+  },
 ];
 
 // Sort: dated posts ascending by date, backlog (date null) last. Ties broken by

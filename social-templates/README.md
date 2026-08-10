@@ -67,10 +67,9 @@ These artboards render at exact pixel sizes, so a 1:1 screenshot of the
 
 Nothing below was invented as fact; these are flagged for you to confirm/replace.
 
-1. **Instagram handle `@starlingmontessori`** — this is a **GUESS**. It may
-   actually be `@starlingmontessorischool` or another variant. Confirm the real
-   handle and find/replace across all files (it appears in 01, 02, 03, 05, 06
-   squares and 01 story).
+1. ~~**Instagram handle**~~ — **CONFIRMED as `@starlingmontessori`** (2026-08-10).
+   This is what every template already uses; no find/replace needed. Use it as-is
+   on any new artboard.
 2. **Open-house date & time** — placeholders, not a real event:
    - `06-tour-event.html` and `story/03-tour-story.html` use date-block markup
      wrapped in named slots: `data-slot="weekday"` (THU), `data-slot="day"`

@@ -38,10 +38,10 @@ blocks:
         qualifications:
           - { label: "AMS — American Montessori Society", href: "https://jobs.amshq.org/job/dvemgc/lead-toddler-classroom-teacher/washington/dc/united-states" }
           - { label: "AMI — Association Montessori Internationale", href: "https://montessori-ami.org/training-programmes/job-openings/starling-montessori-school-washington-dc" }
-      - title: "Primary & Toddler Classroom Assistants"
+      - title: "Toddler Classroom Assistant"
         type: "Full-time or part-time"
         immediate: true
-        summary: "Support the lead guide in either the Toddler Community or the new Primary classroom (ages 3–6, opening August 2026)."
+        summary: "Work alongside the lead guide in our Toddler Community (ages 16–36 months) on Capitol Hill — a small group at a 1:4 ratio."
         qualifications:
           - { label: "Indeed — view and apply", href: "https://www.indeed.com/viewjob?jk=930bb20f6edf6434" }
           - { label: "AMS — American Montessori Society", href: "https://jobs.amshq.org/job/jen4rt/classroom-assistants/washington/district-of-columbia/united-states" }
