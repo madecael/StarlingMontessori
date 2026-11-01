@@ -10,8 +10,9 @@ heroPhoto: "/images/photos/founder-with-child.webp"
 heroAlt: "Fabienne, founder of Starling Montessori, welcoming a toddler at the school's front door on Capitol Hill"
 heroLocation: "201 4th St SE · Capitol Hill Presbyterian Church · Ages 16–36 months"
 heroCTAs:
-  - { label: "Schedule a tour →", href: "#tour", variant: "pearly" }
-  - { label: "How is this different?", href: "#why", variant: "outline" }
+  - { label: "Get the Decision Guide →", href: "/guide", variant: "primary", eyebrow: "STILL EXPLORING" }
+  - { label: "Build your roadmap →", href: "/roadmap", variant: "outline", eyebrow: "READY TO PLAN" }
+  - { label: "Schedule a tour →", href: "#tour", variant: "pearly", eyebrow: "READY TO VISIT" }
 blocks:
   - type: trustStrip
     items:

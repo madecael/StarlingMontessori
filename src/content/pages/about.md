@@ -36,6 +36,11 @@ blocks:
       - "/images/photos/transferring.webp"
       - "/images/photos/garden-walk.webp"
       - "/images/photos/playground-yard.webp"
+  - type: richBody
+    body: |
+      <h2>Read our school overview</h2>
+      <p>If you'd like to learn more about Starling specifically — our daily rhythm, classroom design, the way we work with families — we have a short overview you can read at your own pace.</p>
+      <p><a href="/Starling_School_Guide.pdf" data-event="school_guide_download" target="_blank" rel="noopener">Download the Starling school guide (PDF) →</a></p>
   - type: enrollCTA
     eyebrow: "VISIT"
     title: "The best way to understand Starling is to come see it."

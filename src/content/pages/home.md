@@ -9,8 +9,9 @@ hero:
   photo: "/images/photos/founder-with-child.webp"
   photoAlt: "Fabienne Deaton, founder of Starling Montessori, welcoming a toddler at the school's front door on Capitol Hill"
   ctas:
-    - { label: "Schedule a tour →", href: "/open-house", variant: "primary" }
-    - { label: "Our programs ↓", href: "#programs", variant: "outline" }
+    - { label: "Get the Decision Guide →", href: "/guide", variant: "primary", eyebrow: "STILL EXPLORING" }
+    - { label: "Build your roadmap →", href: "/roadmap", variant: "outline", eyebrow: "READY TO PLAN" }
+    - { label: "Schedule a tour →", href: "/open-house", variant: "pearly", eyebrow: "READY TO VISIT" }
 blocks:
   - type: valuePillars
     eyebrow: "OUR PILLARS"

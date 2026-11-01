@@ -10,8 +10,9 @@ heroPhoto: "/images/photos/pink-tower-build.webp"
 heroAlt: "A Starling child carefully placing the top cube of the Pink Tower — a foundational Montessori sensorial material"
 heroLocation: "Saint Mark Episcopal Church · 301 A St SE · Capitol Hill · Ages 2.5–6"
 heroCTAs:
-  - { label: "Reserve a tour →", href: "#tour", variant: "pearly" }
-  - { label: "See the space ↓", href: "#space", variant: "outline" }
+  - { label: "Get the Decision Guide →", href: "/guide", variant: "primary", eyebrow: "STILL EXPLORING" }
+  - { label: "Build your roadmap →", href: "/roadmap", variant: "outline", eyebrow: "READY TO PLAN" }
+  - { label: "Reserve a tour →", href: "#tour", variant: "pearly", eyebrow: "READY TO VISIT" }
 blocks:
   - type: amiContinuity
     eyebrow: "AMI CONTINUITY"

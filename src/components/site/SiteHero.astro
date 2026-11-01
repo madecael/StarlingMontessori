@@ -1,5 +1,5 @@
 ---
-interface CTA { label: string; href: string; variant: "primary" | "pearly" | "outline" | "ghost"; }
+interface CTA { label: string; href: string; variant: "primary" | "pearly" | "outline" | "ghost"; eyebrow?: string; }
 interface Props {
   eyebrow?: string;
   headline: string;
@@ -32,9 +32,12 @@ const variantClassName = (v: CTA["variant"]) => v === "primary" ? "btn-primary" 
     </h1>
     {subhead && <p class="text-lg text-cetacean-70 mt-5 leading-relaxed max-w-xl">{subhead}</p>}
     {ctas.length > 0 && (
-      <div class="flex gap-3 mt-7 flex-wrap">
+      <div class="flex gap-4 mt-7 flex-wrap items-end">
         {ctas.map((c) => (
-          <a href={c.href} class={`btn ${variantClassName(c.variant)}`} data-event={`hero_cta_${c.variant}`}>{c.label}</a>
+          <div class="flex flex-col gap-2">
+            {c.eyebrow && <div class="eyebrow text-cetacean-70">{c.eyebrow}</div>}
+            <a href={c.href} class={`btn ${variantClassName(c.variant)}`} data-event={`hero_cta_${c.variant}`}>{c.label}</a>
+          </div>
         ))}
       </div>
     )}

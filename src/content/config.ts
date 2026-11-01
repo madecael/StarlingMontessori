@@ -8,6 +8,7 @@ const cta = z.object({
   label: z.string(),
   href: z.string(),
   variant: z.enum(["primary", "pearly", "outline", "ghost"]).default("primary"),
+  eyebrow: z.string().optional(),
 });
 
 const settings = defineCollection({
@@ -51,7 +52,7 @@ const landing = defineCollection({
     heroPhoto: imagePath,
     heroAlt: z.string().optional(),
     heroLocation: z.string(),
-    heroCTAs: z.array(cta).min(1).max(2),
+    heroCTAs: z.array(cta).min(1).max(3),
     blocks: z.array(
       z.discriminatedUnion("type", [
         z.object({ type: z.literal("trustStrip"), items: z.array(z.string()) }),
@@ -169,7 +170,7 @@ const pages = defineCollection({
         subhead: z.string().optional(),
         photo: imagePath.optional(),
         photoAlt: z.string().optional(),
-        ctas: z.array(cta).max(2).optional(),
+        ctas: z.array(cta).max(3).optional(),
       })
       .optional(),
     blocks: z.array(
